@@ -69,4 +69,18 @@
 ### PLANS - Next 10 years
 - just to freak 'em out a bit lol
 - this is basically just daydreaming
-- 
+
+---
+---
+
+# YYYY-MM-DD 
+- and 
+- this
+- is
+- where
+- we'll 
+- do
+- the
+- next 
+- one 
+- ✨
