@@ -1,5 +1,8 @@
 # [Person] & Jon 6-month check-ins
 
+[![hackmd-github-sync-badge](https://hackmd.io/YXfY_mxpQHeVgPgyT2bCeA/badge)](https://hackmd.io/YXfY_mxpQHeVgPgyT2bCeA)
+
+
 ## YYY-MM-DD
 ###### tags: `2022-summer-checkin` `template`
 
