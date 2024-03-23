@@ -9,9 +9,11 @@
 
 2. **Setting Up a Discord Server**
    - Comments on Discord 
-     - sloppy and annoying  
+     - Not ideal, but it does the job
+   - Sign up
+     - Download the desktop app AND the phone app
    - Step-by-step guide to creating a new Discord server
-   - Explanation of server permissions and avoiding notification overload
+     - Set notification settings
 
 3. **Introduction to AI and LLM**
    - Explanation of AI and language learning models (LLMs)
