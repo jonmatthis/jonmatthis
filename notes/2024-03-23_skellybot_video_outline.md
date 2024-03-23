@@ -6,7 +6,11 @@
      - Introduce you to the basics of AI and language learning models (LLMs)
        - YOU DO NOT NEED TO UNDERSTAND HOW IT WORKS TO BE ABLE TO USE IT     
    - Brief introduction to Discord for beginners
-
+1. **Introduction to AI and LLM**
+   - Explanation of AI and language learning models (LLMs)
+   - Demonstration of using the OpenAI console
+   - Introduction to prompt engineering with OpenAI documentation
+  
 1. **Setting Up a Discord Server**
    - Comments on Discord as a platform
      - Not ideal, but it does the job
@@ -20,14 +24,12 @@
      - Set notification settings
      - Basic how-to and show-around
       
-1. **Introduction to AI and LLM**
-   - Explanation of AI and language learning models (LLMs)
-   - Demonstration of using the OpenAI console
-   - Introduction to prompt engineering with OpenAI documentation
-  
+
 1. **Privacy!**
-   - w/ OpenAI, Discord, etc
-   - w/ Skellybot
+   - Data is exposed to (at least) 3 parties
+     - Discord
+     - OpenAI
+     - FreeMoCap Foundation
    - It'll get more secure later, but for now, just FYI
 
 ## Using SkellyBot
