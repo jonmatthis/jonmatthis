@@ -8,13 +8,18 @@
    - Brief introduction to Discord for beginners
 
 2. **Setting Up a Discord Server**
-   - Comments on Discord 
+   - Comments on Discord as a platform
      - Not ideal, but it does the job
-   - Sign up
+     - Think of it as big ol' markdown text document wrangler
+     - Recommend that you also download VS Code or Obsidian for more direct `markdown` editing
+  
+   - Sign up for a Discord account
      - Download the desktop app AND the phone app
+   
    - Step-by-step guide to creating a new Discord server
      - Set notification settings
-
+     - Basic how-to and show-around
+      
 3. **Introduction to AI and LLM**
    - Explanation of AI and language learning models (LLMs)
    - Demonstration of using the OpenAI console
