@@ -1,4 +1,4 @@
-**Intro to SkellyBot**
+# **Introducing SkellyBot**
 
 ##  **Introduction & Set-up**
    - Welcome and purpose of the tutorial
@@ -7,7 +7,7 @@
        - YOU DO NOT NEED TO UNDERSTAND HOW IT WORKS TO BE ABLE TO USE IT     
    - Brief introduction to Discord for beginners
 
-2. **Setting Up a Discord Server**
+1. **Setting Up a Discord Server**
    - Comments on Discord as a platform
      - Not ideal, but it does the job
      - Think of it as big ol' markdown text document wrangler
@@ -20,44 +20,45 @@
      - Set notification settings
      - Basic how-to and show-around
       
-3. **Introduction to AI and LLM**
+1. **Introduction to AI and LLM**
    - Explanation of AI and language learning models (LLMs)
    - Demonstration of using the OpenAI console
    - Introduction to prompt engineering with OpenAI documentation
   
-4. **Privacy!**
+1. **Privacy!**
    - w/ OpenAI, Discord, etc
    - w/ Skellybot
    - It'll get more secure later, but for now, just FYI
 
 ## Using SkellyBot
-5. **Basic usage**
+1. **Basic usage**
    - Task 1: Type `/chat` in any channel to start a conversation with Skellybot
       - Illustrating the concept of a conversation with an AI
    - Task 2: Voice memo brain dump
       - Introducing the concept and utility of the voice memo feature
 
-6. **System Prompts - Making specialized channel**
+1. **System Prompts - Making specialized channel**
    - How to create a dedicated channel for a specific topic
    - Setting up channel descriptions and corresponding system prompts
    - Engaging in topic-specific chats and observing system prompt influences
 
-7. **Heirarchical Prompting - Building a category**
+## Advanced Usage
+1. **Heirarchical Prompting - Building a category**
    - Creating a category in Discord
    - Setting up bot instructions for the category
    - Impact of category-level prompts on channel behavior within the category
 
-8. **Server-Level Bot Instructions**
+1. **Server-Level Bot Instructions**
    - Establishing server-level bot instructions
    - Exploring the hierarchy of prompting: channel, category, and server levels
    - Intuitive explanation of multiple levels of prompting after initial tasks
 
-9.  **Additional Features**
+1.  **Additional Features**
    - Attaching and sending text documents
    - Sending pictures and other attachments
 
-10. **Conclusion**
+## **Conclusion**
    - Summary of the tutorial content
    - Encouragement to experiment with Skellybot features
    - Closing remarks and additional resources
-     - development
+     - development plans
