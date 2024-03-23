@@ -37,12 +37,12 @@
    - Task 2: Voice memo brain dump
       - Introducing the concept and utility of the voice memo feature
 
-6. **System Prompts and spea
+6. **System Prompts - Making specialized channel**
    - How to create a dedicated channel for a specific topic
    - Setting up channel descriptions and corresponding system prompts
    - Engaging in topic-specific chats and observing system prompt influences
 
-7. **Category-Level Prompting**
+7. **Heirarchical Prompting - Building a category**
    - Creating a category in Discord
    - Setting up bot instructions for the category
    - Impact of category-level prompts on channel behavior within the category
