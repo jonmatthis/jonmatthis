@@ -30,13 +30,14 @@
    - w/ Skellybot
    - It'll get more secure later, but for now, just FYI
 
-5. **Tasks in the Skellybot Server**
-   - Task 1: Engaging in a general chat with Skellybot
+## Using SkellyBot
+5. **Basic usage**
+   - Task 1: Type `/chat` in any channel to start a conversation with Skellybot
       - Illustrating the concept of a conversation with an AI
    - Task 2: Voice memo brain dump
       - Introducing the concept and utility of the voice memo feature
 
-6. **Channel-Specific Instructions**
+6. **System Prompts and spea
    - How to create a dedicated channel for a specific topic
    - Setting up channel descriptions and corresponding system prompts
    - Engaging in topic-specific chats and observing system prompt influences
