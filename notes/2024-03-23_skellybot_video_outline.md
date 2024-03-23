@@ -2,10 +2,14 @@
 
 1. **Introduction**
    - Welcome and purpose of the tutorial
+     - Set you up with a Discord server configured with Skellybot
+     - Introduce you to the basics of AI and language learning models (LLMs)
+       - YOU DO NOT NEED TO UNDERSTAND HOW IT WORKS TO BE ABLE TO USE IT     
    - Brief introduction to Discord for beginners
-   - Overview of Skellybot and its AI capabilities
 
 2. **Setting Up a Discord Server**
+   - Comments on Discord 
+     - sloppy and annoying  
    - Step-by-step guide to creating a new Discord server
    - Explanation of server permissions and avoiding notification overload
 
@@ -39,7 +43,8 @@
    - Attaching and sending text documents
    - Sending pictures and other attachments
 
-9. **Conclusion**
+9.  **Conclusion**
    - Summary of the tutorial content
    - Encouragement to experiment with Skellybot features
    - Closing remarks and additional resources
+     - development
