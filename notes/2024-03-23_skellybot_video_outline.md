@@ -1,4 +1,4 @@
-**Video Tutorial Outline: Creating a Skellybot Server for Beginners**
+**Intro to SkellyBot**
 
 1. **Introduction**
    - Welcome and purpose of the tutorial
