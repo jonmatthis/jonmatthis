@@ -31,7 +31,7 @@
    - It'll get more secure later, but for now, just FYI
 
 ## Using SkellyBot
-1. **Basic usage**
+### **Basic usage**
    - Task 1: Type `/chat` in any channel to start a conversation with Skellybot
       - Illustrating the concept of a conversation with an AI
    - Task 2: Voice memo brain dump
@@ -42,7 +42,7 @@
    - Setting up channel descriptions and corresponding system prompts
    - Engaging in topic-specific chats and observing system prompt influences
 
-## Advanced Usage
+### Advanced Usage
 1. **Heirarchical Prompting - Building a category**
    - Creating a category in Discord
    - Setting up bot instructions for the category
