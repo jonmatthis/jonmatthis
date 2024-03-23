@@ -5,5 +5,4 @@
     "gitdoc.autoPull": "onPush",
     "gitdoc.enabled": true,
     "gitdoc.timeZone": "America/New_York"
-
 }
