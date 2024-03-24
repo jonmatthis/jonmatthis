@@ -23,7 +23,7 @@
 - Stand up for Palestine
   - React to this message
   - If you are jewish and you are experiencing cognitive dissonance between what you have been raised to believe and what you are seeing with your own eyes, I cannot recommend the documentary `Israelism` strongly enough
-  - If you are an anti-zionist jewish person - I love you dearly with all my heart. This is your job. Find your voice, fix your community, and cut people off when you need to
-- I will not be back, but I will be around
+  - If you are an anti-zionist jewish person - I love you dearly with all my heart. This is your job. Find your voice, and have the conversations that need to be had.
+
 - To those of you 
 - Boston Movement Community
