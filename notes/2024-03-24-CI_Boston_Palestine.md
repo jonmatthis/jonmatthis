@@ -15,7 +15,9 @@
   - And without missing a beat and with a condescending smile on his face, he said "Well, I bet there are a lot of Israeli people who feel unsafe too"
     - ...which -  of course - is precisely what I was talking about
   - Later, at the very end of closing circle, I said: 
-    - 
+    - As an Arab American, I do not feel safe in this community bc
+      - I know that there are people here who have internalized the belief that somehow Palestinian lives are worth less than others
+      - 
 
 ## Call to Action
 - Stand up for Palestine
