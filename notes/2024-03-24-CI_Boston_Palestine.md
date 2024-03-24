@@ -26,6 +26,7 @@
     - "there are not two sides- to a fucking genocide"
 ### The after math
 - A few days later, I recieved an email written very same sweet old genocide apologist 
+  - classic gaslighting and tone policing and completely devoid of any mention of the *content* of my concerns
 
 ## Call to Action
 - what i would need to feel safe - 
