@@ -25,7 +25,9 @@
   - So I raised my vioce, and was interupted again, so i raised my voice again, and I kept raising my voice until I stopped being interrupted, and I was able to say, what I needed to say, which was
     - "there are not two sides- to a fucking genocide"
 ### The after math
-- Over the next few days, various organizers reached out to me 
+- Over the next few days, various organizers reached out to me wtih all the classic gaslighting
+  - Focusing on care and concern for me and my well being, while of course ignoring the *content* of *why* I felt unsafe
+  - Plenty of offers to have conversations about what I might need to feel safe. What middle ground could we find 
 
 ## Call to Action
 - If you are jewish and you are experiencing cognitive dissonance between what you have been raised to believe and what you are seeing with your own eyes, I cannot recommend the documentary `Israelism` strongly enough
