@@ -18,7 +18,7 @@
     - "As an Arab American, I do not feel safe in this community bc I know that there are people here who have internalized the belief that somehow Palestinian lives are worth less than others"
     - And then I recounted the way that I had shared this with the facillitator and his response was to immediately both-sided the genocide
     - And when I did so, I use "Foul Language"
-    - At which point, I was interrupted 
+    - At which point, I was interrupted, becaue of course 
 
 ## Call to Action
 - If you are jewish and you are experiencing cognitive dissonance between what you have been raised to believe and what you are seeing with your own eyes, I cannot recommend the documentary `Israelism` strongly enough
