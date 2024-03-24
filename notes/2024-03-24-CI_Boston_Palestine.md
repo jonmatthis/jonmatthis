@@ -28,6 +28,9 @@
 - A few days later, I recieved an email written very same sweet old genocide apologist 
 
 ## Call to Action
+- what i would need to feel safe - 
+  - Clear unequivocal statement of support of for the people of Palestine, and a full condemnation of the european imperial settler colonial apartheid ethnostate of Israel in their ongoing ethnic cleansing and active genocide of the Palestinian people
+  
 - If you are jewish and you are experiencing cognitive dissonance between what you have been raised to believe and what you are seeing with your own eyes, I cannot recommend the documentary `Israelism` strongly enough
 - If you are an anti-zionist jewish person - I love you dearly with all my heart. This is your job. Find your voice, and have the conversations that need to be had.
 
