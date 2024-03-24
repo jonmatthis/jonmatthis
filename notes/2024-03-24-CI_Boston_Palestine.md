@@ -18,7 +18,9 @@
     - "As an Arab American, I do not feel safe in this community bc I know that there are people here who have internalized the belief that somehow Palestinian lives are worth less than others"
     - And then I recounted the way that I had shared this with the facillitator and his response was to immediately both-sided the genocide
     - And when I did so, I use "Foul Language"
-    - At which point, I was interrupted, becaue of course 
+      - At which point, I was interrupted, becaue of course, the problematic part of that story was when I said the Mean F word to the sweet old man who had just advocated for genocide
+    - So I was interruped, but I was not willing to be interrupted 
+    - So I raised my vioce, and was interupted again, so i raised my voice again
 
 ## Call to Action
 - If you are jewish and you are experiencing cognitive dissonance between what you have been raised to believe and what you are seeing with your own eyes, I cannot recommend the documentary `Israelism` strongly enough
