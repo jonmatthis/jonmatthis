@@ -7,7 +7,13 @@
 - Past 6 months been a living nightmare
 - Realized I felt unsafe in this community
   - bc I know there are people who support or at very least hold space for the ongoing genocide
-- 
+  - So i decided to say something to the group about it
+  - Came to jam with intention of saying something in closing circle
+  - Midway, I was approached by one of the main facillitators
+  - Asked how i was doing
+  - I said "Not great because as an arab american I feel unsafe in this space because I know there are people here who support the ongoing genocide"
+  - And without missing a beat and with a condescending smile on his face, he said "Well, I bet there are a lot of Israeli people who feel unsafe too"
+    - ...which -  of course - is precisely what I was talking about
 
 ## Call to Action
 - Stand up for Palestine
