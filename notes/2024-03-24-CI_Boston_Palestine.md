@@ -20,10 +20,12 @@
       - 
 
 ## Call to Action
-- Stand up for Palestine
-  - React to this message
-  - If you are jewish and you are experiencing cognitive dissonance between what you have been raised to believe and what you are seeing with your own eyes, I cannot recommend the documentary `Israelism` strongly enough
-  - If you are an anti-zionist jewish person - I love you dearly with all my heart. This is your job. Find your voice, and have the conversations that need to be had.
+- If you are jewish and you are experiencing cognitive dissonance between what you have been raised to believe and what you are seeing with your own eyes, I cannot recommend the documentary `Israelism` strongly enough
+- If you are an anti-zionist jewish person - I love you dearly with all my heart. This is your job. Find your voice, and have the conversations that need to be had.
 
-- To those of you 
-- Boston Movement Community
+- I give all my love with all my heart to each of you who have earned it
+- I will not be back, but I will be around
+- We can build something better
+- Keep your eyes open 
+
+- Free Palestine
