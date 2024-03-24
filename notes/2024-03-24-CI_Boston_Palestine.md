@@ -14,6 +14,7 @@
   - I said "Not great because as an arab american I feel unsafe in this space because I know there are people here who support the ongoing genocide"
   - And without missing a beat and with a condescending smile on his face, he said "Well, I bet there are a lot of Israeli people who feel unsafe too"
     - ...which -  of course - is precisely what I was talking about
+  - Later, at the very end of closing circle, 
 
 ## Call to Action
 - Stand up for Palestine
