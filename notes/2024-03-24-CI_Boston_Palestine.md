@@ -25,8 +25,7 @@
   - So I raised my vioce, and was interupted again, so i raised my voice again, and I kept raising my voice until I stopped being interrupted, and I was able to say, what I needed to say, which was
     - "there are not two sides- to a fucking genocide"
 ### The after math
-- A few days later, I received an email from this same sweet old man
-    - 
+- A few days later, I received an email written by that very same sweet old man on behalf of the 'board' of Contact Improv Boston 
 
 ## Call to Action
 - If you are jewish and you are experiencing cognitive dissonance between what you have been raised to believe and what you are seeing with your own eyes, I cannot recommend the documentary `Israelism` strongly enough
