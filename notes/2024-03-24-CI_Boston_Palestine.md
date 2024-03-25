@@ -24,6 +24,7 @@
   - So I was interruped, but I was not willing to be interrupted 
   - So I raised my vioce, and was interupted again, so i raised my voice again, and I kept raising my voice until I stopped being interrupted, and I was able to say, what I needed to say, which was
     - "there are not two sides- to a fucking genocide"
+    - 
 ### The after math
 - A few days later, I recieved an email written very same sweet old genocide apologist 
   - classic gaslighting and tone policing and completely devoid of any mention of the *content* of my concerns
