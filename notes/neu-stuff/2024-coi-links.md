@@ -179,3 +179,48 @@ responsible for complying with applicable university policies, including
  you work for Student Financial Services including Financial Aid,
 Student Accounts, Enrollment Management Contact Center, Student
 Employment, and Center for the Advancement of Veterans Services.
+
+
+## endcap
+
+
+Thank you for completing your Conflict of Interest and Commitment Annual Disclosure Form for 2024
+
+**Dear eCD Discloser,**
+
+Thank you for completing your annual conflict of interest and commitment disclosures.
+
+It
+ is important for each of us to assume responsibility for reporting
+compliance concerns. You should not hesitate to bring concerns to your
+supervisor, unit or department head, faculty advisor, dean, or to the
+senior manager or executive responsible for your area.
+
+You may also contact the University’s: [Compliance Department](mailto:compliance@northeastern.edu), [NU-RES Compliance](mailto:researchcompliance@northeastern.edu), the [Ombuds](mailto:ombuds@northeastern.edu), [Audit and Advisory Services](mailto:audit@northeastern.edu), [Risk Services](https://risk-services.sites.northeastern.edu/), [Human Resources](https://hr.northeastern.edu/), the [Office for University Equity and Compliance](mailto:ouec@northeastern.edu) or the [Office of Diversity Equity and Inclusion](mailto:diversity@northeastern.edu).
+
+The
+ University encourages all members of the community to raise concerns
+and report suspected wrongful conduct through these established
+channels. The University will not tolerate retaliation against anyone
+who makes a good faith report of suspected or actual wrongdoing.
+
+The University also offers an [Anonymous and Confidential Reporting Hotline](https://secure.ethicspoint.com/domain/media/en/gui/32115/index.html)
+ for all members of the Northeastern community. The Hotline, available
+24/7/365, is managed by EthicsPoint.   For more information and to
+submit a report, visit [https://secure.ethicspoint.com/domain/media/en/gui/32115/index.html](https://secure.ethicspoint.com/domain/media/en/gui/32115/index.html)
+
+Thank
+ you again for your support and commitment to upholding the highest
+standards of ethical and professional conduct and your compliance with
+all laws, regulations and policies that are applicable to your
+responsibilities to Northeastern.
+
+Sincerely,
+
+**David Madigan**
+
+ Provost & Sr VP Academic Affairs
+
+**Mary Strother**
+
+Sr Vice President & General Counsel
