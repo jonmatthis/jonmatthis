@@ -5,16 +5,16 @@
      - Set you up with a Discord server configured with Skellybot
      - Introduce you to the basics of AI and language learning models (LLMs)
        - YOU DO NOT NEED TO UNDERSTAND HOW IT WORKS TO BE ABLE TO USE IT     
-   - Brief introduction to Discord for beginners
-1. **Introduction to AI and LLM**
+
+### **Introduction to AI**
    - Explanation of AI and language learning models (LLMs)
    - Demonstration of using the OpenAI console
    - Introduction to prompt engineering with OpenAI documentation
   
-1. **Setting Up a Discord Server**
+### **Setting Up a Discord Server**
    - Comments on Discord as a platform
      - Not ideal, but it does the job
-     - Think of it as big ol' markdown text document wrangler
+     - Think of it as big ol' markdown text document wrangler that auto-saves and syncs across devices
      - Recommend that you also download VS Code or Obsidian for more direct `markdown` editing
   
    - Sign up for a Discord account
@@ -23,9 +23,12 @@
    - Step-by-step guide to creating a new Discord server
      - Set notification settings
      - Basic how-to and show-around
-      
+     
+   - Brief introduction to Discord for beginners
+     - Text Channels
+     - Voice Channels
 
-1. **Privacy!**
+### **Privacy!**
    - Data is exposed to (at least) 3 parties
      - Discord
      - OpenAI
@@ -34,6 +37,7 @@
 
 ## Using SkellyBot
 ### **Basic usage**
+1. **Talk to Bot - or - tl;dw - `/chat` anywhere**
    - Task 1: Type `/chat` in any channel to start a conversation with Skellybot
       - Illustrating the concept of a conversation with an AI
    - Task 2: Voice memo brain dump
@@ -59,8 +63,3 @@
    - Attaching and sending text documents
    - Sending pictures and other attachments
 
-## **Conclusion**
-   - Summary of the tutorial content
-   - Encouragement to experiment with Skellybot features
-   - Closing remarks and additional resources
-     - development plans
