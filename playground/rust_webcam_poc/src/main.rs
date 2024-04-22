@@ -19,12 +19,13 @@ loop {
     let mut frame = Mat::default();
     if !cap.read(&mut frame)? {
         println!("Unable to read a frame!");
-        break;
+        break Ok(());
     }
-    
-    cap.read(&mut frame)?;
+
     if frame.size()?.width > 0 {
         println!("Captured an image of size {}x{}", frame.size()?.width, frame.size()?.height);
+        highgui::imshow("Camamera", &frame)?;
+        
         Ok(())
     } else {
         println!("Unable to capture an image");
