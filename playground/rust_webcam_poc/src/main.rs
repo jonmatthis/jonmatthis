@@ -1,10 +1,7 @@
 extern crate opencv;
-use opencv::{
-    prelude::*,
-    videoio,
-    highgui,
-    core,
-};
+use opencv::{highgui, prelude::*, videoio};
+use std::sync::mpsc;
+use std::thread;
 
 fn main() -> Result<(), Box<dyn std::error::Error>> {
     let mut cap = videoio::VideoCapture::new(0, videoio::CAP_ANY)?;
@@ -12,32 +9,40 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
         panic!("Unable to open camera");
     }
 
-    // Set the frame width and height to 1920x1080
-    videoio::VideoCapture::set(&mut cap, videoio::CAP_PROP_FRAME_WIDTH, 1920.0)?;
-    videoio::VideoCapture::set(&mut cap, videoio::CAP_PROP_FRAME_HEIGHT, 1080.0)?;
+    // Set the frame width and height to 1280x720
+    videoio::VideoCapture::set(&mut cap, videoio::CAP_PROP_FRAME_WIDTH, 1280.0)?;
+    videoio::VideoCapture::set(&mut cap, videoio::CAP_PROP_FRAME_HEIGHT, 720.0)?;
 
-    // Optionally, set the frame rate (depending on camera and driver support)
-    // videoio::VideoCapture::set(&mut cap, videoio::CAP_PROP_FPS, 30.0)?;
     let window_name = "Camera";
     highgui::named_window(window_name, highgui::WINDOW_AUTOSIZE)?;
 
-loop {
-    let mut frame = Mat::default();
-    if !cap.read(&mut frame)? {
-        println!("Unable to read a frame!");
-        break;
-    }
-
-    if frame.size()?.width > 0 {
-        println!("Captured an image of size {}x{}", frame.size()?.width, frame.size()?.height);
-            highgui::imshow(window_name, &frame)?;
-        if highgui::wait_key(10)? > 0 {
+    let (tx, rx) = mpsc::channel();
+    
+    // Move 'cap' into the spawned thread
+    let cap_thread = thread::spawn(move || {
+    loop {
+        let mut frame = Mat::default();
+            if !cap.read(&mut frame).expect("Failed to read frame") {
+                println!("Unable to read a frame in thread!");
             break;
-            }
-    } else {
-            println!("No image captured, frame is empty.");
-    }
-}
+        }
+            tx.send(frame).expect("Failed to send frame");
+        }
+    });
 
-Ok(())
+    for frame in rx {
+        if frame.size()?.width > 0 {
+            highgui::imshow(window_name, &frame)?;
+            if highgui::wait_key(1)? > 0 {
+                break;
+            }
+        } else {
+            println!("No image captured, frame is empty.");
+        }
+    }
+
+    // Ensure the capture thread closes gracefully by joining it
+    cap_thread.join().expect("The capture thread has panicked");
+
+    Ok(())
 }
