@@ -1,7 +1,7 @@
 {
     "files.autoSave": "afterDelay",
     "workbench.preferredDarkColorTheme": "Green Beautiful",
-    "workbench.colorTheme": "Nightingaleish",
+    "workbench.colorTheme": "One Dark Pro",
     "gitdoc.autoPull": "onPush",
     "gitdoc.enabled": true,
     "gitdoc.timeZone": "America/New_York"
