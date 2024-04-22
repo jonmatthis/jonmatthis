@@ -8,8 +8,9 @@
     "workbench.colorCustomizations": {
         "sideBar.border": "#ff0000",
         "editorGroup.border": "#00ff00",
-        "activityBar.border": "#0000ff",
+        "activityBar.border": "#02028b",
         "panel.border": "#ff00ff",
-        "terminal.background": "#475869"
+        "terminal.background": "#475869",
+        "editor.background": "#324e3f"
     }
 }
