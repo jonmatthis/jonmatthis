@@ -11,6 +11,8 @@
         "activityBar.border": "#0000ff",
         "panel.border": "#ff00ff",
         "terminal.background": "#0b1016",
-        "editor.background": "#062414"
+        "editor.background": "#062414",
+        "sideBar.background": "#020e07",
+        "activityBar.background": "#000201",
     }
 }
