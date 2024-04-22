@@ -1,11 +1,8 @@
-use actix_web::{get, post, web ,App, HttpResponse, HttpServer, Responder};
-use::serde::{Deserialize, Serialize};
 use actix_web::{get, post, web, App, HttpResponse, HttpServer, Responder};
 use serde::{Deserialize, Serialize};
 use std::sync::Mutex; // New import for thread-safe data sharing
 use std::{fs, io};
 
-#[derive(Deserialize, Serialize)]
 #[derive(Deserialize, Serialize, Clone)]
 struct User {
     name: String,
@@ -18,28 +15,11 @@ async fn index() -> impl Responder {
 }
 
 #[get("/users")]
-async fn get_users() -> impl Responder {
-    let users = vec![
-        User {
-            name: "John".to_string(),
-            age: 20,
-        },
-        User {
-            name: "Jane".to_string(),
-            age: 21,
-            },
-    ];
-
-    web::Json(users)
-}
-
 async fn get_users(data: web::Data<Mutex<Vec<User>>>) -> impl Responder {
     let users = data.lock().unwrap();
     web::Json(users.clone()) // Clone the data to send as JSON
 }
 #[post("/users")]
-async fn create_user(user: web::Json<User>) -> impl Responder {
-    HttpResponse::Ok().body(format!("User {} created", user.name))
 async fn create_user(user: web::Json<User>, data: web::Data<Mutex<Vec<User>>>) -> impl Responder {
     let mut users = data.lock().unwrap();
     users.push(user.into_inner()); // Add the new user to the shared user list
@@ -49,8 +29,6 @@ async fn create_user(user: web::Json<User>, data: web::Data<Mutex<Vec<User>>>) -
 }
 
 #[actix_web::main]
-async fn main() -> std::io::Result<()> {
-    HttpServer::new(|| {
 async fn main() -> io::Result<()> {
     let users = load_users_from_file().expect("Failed to load users");
 
