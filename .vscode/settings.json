@@ -6,7 +6,7 @@
     "gitdoc.enabled": true,
     "gitdoc.timeZone": "America/New_York",
     "workbench.colorCustomizations": {
-        "sideBar.border": "#ff0000",
+        "sideBar.border": "#d400ff",
         "editorGroup.border": "#00ff00",
         "activityBar.border": "#0000ff",
         "panel.border": "#ff00ff",

@@ -19,6 +19,7 @@ async fn get_users(data: web::Data<Mutex<Vec<User>>>) -> impl Responder {
     let users = data.lock().unwrap();
     web::Json(users.clone()) // Clone the data to send as JSON
 }
+
 #[post("/users")]
 async fn create_user(user: web::Json<User>, data: web::Data<Mutex<Vec<User>>>) -> impl Responder {
     let mut users = data.lock().unwrap();
@@ -46,9 +47,20 @@ async fn main() -> io::Result<()> {
 }
 
 fn load_users_from_file() -> Result<Vec<User>, io::Error> {
-    let data = fs::read_to_string("users.json").unwrap_or_else(|_| "[]".to_string());
+    match fs::read_to_string("users.json") {
+        Ok(data) => {
+            // Attempt to parse the JSON data
     let users: Vec<User> = serde_json::from_str(&data)?;
     Ok(users)
+        },
+        Err(_) => {
+            // If the file does not exist or cannot be read, create an empty list and save it
+            let users = Vec::new(); // Create an empty list of users
+            let data = serde_json::to_string(&users)?; // Serialize the empty list
+            fs::write("users.json", data)?; // Write the empty list to users.json
+            Ok(users) // Return the empty list
+        },
+}
 }
 
 fn save_users_to_file(users: &Vec<User>) -> Result<(), io::Error> {
