@@ -27,3 +27,12 @@ async fn get_users() -> impl Responder {
 
     web::Json(users)
 }
+
+#[post("/users")]
+async fn create_user(user: web::Json<User>) -> impl Responder {
+    HttpResponse::Ok().body(format!("User {} created", user.name))
+}
+
+#[actix_web::main]
+async fn main() -> std::io::Result<()> {
+    
