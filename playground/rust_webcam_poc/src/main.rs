@@ -12,4 +12,9 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
     }
     let mut frame = Mat::default();
     cap.read(&mut frame)?;
+    if frame.size()?.width > 0 {
+        println!("Captured an image of size {}x{}", frame.size()?.width, frame.size()?.height);
+    } else {
+        println!("Unable to capture an image");
+    }
 }
