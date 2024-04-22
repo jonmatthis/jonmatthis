@@ -1,6 +1,5 @@
 extern crate opencv;
 use opencv::{
-    highgui,
     prelude::*,
     videoio,
 };
