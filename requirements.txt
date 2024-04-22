@@ -1,1 +1,1 @@
-openinterpreter
+ open-interpreter
