@@ -1,71 +1,74 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Camera Feed with Capabilities</title>
+    <title>Camera Feeds with Capabilities</title>
     <style>
-      video {
-          width: 640px;
-          height: 480px;
-          margin: 10px;
-      }
-  </style>
+        video {
+            width: 320px;
+            height: 240px;
+            margin: 10px;
+        }
+    </style>
 </head>
 <body>
-<h2>Camera Feeeed</h2>
-<video id="cameraFeed" autoplay></video>
-<div id="cameraCapabilities"></div>
+    <h2>Camera Feeds</h2>
+    <div id="cameraFeeds"></div>
 
-<script>
-    async function getCameraFeed() {
-        try {
-            console.log('Getting camera feed...');
-            const stream = await navigator.mediaDevices.getUserMedia({ video: true });
-            console.log("Stream loaded successfully!");
-            const videoElement = document.getElementById('cameraFeed');
-            videoElement.srcObject = stream;
-            // Once the stream is loaded, check if getCapabilities is available
-            if (stream.getVideoTracks()[0].getCapabilities) {
-                printCameraCapabilities(stream.getVideoTracks()[0]);
-            } else {
-                console.log('getCapabilities not supported by this browser.');
+    <script>
+        async function getCameraFeeds() {
+            try {
+                const devices = await navigator.mediaDevices.enumerateDevices();
+                const videoDevices = devices.filter(device => device.kind === 'videoinput');
+                const cameraFeedsDiv = document.getElementById('cameraFeeds');
+
+                for (const device of videoDevices) {
+                    const stream = await navigator.mediaDevices.getUserMedia({ video: { deviceId: device.deviceId } });
+                    const videoElement = document.createElement('video');
+                    videoElement.srcObject = stream;
+                    videoElement.autoplay = true;
+                    cameraFeedsDiv.appendChild(videoElement);
+                    // Once the stream is loaded, check if getCapabilities is available
+                    if (stream.getVideoTracks()[0].getCapabilities) {
+                        printCameraCapabilities(stream.getVideoTracks()[0], videoElement);
+                    } else {
+                        console.log('getCapabilities not supported by this browser.');
+                    }
+                }
+            } catch (e) {
+                console.error('Error accessing camera feeds.', e);
             }
-        } catch (e) {
-            console.error('Error accessing camera feed.', e);
         }
-    }
 
-    function printCameraCapabilities(track) {
-        const capabilities = track.getCapabilities();
-        console.log('Camera Capabilities:', capabilities);
-        const settings = track.getSettings();
+        function printCameraCapabilities(track, videoElement) {
+            const capabilities = track.getCapabilities();
+            console.log('Camera Capabilities:', capabilities);
+            const settings = track.getSettings();
 
-        // If capabilities and settings are available, print them out
-        if (capabilities && settings) {
-            const maxResolution = {
-                width: capabilities.width.max,
-                height: capabilities.height.max
-            };
-            console.log(`Max Resolution - Width: ${maxResolution.width}, Height: ${maxResolution.height}`);
+            // If capabilities and settings are available, print them out
+            if (capabilities && settings) {
+                const maxResolution = {
+                    width: capabilities.width.max,
+                    height: capabilities.height.max
+                };
+                console.log(`Max Resolution - Width: ${maxResolution.width}, Height: ${maxResolution.height}`);
 
-            // Print camera capabilities
-            const capElement = document.getElementById('cameraCapabilities');
-            capElement.innerHTML = `<p>Camera Capabilities: <br>
-                                  Width: ${maxResolution.width} <br>
-                                  Height: ${maxResolution.height} <br>
-                                  Frame Rate: ${capabilities.frameRate.max} fps</p>`;
+                // Apply the maximum resolution
+                track.applyConstraints({
+                    advanced: [{ width: maxResolution.width, height: maxResolution.height }]
+                }).then(() => {
+                    console.log('Applied max resolution constraints', track.getSettings());
+                }).catch(e => {
+                    console.error('Error applying constraints:', e);
+                });
 
-            // Apply the maximum resolution
-            track.applyConstraints({
-                advanced: [{ width: maxResolution.width, height: maxResolution.height }]
-            }).then(() => {
-                console.log('Applied max resolution constraints', track.getSettings());
-            }).catch(e => {
-                console.error('Error applying constraints:', e);
-            });
+                // Create a caption element for the video
+                const caption = document.createElement('div');
+                caption.textContent = `Camera Capabilities: Width: ${maxResolution.width}, Height: ${maxResolution.height}, Frame Rate: ${capabilities.frameRate.max} fps`;
+                videoElement.parentNode.insertBefore(caption, videoElement.nextSibling);
+            }
         }
-    }
 
-    window.onload = getCameraFeed;
-</script>
+        window.onload = getCameraFeeds;
+    </script>
 </body>
 </html>
