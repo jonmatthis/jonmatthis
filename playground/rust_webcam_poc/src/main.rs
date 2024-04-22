@@ -1,8 +1,6 @@
 extern crate opencv;
 use opencv::{highgui, prelude::*, videoio};
-use std::sync::mpsc;
-use std::thread;
-
+use std::{sync::mpsc, thread, time::Instant};
 fn main() -> Result<(), Box<dyn std::error::Error>> {
     let mut cap = videoio::VideoCapture::new(0, videoio::CAP_ANY)?;
     if !videoio::VideoCapture::is_opened(&cap)? {
@@ -21,16 +19,28 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
     // Move 'cap' into the spawned thread
     let cap_thread = thread::spawn(move || {
     loop {
+            let frame_request_time = Instant::now();
         let mut frame = Mat::default();
             if !cap.read(&mut frame).expect("Failed to read frame") {
                 println!("Unable to read a frame in thread!");
             break;
         }
-            tx.send(frame).expect("Failed to send frame");
+            let read_duration = frame_request_time.elapsed();
+            tx.send((frame, read_duration)).expect("Failed to send frame");
         }
     });
 
-    for frame in rx {
+    let mut prev_time = Instant::now();
+    for (frame, read_duration) in rx {
+        let loop_duration = prev_time.elapsed();
+        prev_time = Instant::now(); // Reset the timer for the next loop iteration.
+
+        // Log all relevant timing information on a single line
+        println!(
+            "Frame request/receive time: {:?}, Loop iteration time: {:?}",
+            read_duration, loop_duration
+        );
+
         if frame.size()?.width > 0 {
             highgui::imshow(window_name, &frame)?;
             if highgui::wait_key(1)? > 0 {
@@ -41,7 +51,6 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
         }
     }
 
-    // Ensure the capture thread closes gracefully by joining it
     cap_thread.join().expect("The capture thread has panicked");
 
     Ok(())
