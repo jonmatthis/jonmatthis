@@ -46,7 +46,7 @@
             context.drawImage(video, 0, 0, video.videoWidth, video.videoHeight);
 
             // Call to encode the frame, now correctly passing video and canvas
-            encodeFrame(video, canvas, lastTimestamp);
+            lastTimestamp=encodeFrame(video, canvas, lastTimestamp);
 
             requestAnimationFrame(captureAndProcessFrame);
           }
@@ -69,6 +69,7 @@
         console.log(
           "Time elapsed since last frame: " + timeElapsedFormatted + " ms"
         );
+        return now;
       }
 
       setupCameraAndEncoder();
