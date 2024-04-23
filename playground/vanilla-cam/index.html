@@ -1,75 +1,92 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>WebCodec with Tauri</title>
-  <style>
-    body { display: flex; justify-content: center; align-items: center; height: 100vh; }
-    canvas { border: 1px solid black; }
-  </style>
-</head>
-<body>
-<canvas id="outputCanvas"></canvas>
-<script>
-  // Placeholder functions for hypothetical WebCodec processing
-  async function encodeFrame(frame) {
-    // Initialize the encoder hypothetically
-    const encoder = new VideoEncoder({
-      output: encodedChunk => {
-        console.log('Encoded chunk:', encodedChunk);
-        // Here you could send this encoded chunk over the network or process it further
-      },
-      error: error => console.error(error)
-    });
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>WebCodec with Tauri</title>
+    <style>
+      body {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+      }
+      canvas {
+        border: 1px solid black;
+      }
+    </style>
+  </head>
+  <body>
+    <canvas id="outputCanvas"></canvas>
+    <script>
+      // Placeholder functions for hypothetical WebCodec processing
+      // Assuming you have an existing <video> and <canvas> element in your HTML
+      function encodeFrame(video, canvas) {
+        const context = canvas.getContext("2d");
 
-    // Configure your encoder - this configuration is highly dependent on your needs
-    encoder.configure({
-      codec: 'vp8', // Example codec
-      width: frame.canvas.width,
-      height: frame.canvas.height
-    });
+        // Resize the canvas to match the video's dimensions
+        canvas.width = video.videoWidth;
+        canvas.height = video.videoHeight;
 
-    // Encode the frame - in practice, you need to convert the canvas or video frame to a format accepted by encode()
-    encoder.encode(/* frame data */);
-  }
+        // Draw the current video frame onto the canvas
+        context.drawImage(video, 0, 0, video.videoWidth, video.videoHeight);
 
-  async function setupCamera() {
-    try {
-      const stream = await navigator.mediaDevices.getUserMedia({ video: true });
-      const video = document.createElement('video');
-      video.srcObject = stream;      
-      await video.play();
-      
-      // Once video starts playing, we can start processing frames
-      processVideoStream(video);
-    } catch (error) {
-      console.error("Error accessing the camera", error);
-    }
-  }
+        // Obtain ImageData from the canvas - for the example, not necessarily needed for encoding but shows the step to get pixel data
+        const imageData = context.getImageData(
+          0,
+          0,
+          canvas.width,
+          canvas.height
+        );
 
-  function processVideoStream(video) {
-    const canvas = document.getElementById('outputCanvas');
-    const context = canvas.getContext('2d');
-    
-    // Adjust canvas size to video frame
-    canvas.width = video.videoWidth;
-    canvas.height = video.videoHeight;
+        // Placeholder for encoding logic
+        console.log("Encoding frame...");
 
-    // Continuously capture frames from the video and process them
-    function captureAndProcessFrame() {
-    context.drawImage(video, 0, 0, video.videoWidth, video.videoHeight);
-    
-      // Hypothetical function to get the ImageData from the canvas and encode it
-      encodeFrame(context.getImageData(0, 0, canvas.width, canvas.height));
-      
-      requestAnimationFrame(captureAndProcessFrame);
-  }
-  
-    captureAndProcessFrame();
-  }
+        // This is where you'd interact with WebCodec API to encode the frame,
+        // for instance, converting imageData to a format suitable for your encoder.
+        // The exact conversion and encoder configuration depend on your specific requirements.
+      }
 
-  setupCamera();
-</script>
-</body>
+      async function setupCameraAndEncoder() {
+        const video = document.createElement("video");
+        const canvas = document.createElement("canvas"); // This canvas could be off-screen/not added to the document
+
+        try {
+          const stream = await navigator.mediaDevices.getUserMedia({
+            video: true,
+          });
+          video.srcObject = stream;
+          await video.play();
+
+          // Assuming you want to start encoding frames as soon as the video starts playing
+          video.addEventListener("playing", () => encodeFrame(video, canvas), {
+            once: true,
+          });
+        } catch (error) {
+          console.error("Error accessing the camera", error);
+        }
+      }
+
+      const canvas = document.getElementById("outputCanvas");
+      const context = canvas.getContext("2d");
+
+      // Adjust canvas size to video frame
+      canvas.width = video.videoWidth;
+      canvas.height = video.videoHeight;
+
+      // Continuously capture frames from the video and process them
+      function captureAndProcessFrame() {
+        context.drawImage(video, 0, 0, video.videoWidth, video.videoHeight);
+
+        // Hypothetical function to get the ImageData from the canvas and encode it
+        encodeFrame(context.getImageData(0, 0, canvas.width, canvas.height));
+
+        requestAnimationFrame(captureAndProcessFrame);
+      }
+
+      captureAndProcessFrame();
+
+      setupCamera();
+    </script>
+  </body>
 </html>
