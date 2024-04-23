@@ -1,12 +1,14 @@
 onmessage = function(e) {
-  const offscreenCanvas = e.data.canvas;
+  // Receive the ImageBitmap and draw it on an OffscreenCanvas
+  const imageBitmap = e.data.imageBitmap;
+
+  // Assuming you need to create a new OffscreenCanvas in the worker
+  const offscreenCanvas = new OffscreenCanvas(imageBitmap.width, imageBitmap.height);
   const ctx = offscreenCanvas.getContext('2d');
 
-  // Perform drawing operations
-  ctx.fillStyle = 'red';
-  ctx.fillRect(10, 10, 50, 50);
+  // Now you can draw the ImageBitmap
+  ctx.drawImage(imageBitmap, 0, 0);
 
-  // Note: You can't directly add the OffscreenCanvas to the DOM
-  // but you can postMessage data back to the main thread or manipulate
-  // image data for further processing (like in computer vision tasks)
+  // Perform any additional drawing or processing as required
+  // Note: Further operations or response back to the main thread can follow here
 };
