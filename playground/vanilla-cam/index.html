@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OffscreenCanvas with Web Worker Example</title>
+    <script>
+        // Check if your browser supports OffscreenCanvas and Workers
+        window.addEventListener('load', () => {
+            if (window.Worker && 'OffscreenCanvas' in window) {
+                // Initialize the Web Worker
+                const worker = new Worker('worker.js');
+
+                // Get the canvas from the DOM
+                const canvas = document.getElementById('mainCanvas');
+
+                // Ensure canvas is available
+                if (canvas) {
+                    // Transfer the canvas to an OffscreenCanvas
+                    const offscreen = canvas.transferControlToOffscreen();
+
+                    // Post the OffscreenCanvas to the worker
+                    worker.postMessage({canvas: offscreen}, [offscreen]);
+
+                    // Optionally, listen for messages from the worker if you need to
+                    worker.onmessage = function(event) {
+                        // Handle messages from the worker here.
+                        // For example, the worker might send back processed image data
+                        // that you want to render on the canvas.
+                    };
+                } else {
+                    console.error('Canvas element not found');
+                }
+            } else {
+                console.log('Your browser does not support OffscreenCanvas or Web Workers.');
+            }
+        });
+    </script>
+</head>
+<body>
+    <canvas id="mainCanvas" width="200" height="200"></canvas>
+</body>
+</html>
