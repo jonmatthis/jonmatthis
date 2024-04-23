@@ -22,50 +22,26 @@
                 const cameraFeedsDiv = document.getElementById('cameraFeeds');
 
                 for (const device of videoDevices) {
-                    const stream = await navigator.mediaDevices.getUserMedia({ video: { deviceId: device.deviceId } });
                     const videoElement = document.createElement('video');
-                    videoElement.srcObject = stream;
                     videoElement.autoplay = true;
                     cameraFeedsDiv.appendChild(videoElement);
-                    // Once the stream is loaded, check if getCapabilities is available
-                    if (stream.getVideoTracks()[0].getCapabilities) {
-                        printCameraCapabilities(stream.getVideoTracks()[0], videoElement);
-                    } else {
-                        console.log('getCapabilities not supported by this browser.');
-                    }
-                }
-            } catch (e) {
-                console.error('Error accessing camera feeds.', e);
-            }
-        }
 
-        function printCameraCapabilities(track, videoElement) {
-            const capabilities = track.getCapabilities();
-            console.log('Camera Capabilities:', capabilities);
-            const settings = track.getSettings();
+                    const worker = new Worker('camera-worker.js');
+                    worker.postMessage({ deviceId: device.deviceId });
 
-            // If capabilities and settings are available, print them out
-            if (capabilities && settings) {
-                const maxResolution = {
-                    width: capabilities.width.max,
-                    height: capabilities.height.max
-                };
-                console.log(`Max Resolution - Width: ${maxResolution.width}, Height: ${maxResolution.height}`);
-
-                // Apply the maximum resolution
-                track.applyConstraints({
-                    advanced: [{ width: maxResolution.width, height: maxResolution.height }]
-                }).then(() => {
-                    console.log('Applied max resolution constraints', track.getSettings());
-                }).catch(e => {
-                    console.error('Error applying constraints:', e);
-                });
-
+                    worker.addEventListener('message', (event) => {
+                        const { deviceId, maxResolution, settings } = event.data;
+                        const stream = new MediaStream([event.data.track]);
+                        videoElement.srcObject = stream;
                 // Create a caption element for the video
                 const caption = document.createElement('div');
-                caption.textContent = `Camera Capabilities: Width: ${maxResolution.width}, Height: ${maxResolution.height}, Frame Rate: ${capabilities.frameRate.max} fps`;
+                        caption.textContent = `Camera Capabilities: Width: ${maxResolution.width}, Height: ${maxResolution.height}, Frame Rate: ${settings.frameRate} fps`;
                 videoElement.parentNode.insertBefore(caption, videoElement.nextSibling);
+                    });
             }
+            } catch (e) {
+                console.error('Error accessing camera feeds.', e);
+        }
         }
 
         window.onload = getCameraFeeds;
