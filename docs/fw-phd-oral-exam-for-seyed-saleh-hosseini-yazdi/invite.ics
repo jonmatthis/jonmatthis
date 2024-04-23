@@ -1,0 +1,104 @@
+BEGIN:VCALENDAR
+METHOD:CANCEL
+PRODID:Microsoft Exchange Server 2010
+VERSION:2.0
+BEGIN:VTIMEZONE
+TZID:Mountain Standard Time
+BEGIN:STANDARD
+DTSTART:16010101T020000
+TZOFFSETFROM:-0600
+TZOFFSETTO:-0700
+RRULE:FREQ=YEARLY;INTERVAL=1;BYDAY=1SU;BYMONTH=11
+END:STANDARD
+BEGIN:DAYLIGHT
+DTSTART:16010101T020000
+TZOFFSETFROM:-0700
+TZOFFSETTO:-0600
+RRULE:FREQ=YEARLY;INTERVAL=1;BYDAY=2SU;BYMONTH=3
+END:DAYLIGHT
+END:VTIMEZONE
+BEGIN:VEVENT
+ORGANIZER;CN=SSE CCIT 026;SENT-BY="mailto:j.matthis@northeastern.edu":mailto:
+ ccit026@ucalgary.ca
+ATTENDEE;ROLE=REQ-PARTICIPANT;PARTSTAT=NEEDS-ACTION;RSVP=TRUE;CN=Jon Matthi
+ s:mailto:jonmatthis@gmail.com
+ATTACH:CID:image001.jpg@01DA8F1C.8BE64070
+ATTACH:CID:87555D2C7F06FF46BD3762041903F97A@CANPRD01.PROD.OUTLOOK.COM
+ATTACH:CID:638FA80595A10E4183C90A6F32831BDE@CANPRD01.PROD.OUTLOOK.COM
+ATTACH:CID:8EC95E2104ACA54C96B3D6A789EF3150@CANPRD01.PROD.OUTLOOK.COM
+ATTACH:CID:41FFD7BBE307944DB63CC49A80DE5DBC@CANPRD01.PROD.OUTLOOK.COM
+ATTACH:CID:55D644A00FE75A4A99A876D8887DEC9F@CANPRD01.PROD.OUTLOOK.COM
+ATTACH:CID:E846B82F32A0BC48B4355100DB94CA35@CANPRD01.PROD.OUTLOOK.COM
+DESCRIPTION;LANGUAGE=en-US:\n\n________________________________\nFrom: Andr
+ ea Cortes <andrea.cortes1@ucalgary.ca> on behalf of SSE CCIT 026 <ccit026@
+ ucalgary.ca>\nSent: Monday\, April 15\, 2024 12:09 PM\nTo: Arthur Kuo <art
+ hur.kuo@ucalgary.ca>\; John E.A. Bertram <jbertram@ucalgary.ca>\; Thilo Pf
+ au <thilo.pfau@ucalgary.ca>\; Emily Rogers-Bradley <emily.rogersbradley@uc
+ algary.ca>\; Amin Komeili <amin.komeili@ucalgary.ca>\; Matthis\, Jon <j.ma
+ tthis@northeastern.edu>\; Saleh Hosseini Yazdi <seyedsaleh.hosseiniy@ucalg
+ ary.ca>\nSubject: Canceled: PhD Oral Exam for Seyed Saleh Hosseini Yazdi\n
+ When: Friday\, April 26\, 2024 2:00 PM-5:00 PM.\nWhere: KNB 214A\n\n\nHell
+ o Examiners\,\n\nCc: Seyed Saleh Hosseini Yazdi\n\nNeutral Chair: TBD ( I 
+ will let you know as soon as this is confirmed)\n\n\n\nSTUDENT –        
+ Seyed Saleh Hosseini Yazdi\, BME PhD Defence\n\n  *   The student’s fina
+ l thesis paper for your evaluation on the written component will be sent t
+ o you a minimum of 3 weeks before the exam.\n  *   45 minute presentation 
+ prior to defence proceedings\n\nEXAMINERS\n\nACTION: EACH Examiner must co
+ mplete the Individual Exam Report FORM (attached) prior to defence proceed
+ ings and submit to the assigned Neutral Chair\, TBD.\n\n\n\nREMOTE SESSION
+  INFORMATION and/or ROOM DETAILS:\n\nBuilding/Room Number: KNB 214a\n\n\n\
+ nEXAM DETAILS\n\nDate: Friday\, April 26\, 2024\n\nPresentation Time: 12:0
+ 0 pm – all members present\n\nDefence Time: 1:00 – 3:00 pm\n\nThesis T
+ itle: Energetics and Biomechanics of Uneven Walking for Young and Older Ad
+ ults\n\n\n\n NEUTRAL CHAIR – TBD\n\n  1.  Collect all Individual Examine
+ r reports prior to defence proceedings.\n  2.  Send final results to BME G
+ raduate Program Office\, bmegrad@ucalgary.ca<mailto:bmegrad@ucalgary.ca>  
+ within 24 hours which consists of:\n     *   Final Pass Report to be compl
+ eted\n     *   All Individual Examiner Reports (Please ensure they are sig
+ ned and dated)\n\nATTACHMENTS\n\n  1.  Individual Examiner Report FORM –
+  Examiner must complete prior to defence proceedings\n  2.  Final Report F
+ ORM\n  3.  Thesis Approval FORM (aka. Signature Page)\n  4.  Student Trans
+ cript\n  5.  Notice of Oral exam\n\n6.       Neutral Chair Guidelines<http
+ s://grad.ucalgary.ca/services/faculty-and-staff/gpdgpa-resources/policies-
+ and-guidelines/guidelines-neutral-chair>\n\n\n\n\n\nThank you\,\n\nAndrea\
+ n\n\n\n\n\n\n\n\n\n\n\nAndrea Cortes\nGraduate Program Administrator\n\nBi
+ omedical Engineering | Schulich School of Engineering\n\n\n\nE bmegrad@u
+ calgary.ca\n\nT 403-220-3835\n\nschulich.ucalgary.ca/biomedical\n\n\n\n[
+ cid:image001.jpg@01DA8F1C.8BE64070]<http://ucalgary.ca/>\n\n\n\nThe Univer
+ sity of Calgary\, located in the heart of Southern Alberta\, both acknowle
+ dges and pays tribute to the traditional territories of the peoples of Tre
+ aty 7\, which include the Blackfoot Confederacy (comprised of the Siksika\
+ , the Piikani\, and the Kainai First Nations)\, the Tsuut’ina First Nati
+ on\, and the Stoney Nakoda (including Chiniki\, Bearspaw\, and Goodstoney 
+ First Nations). The City of Calgary is also home to the Métis Nation of A
+ lberta (Districts 5 and 6).\n\n\n\nPrivilege and confidentiality notice | 
+ The information contained in this e-mail communication and any attached do
+ cumentation may be privileged\, confidential\, or otherwise protected from
+  disclosure and is intended only for the use of the designated recipient(s
+ ) and should not be distributed or copied without consent of sender.\n\n\n
+ \n\n\n\n
+UID:040000008200E00074C5B7101A82E00800000000B0CABD3F1C8FDA01000000000000000
+ 010000000B4385AE392B13144A2F404A49EBC1B9D
+SUMMARY;LANGUAGE=en-US:Fw: PhD Oral Exam for Seyed Saleh Hosseini Yazdi
+DTSTART;TZID=Mountain Standard Time:20240426T120000
+DTEND;TZID=Mountain Standard Time:20240426T150000
+CLASS:PUBLIC
+PRIORITY:5
+DTSTAMP:20240415T160929Z
+TRANSP:TRANSPARENT
+STATUS:CANCELLED
+SEQUENCE:1
+LOCATION;LANGUAGE=en-US:KNB 214A
+X-MICROSOFT-CDO-APPT-SEQUENCE:1
+X-MICROSOFT-CDO-OWNERAPPTID:-741390360
+X-MICROSOFT-CDO-BUSYSTATUS:FREE
+X-MICROSOFT-CDO-INTENDEDSTATUS:FREE
+X-MICROSOFT-CDO-ALLDAYEVENT:FALSE
+X-MICROSOFT-CDO-IMPORTANCE:1
+X-MICROSOFT-CDO-INSTTYPE:0
+X-MICROSOFT-DONOTFORWARDMEETING:FALSE
+X-MICROSOFT-DISALLOW-COUNTER:FALSE
+X-MICROSOFT-REQUESTEDATTENDANCEMODE:DEFAULT
+X-MICROSOFT-ISRESPONSEREQUESTED:TRUE
+END:VEVENT
+END:VCALENDAR
