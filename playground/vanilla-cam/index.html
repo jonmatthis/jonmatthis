@@ -38,6 +38,7 @@
 
                     // Capture high precision timestamp
                     const timestamp = performance.now();
+                    console.log(`Timestamp: ${timestamp}`)
 
                     // Convert the frame to ImageBitmap for efficient postMessaging
                     offscreenCanvas.convertToBlob().then(blob => {
