@@ -23,6 +23,7 @@
         const video = document.createElement("video");
         const canvas = document.getElementById("outputCanvas");
         const context = canvas.getContext("2d");
+        let lastTimestamp = performance.now(); // Initialize the timestamp
 
         try {
           const stream = await navigator.mediaDevices.getUserMedia({
@@ -42,7 +43,7 @@
             context.drawImage(video, 0, 0, video.videoWidth, video.videoHeight);
 
             // Call to encode the frame, now correctly passing video and canvas
-            encodeFrame(video, canvas);
+            encodeFrame(video, canvas, lastTimestamp);
 
             requestAnimationFrame(captureAndProcessFrame);
           }
@@ -55,11 +56,12 @@
       }
 
       // Placeholder function for hypothetical WebCodec processing
-      function encodeFrame(video, canvas) {
+      function encodeFrame(video, canvas, lastTimestamp) {
         const context = canvas.getContext("2d");
-
-        // Placeholder for encoding logic, currently just a log
-        console.log("Encoding frame...");
+        const now = performance.now();
+        const timeElapsed = now - lastTimestamp; // Calculate the time elapsed since the last frame
+        lastTimestamp = now;
+        console.log("Time elapsed since last frame: " + timeElapsed);
       }
 
       setupCameraAndEncoder();
