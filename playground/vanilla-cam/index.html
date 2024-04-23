@@ -6,9 +6,8 @@
     <title>Camera Frame Processing with Web Worker</title>
     <script>
         window.addEventListener('DOMContentLoaded', (event) => {
-            if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia && window.Worker && 'OffscreenCanvas' in window) {
+            if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia in window) {
                 let video = document.createElement('video');
-                const worker = new Worker('worker.js');
 
                 video.setAttribute('autoplay', '');
                 video.setAttribute('muted', '');
