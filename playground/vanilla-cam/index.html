@@ -1,78 +1,95 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>WebCodec with Tauri</title>
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Multi-Camera WebCodec with Tauri</title>
     <style>
-      body {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        height: 100vh;
-      }
-      canvas {
-        border: 1px solid black;
-      }
+        .camera-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .video-canvas-wrapper {
+            margin: 10px;
+        }
+
+        canvas {
+            display: block; /* To prevent inline spacing */
+            border: 1px solid black;
+        }
     </style>
-  </head> 
-  <body>
-    <canvas id="outputCanvas"></canvas>
-    <script>
-      async function setupCameraAndEncoder() {
+</head>
+<body>
+<div id="cameraContainer" class="camera-container"></div>
+<script>
+    async function setupCamerasAndEncoders() {
+        let devices = await navigator.mediaDevices.enumerateDevices();
+        devices = devices.filter(device => device.kind === 'videoinput');
+
+        if (devices.length === 0) {
+            console.error("No camera devices found.");
+            return;
+        }
+
+        devices.forEach(device => {
+            setupCameraAndEncoder(device.deviceId);
+        });
+    }
+
+    async function setupCameraAndEncoder(deviceId) {
         const video = document.createElement("video");
-        const canvas = document.getElementById("outputCanvas");
+        const canvas = document.createElement("canvas");
         const context = canvas.getContext("2d");
-        let lastTimestamp = performance.now(); // Initialize the timestamp
+        const wrapper = document.createElement("div");
+        wrapper.className = 'video-canvas-wrapper';
+        wrapper.appendChild(video);
+        wrapper.appendChild(canvas);
+        document.getElementById("cameraContainer").appendChild(wrapper);
+        let lastTimestamp = performance.now();
 
         try {
-          const stream = await navigator.mediaDevices.getUserMedia({
-            video: true,
-          });
-          video.srcObject = stream;
-          await video.play();
+            const stream = await navigator.mediaDevices.getUserMedia({
+                video: {deviceId: deviceId ? {exact: deviceId} : undefined},
+            });
+            video.srcObject = stream;
+            await video.play();
 
-          // Function to capture and process frames using the video and a canvas
-          function captureAndProcessFrame() {
-            if (
-              canvas.width !== video.videoWidth ||
-              canvas.height !== video.videoHeight
-            ) {
-              // Update canvas size to match video if it has changed
-              canvas.width = video.videoWidth;
-              canvas.height = video.videoHeight;
+            // Function to capture and process frames
+            function captureAndProcessFrame() {
+                if (
+                    canvas.width !== video.videoWidth ||
+                    canvas.height !== video.videoHeight
+                ) {
+                    canvas.width = video.videoWidth;
+                    canvas.height = video.videoHeight;
+                }
+
+                context.drawImage(video, 0, 0, video.videoWidth, video.videoHeight);
+
+                // Placeholder for processing
+                lastTimestamp = encodeFrame(lastTimestamp);
+
+                requestAnimationFrame(captureAndProcessFrame);
             }
 
-            context.drawImage(video, 0, 0, video.videoWidth, video.videoHeight);
-
-            // Call to encode the frame, now correctly passing video and canvas
-            lastTimestamp=encodeFrame(video, canvas, lastTimestamp);
-
             requestAnimationFrame(captureAndProcessFrame);
-          }
-
-          // Start capturing frames
-          requestAnimationFrame(captureAndProcessFrame);
         } catch (error) {
-          console.error("Error accessing the camera", error);
+            console.error("Error setting up the camera with ID " + deviceId, error);
         }
-      }
+    }
 
-      // Placeholder function for hypothetical WebCodec processing
-      function encodeFrame(video, canvas, lastTimestamp) {
-        const context = canvas.getContext("2d");
+    // Simplified encodeFrame function
+    function encodeFrame(lastTimestamp) {
         const now = performance.now();
-        const timeElapsed = now - lastTimestamp; // Calculate the time elapsed since the last frame
-        lastTimestamp = now;
-        const timeElapsedFormatted = timeElapsed.toFixed(3);
-
-        console.log(
-          "Time elapsed since last frame: " + timeElapsedFormatted + " ms"
-        );
+        // Put processing code here
         return now;
-      }
+    }
 
-      setupCameraAndEncoder();
-    </script>
-  </body>
+    setupCamerasAndEncoders();
+</script>
+</body>
 </html>
