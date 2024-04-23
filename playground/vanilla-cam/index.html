@@ -1,48 +1,60 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Camera Frame Processing with Web Worker</title>
-    <script>
-      window.addEventListener('DOMContentLoaded', (event) => {
-              let video = document.createElement('video');
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Camera Frame Processing with Web Worker</title>
+  <script>
+    window.addEventListener('DOMContentLoaded', (event) => {
+        let video = document.createElement('video');
+        video.setAttribute('autoplay', '');
+        video.setAttribute('muted', '');
+        video.setAttribute('playsinline', ''); // Important for mobile browsers to play inline
+        document.body.appendChild(video);
+        
+        // List cameras and select one
+        navigator.mediaDevices.enumerateDevices().then(devices => {
+            const videoDevices = devices.filter(device => device.kind === 'videoinput');
+            if (videoDevices.length > 0) {
+                // Example: picking the first video device found
+                // Enhance this part for providing user options to select
+                const deviceId = videoDevices[0].deviceId;
+                console.log(`Using video device: ${deviceId}`);
+                openCamera(deviceId);
+            }
+        });
 
-              video.setAttribute('autoplay', '');
-              video.setAttribute('muted', '');
-              document.body.appendChild(video);
-              // List cameras and select one
-              navigator.mediaDevices.enumerateDevices().then(devices => {
-                  const videoDevices = devices.filter(device => device.kind === 'videoinput');
-                  if (videoDevices.length > 0) {
-                      // Example: picking the first video device found
-                      // Enhance this part for providing user options to select
-                      const deviceId = videoDevices[0].deviceId;
-                      console.log(`Using video device: ${deviceId}`);
-                      openCamera(deviceId);
-                  }
-              });
-              function openCamera(deviceId) {
-                  video.onloadedmetadata = () => {
-                      video.play();
-                      captureFrame();
-                  };
+        function openCamera(deviceId) {
+          const constraints = {
+              video: {
+                  deviceId: { exact: deviceId }
               }
+          };
+          navigator.mediaDevices.getUserMedia(constraints)
+             .then(stream => {
+                 video.srcObject = stream;
+              })
+             .catch(error => {
+                 console.error("Error opening the camera: ", error);
+             });
 
-              function captureFrame() {
+          video.onloadedmetadata = () => {
+              video.play();
+              captureFrame();
+          };
+        }
 
-                  // Capture high precision timestamp and print to console
-                  const timestamp = performance.now();
-                  console.log(`Timestamp: ${timestamp}`)
+        function captureFrame() {
+            // Capture high precision timestamp and print to console
+            const timestamp = performance.now();
+            console.log(`Timestamp: ${timestamp}`)
 
-                  // Setup the next frame capture. Adjust as necessary for rate.
-                  requestAnimationFrame(captureFrame);
-              }
-      });
-    </script>
-  </head>
-  <body>
-    words
-    <video autoplay playsinline></video>
-  </body>
+            // Setup the next frame capture. Adjust as necessary for rate.
+            requestAnimationFrame(captureFrame);
+        }
+    });
+  </script>
+</head>
+<body>
+</body>
 </html>
