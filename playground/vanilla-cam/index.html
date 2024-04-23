@@ -3,65 +3,44 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Camera Frame Processing with Web Worker</title>
-  <script>
-    window.addEventListener('DOMContentLoaded', (event) => {
-        let video = document.createElement('video');
-        video.setAttribute('autoplay', '');
-        video.setAttribute('muted', '');
-        video.setAttribute('playsinline', ''); // Important for mobile browsers to play inline
-        document.body.appendChild(video);
-        
-        // List cameras and select one
-        navigator.mediaDevices.enumerateDevices().then(devices => {
-            const videoDevices = devices.filter(device => device.kind === 'videoinput');
-            if (videoDevices.length > 0) {
-                // Example: picking the first video device found
-                // Enhance this part for providing user options to select
-                const deviceId = videoDevices[0].deviceId;
-                console.log(`Using video device: ${deviceId}`);
-                openCamera(deviceId);
-            }
-        });
-
-        function openCamera(deviceId) {
-          const constraints = {
-              video: {
-                  deviceId: { exact: deviceId }
-              }
-          };
-          navigator.mediaDevices.getUserMedia(constraints)
-             .then(stream => {
-                 video.srcObject = stream;
-              })
-             .catch(error => {
-                 console.error("Error opening the camera: ", error);
-             });
-
-          video.onloadedmetadata = () => {
-              video.play();
-              captureFrame();
-          };
-        }
-
-        let lastTimestamp = 0; 
-
-        function captureFrame() {
-            // Capture high precision timestamp and print to console
-            const currentTimestamp = performance.now();
-            if(lastTimestamp !== 0) { // Ensure this isn't the first frame captured
-                const frameDuration = currentTimestamp - lastTimestamp; // Calculate duration since last frame in ms
-                console.log(`Frame duration: ${frameDuration.toFixed(4)} ms`);
-            }
-
-            lastTimestamp = currentTimestamp; // Store the current timestamp as the last timestamp for the next frame
-
-            // Setup the next frame capture. Adjust as necessary for rate.
-            requestAnimationFrame(captureFrame);
-        }
-    });
-  </script>
+  <title>WebCodec with Tauri</title>
+  <style>
+    body { display: flex; justify-content: center; align-items: center; height: 100vh; }
+    canvas { border: 1px solid black; }
+  </style>
 </head>
 <body>
+<canvas id="outputCanvas"></canvas>
+<script>
+  async function setupCamera() {
+    try {
+      const stream = await navigator.mediaDevices.getUserMedia({ video: true });
+      const video = document.createElement('video');
+      video.srcObject = stream;
+      await video.play();
+      
+      // Once video starts playing, we can start drawing frames
+      requestAnimationFrame(() => drawFrame(video));
+    } catch (error) {
+      console.error("Error accessing the camera", error);
+    }
+  }
+
+  function drawFrame(video) {
+    const canvas = document.getElementById('outputCanvas');
+    const context = canvas.getContext('2d');
+    
+    // Adjust canvas size to video frame
+    canvas.width = video.videoWidth;
+    canvas.height = video.videoHeight;
+
+    // This is where you'd replace the straightforward draw with WebCodec processing
+    context.drawImage(video, 0, 0, video.videoWidth, video.videoHeight);
+    
+    requestAnimationFrame(() => drawFrame(video)); // Continue drawing frames
+  }
+  
+  setupCamera();
+</script>
 </body>
 </html>
