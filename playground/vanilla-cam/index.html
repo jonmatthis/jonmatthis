@@ -34,7 +34,10 @@
 
           // Function to capture and process frames using the video and a canvas
           function captureAndProcessFrame() {
-            if (canvas.width !== video.videoWidth || canvas.height !== video.videoHeight) {
+            if (
+              canvas.width !== video.videoWidth ||
+              canvas.height !== video.videoHeight
+            ) {
               // Update canvas size to match video if it has changed
               canvas.width = video.videoWidth;
               canvas.height = video.videoHeight;
@@ -61,7 +64,11 @@
         const now = performance.now();
         const timeElapsed = now - lastTimestamp; // Calculate the time elapsed since the last frame
         lastTimestamp = now;
-        console.log("Time elapsed since last frame: " + timeElapsed);
+        const timeElapsedFormatted = timeElapsed.toFixed(3);
+
+        console.log(
+          "Time elapsed since last frame: " + timeElapsedFormatted + " ms"
+        );
       }
 
       setupCameraAndEncoder();
