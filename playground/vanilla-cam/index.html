@@ -12,21 +12,43 @@
 <body>
 <canvas id="outputCanvas"></canvas>
 <script>
+  // Placeholder functions for hypothetical WebCodec processing
+  async function encodeFrame(frame) {
+    // Initialize the encoder hypothetically
+    const encoder = new VideoEncoder({
+      output: encodedChunk => {
+        console.log('Encoded chunk:', encodedChunk);
+        // Here you could send this encoded chunk over the network or process it further
+      },
+      error: error => console.error(error)
+    });
+
+    // Configure your encoder - this configuration is highly dependent on your needs
+    encoder.configure({
+      codec: 'vp8', // Example codec
+      width: frame.canvas.width,
+      height: frame.canvas.height
+    });
+
+    // Encode the frame - in practice, you need to convert the canvas or video frame to a format accepted by encode()
+    encoder.encode(/* frame data */);
+  }
+
   async function setupCamera() {
     try {
       const stream = await navigator.mediaDevices.getUserMedia({ video: true });
       const video = document.createElement('video');
-      video.srcObject = stream;
+      video.srcObject = stream;      
       await video.play();
       
-      // Once video starts playing, we can start drawing frames
-      requestAnimationFrame(() => drawFrame(video));
+      // Once video starts playing, we can start processing frames
+      processVideoStream(video);
     } catch (error) {
       console.error("Error accessing the camera", error);
     }
   }
 
-  function drawFrame(video) {
+  function processVideoStream(video) {
     const canvas = document.getElementById('outputCanvas');
     const context = canvas.getContext('2d');
     
@@ -34,12 +56,19 @@
     canvas.width = video.videoWidth;
     canvas.height = video.videoHeight;
 
-    // This is where you'd replace the straightforward draw with WebCodec processing
+    // Continuously capture frames from the video and process them
+    function captureAndProcessFrame() {
     context.drawImage(video, 0, 0, video.videoWidth, video.videoHeight);
     
-    requestAnimationFrame(() => drawFrame(video)); // Continue drawing frames
+      // Hypothetical function to get the ImageData from the canvas and encode it
+      encodeFrame(context.getImageData(0, 0, canvas.width, canvas.height));
+      
+      requestAnimationFrame(captureAndProcessFrame);
   }
   
+    captureAndProcessFrame();
+  }
+
   setupCamera();
 </script>
 </body>
