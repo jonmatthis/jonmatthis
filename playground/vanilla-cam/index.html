@@ -85,7 +85,9 @@
     // Simplified encodeFrame function
     function encodeFrame(lastTimestamp) {
         const now = performance.now();
-        // Put processing code here
+        const elapsed = now - lastTimestamp;
+        const elapsedFormatted = elapsed.toFixed(3);
+        console.log("Elapsed time since last frame: " + elapsedFormatted + " ms");
         return now;
     }
 
