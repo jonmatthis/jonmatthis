@@ -12,7 +12,7 @@
 
                 video.setAttribute('autoplay', '');
                 video.setAttribute('muted', '');
-
+                document.body.appendChild(video);
                 // List cameras and select one
                 navigator.mediaDevices.enumerateDevices().then(devices => {
                     const videoDevices = devices.filter(device => device.kind === 'videoinput');
