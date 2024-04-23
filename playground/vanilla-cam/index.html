@@ -20,6 +20,7 @@
                         // Example: picking the first video device found
                         // Enhance this part for providing user options to select
                         const deviceId = videoDevices[0].deviceId;
+                        console.log(`Using video device: ${deviceId}`);
                         openCamera(deviceId);
                     }
                 });
@@ -31,18 +32,10 @@
                 }
 
                 function captureFrame() {
-                    const offscreenCanvas = new OffscreenCanvas(video.videoWidth, video.videoHeight);
-                    const ctx = offscreenCanvas.getContext('2d');
-                    ctx.drawImage(video, 0, 0, video.videoWidth, video.videoHeight);
 
-                    // Capture high precision timestamp
+                    // Capture high precision timestamp and print to console
                     const timestamp = performance.now();
                     console.log(`Timestamp: ${timestamp}`)
-
-                    // Convert the frame to ImageBitmap for efficient postMessaging
-                    offscreenCanvas.convertToBlob().then(blob => {
-                        worker.postMessage({imageBlob: blob, timestamp: timestamp});
-                    });
 
                     // Setup the next frame capture. Adjust as necessary for rate.
                     requestAnimationFrame(captureFrame);
