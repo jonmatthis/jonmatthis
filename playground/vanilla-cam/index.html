@@ -3,41 +3,61 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>OffscreenCanvas with Web Worker Example</title>
+    <title>Camera Frame Processing with Web Worker</title>
     <script>
-        // Check if your browser supports OffscreenCanvas and Workers
-        window.addEventListener('load', () => {
-            if (window.Worker && 'OffscreenCanvas' in window) {
-                // Initialize the Web Worker
+        window.addEventListener('DOMContentLoaded', (event) => {
+            if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia && window.Worker && 'OffscreenCanvas' in window) {
+                const video = document.createElement('video');
+
+                // The video does not need to be added to the document to capture frames
+                video.setAttribute('autoplay', '');
+                video.setAttribute('muted', '');
+                video.style.display = 'none';
+
+                navigator.mediaDevices.getUserMedia({ video: true })
+                    .then(stream => {
+                        video.srcObject = stream;
+                        processVideoFrame();
+                    })
+                    .catch(error => {
+                        console.error('Error accessing the camera:', error);
+                    });
                 const worker = new Worker('worker.js');
 
-                // Get the canvas from the DOM
-                const canvas = document.getElementById('mainCanvas');
-
-                // Ensure canvas is available
-                if (canvas) {
-                    // Transfer the canvas to an OffscreenCanvas
-                    const offscreen = canvas.transferControlToOffscreen();
-
-                    // Post the OffscreenCanvas to the worker
-                    worker.postMessage({canvas: offscreen}, [offscreen]);
-
-                    // Optionally, listen for messages from the worker if you need to
-                    worker.onmessage = function(event) {
-                        // Handle messages from the worker here.
-                        // For example, the worker might send back processed image data
-                        // that you want to render on the canvas.
+                function processVideoFrame() {
+                    video.onloadedmetadata = () => {
+                        video.play();
+                        captureFrame();
                     };
-                } else {
-                    console.error('Canvas element not found');
                 }
+
+                function captureFrame() {
+                    const offscreenCanvas = new OffscreenCanvas(video.videoWidth, video.videoHeight);
+                    const ctx = offscreenCanvas.getContext('2d');
+                    ctx.drawImage(video, 0, 0, video.videoWidth, video.videoHeight);
+
+                    // Capture high precision timestamp
+                    const timestamp = performance.now();
+
+                    // Convert the frame to ImageBitmap for efficient postMessaging
+                    offscreenCanvas.convertToBlob().then(blob => {
+                        worker.postMessage({imageBlob: blob, timestamp: timestamp});
+                    });
+
+                    // Setup the next frame capture. Adjust as necessary for rate.
+                    requestAnimationFrame(captureFrame);
+                }
+
+                worker.onmessage = function(event) {
+                    // Handle messages from your worker, e.g., processed frame data
+                };
             } else {
-                console.log('Your browser does not support OffscreenCanvas or Web Workers.');
+                console.log('Browser does not support required features.');
             }
         });
     </script>
 </head>
 <body>
-    <canvas id="mainCanvas" width="200" height="200"></canvas>
+    <!-- Video element is created but not added to the body, as it's hidden -->
 </body>
 </html>
