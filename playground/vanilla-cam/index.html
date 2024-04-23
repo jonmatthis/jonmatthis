@@ -7,24 +7,24 @@
     <script>
         window.addEventListener('DOMContentLoaded', (event) => {
             if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia && window.Worker && 'OffscreenCanvas' in window) {
-                const video = document.createElement('video');
+                let video = document.createElement('video');
+                const worker = new Worker('worker.js');
 
-                // The video does not need to be added to the document to capture frames
                 video.setAttribute('autoplay', '');
                 video.setAttribute('muted', '');
                 video.style.display = 'none';
 
-                navigator.mediaDevices.getUserMedia({ video: true })
-                    .then(stream => {
-                        video.srcObject = stream;
-                        processVideoFrame();
-                    })
-                    .catch(error => {
-                        console.error('Error accessing the camera:', error);
-                    });
-                const worker = new Worker('worker.js');
-
-                function processVideoFrame() {
+                // List cameras and select one
+                navigator.mediaDevices.enumerateDevices().then(devices => {
+                    const videoDevices = devices.filter(device => device.kind === 'videoinput');
+                    if (videoDevices.length > 0) {
+                        // Example: picking the first video device found
+                        // Enhance this part for providing user options to select
+                        const deviceId = videoDevices[0].deviceId;
+                        openCamera(deviceId);
+                    }
+                });
+                function openCamera(deviceId) {
                     video.onloadedmetadata = () => {
                         video.play();
                         captureFrame();
