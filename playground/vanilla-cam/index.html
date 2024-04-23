@@ -51,7 +51,7 @@
             const currentTimestamp = performance.now();
             if(lastTimestamp !== 0) { // Ensure this isn't the first frame captured
                 const frameDuration = currentTimestamp - lastTimestamp; // Calculate duration since last frame in ms
-                console.log(`Frame duration: ${frameDuration.toFixed(2)} ms`);
+                console.log(`Frame duration: ${frameDuration.toFixed(4)} ms`);
             }
 
             lastTimestamp = currentTimestamp; // Store the current timestamp as the last timestamp for the next frame
