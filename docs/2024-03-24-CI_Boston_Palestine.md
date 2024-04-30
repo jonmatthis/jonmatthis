@@ -18,11 +18,11 @@
   - ...which -  of course - is precisely what I was talking about
 - Later, at the very end of closing circle, I said: 
   - And then I recounted the way that I had shared this with the facillitator and his response was to immediately both-sided the genocide
-  - And when I did so, I used "Foul Language"
+  - And when I did so, I used "Foul Language" (specifically, ended the anecdote with '...so fuck you, [name] )
     - At which point, I was interrupted, becaue of course, the problematic part of that story was when I said the Mean F word to the sweet old man who had just advocated for genocide
   - So I was interruped, but I was not willing to be interrupted 
   - So I raised my vioce, and was interupted again, so i raised my voice again, and I kept raising my voice until I stopped being interrupted, and I was able to say, what I needed to say, which was
-    - "there are not two sides- to a fucking genocide"
+    - "there are not two sides to a fucking genocide"
     - 
 ### The after math
 - A few days later, I recieved an email written very same sweet old genocide apologist 
@@ -41,3 +41,4 @@
 - Keep your eyes open 
 
 - Free Palestine
+
