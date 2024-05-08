@@ -3,6 +3,8 @@
 ## Base Architecture
 ### FastAPI
 #### Make routers per sub-skelly package
+- First Task - make a FastAPI uivicorn server for `freemocap` proper    
+  - endpoint for the `freemocap...process_recording_folder` method 
 ### Vue or React
 ### Tauri 
 
