@@ -31,6 +31,6 @@
 ### NIH BRAIN BBQS (June/July?)
 
 
-data3d.mediapipe.csv
+mediapipe.data3d.csv
 
 [data-type].[tracker-name].[file-type]
