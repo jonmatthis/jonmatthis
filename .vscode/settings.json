@@ -1,6 +1,5 @@
 {
     "files.autoSave": "afterDelay",
-    "workbench.preferredDarkColorTheme": "Green Beautiful",
     "workbench.colorTheme": "Visual Studio Dark",
     "gitdoc.autoPull": "onPush",
     "gitdoc.enabled": true,
