@@ -29,7 +29,9 @@
 
 ## Funding
 ### Open Tech Fund (May 16)
-### AWS Dreamer grant (~June 3)
+- https://docs.opentech.fund/otf-application-guidebook/our-funds-and-fellowships/free-and-open-source-software-foss-sustainability-fund
+### AWS Imagine grant (~June 3)
+- https://aws.amazon.com/government-education/nonprofits/aws-imagine-grant-program/
 ### NIH BRAIN BBQS (June/July?)
 
 
