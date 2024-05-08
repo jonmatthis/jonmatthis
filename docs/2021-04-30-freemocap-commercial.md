@@ -5,9 +5,12 @@ SkellyBot as predicate for future AI/LLM integration
 
 Commercialization 
 Principles
+
 Knowledge is Free, Labor is unbelievably expensive 
+
 all educational content is free forever, anything involving human labor costs (relative to the XP and skillset of the laborer)
 No artificial scarcity
+
 anything that can be duplicated infinitely is free, otherwise costs
 Flexible pricing 
 transparency re: base costs and margins
