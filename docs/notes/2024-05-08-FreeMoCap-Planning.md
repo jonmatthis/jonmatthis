@@ -27,7 +27,6 @@
 
 ## Funding
 ### Open Tech Fund (May 16)
-
 ### AWS Dreamer grant (~June 3)
 ### NIH BRAIN BBQS (June/July?)
 
