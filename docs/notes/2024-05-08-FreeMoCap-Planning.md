@@ -44,3 +44,5 @@
   - poc - real time?
   - poc - multi person?
 - long term
+  - 2.0 
+
