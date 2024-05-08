@@ -33,6 +33,14 @@
 ### NIH BRAIN BBQS (June/July?)
 
 
-mediapipe.data3d.csv
+---
 
-[data-type].[tracker-name].[file-type]
+3 `minor` updates
+- short term
+  - skellycam
+  - backend generalization
+- medium term
+  - track anything
+  - poc - real time?
+  - poc - multi person?
+- long term
