@@ -3,13 +3,15 @@ from pathlib import Path
 from typing import Union
 
 def download_youtube_video(video_url: str, save_path:str) -> None:
+    print(f"Downloading {video_url} to {save_path}")
     try:
         # Create a YouTube object
         yt = YouTube(video_url)
-        
+        print(f"Found video: {yt.title}")
+
         # Get the highest resolution stream available
         stream = yt.streams.get_highest_resolution()
-        
+        print(f"Found stream: {stream.resolution}")
         # Ensure the save path is a Path object
         save_path = Path(save_path)
         
