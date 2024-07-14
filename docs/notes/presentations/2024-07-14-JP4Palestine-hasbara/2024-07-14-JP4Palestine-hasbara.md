@@ -10,7 +10,7 @@
     - The [Bullshit Assymmetry Principle](https://en.wikipedia.org/wiki/Brandolini%27s_law) and The [Gish Gallop](https://en.wikipedia.org/wiki/Gish_gallop) Trap 
   - They don't deserve your time/energy
     - The UT Kid
-  - [Blowback effect]()
+  - [Backfire effect]()
   
 - Option B - Be strategic
   - Why are you spending your energy on this? 
