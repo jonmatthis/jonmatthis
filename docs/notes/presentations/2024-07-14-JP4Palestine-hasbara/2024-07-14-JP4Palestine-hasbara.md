@@ -12,3 +12,5 @@
   - The [Gish Gallop](https://en.wikipedia.org/wiki/Gish_gallop) Trap 
 - Or do, just be strategic
   - "We get to choose who we have these conversations with"
+  - Cult deprogramming
+    - Engage with curiosity 
