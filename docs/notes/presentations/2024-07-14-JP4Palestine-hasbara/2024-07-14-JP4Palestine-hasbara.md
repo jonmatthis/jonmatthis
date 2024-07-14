@@ -9,25 +9,30 @@
   -  https://www.juf.org/iec/resources.aspx
 
 ## Responding to Hasbara
-> "Never argue with a zionist" (my mom, speaking from experience)
-- Option A - Don't!
+> **"Never argue with a zionist"**
+> 
+> - *my mom, speaking from experience*
+___
+### Option A - Don't!
   - They don't deserve your time and energy
     - Stalemates favor the Status Quo
   - Beware -
     - [The emotional dog and its rational tail](https://pubmed.ncbi.nlm.nih.gov/11699120/)
     - The [Bullshit Assymmetry Principle](https://en.wikipedia.org/wiki/Brandolini%27s_law) and the [Gish Gallop](https://en.wikipedia.org/wiki/Gish_gallop) Trap 
     - [Backfire effect](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC7462781/)
-
     
-  
-- Option B - Be strategic
+### Option B - Be strategic
+> "We get to choose who we have these conversations with"
+> 
+> - (someone somewhere)
   - Why are you spending your energy on this? 
     - *Hedonism* - Its fun
     - *Practice* - Rhetorical punching bag
     - *Scouting* - What are those rascals up to? 
     - *Audience* - Are there convincible people watching?
-  - "We get to choose who we have these conversations with"
+  
 - Option C - Employ cult deprogramming techniques
+  > 
   - Engage with curiosity, compassion, and a TRUE desire to understand
   - Let them speak and seek to understand their position
   - Try to get them to follow each thought to its conclusion
