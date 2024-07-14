@@ -7,9 +7,7 @@
 - [Toned down playbook specifically for colleges](https://www.juf.org/iec/resources.aspx)
 
 **Counter-arguments to standard Hasbara:** https://decolonizepalestine.com/myths/
-  
-
-
+___
 ## Responding to Hasbara
 >**"Never argue with a zionist"** 
 >- *my mom, speaking from experience*
