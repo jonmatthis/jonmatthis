@@ -32,7 +32,9 @@ _
 
 - Beware -  
   - The [Bullshit Assymmetry Principle](https://en.wikipedia.org/wiki/Brandolini%27s_law) and the [Gish Gallop](https://en.wikipedia.org/wiki/Gish_gallop) Trap 
+    - "It requires an order of magnitude more energy to counter BS than it does to create it"
   - [Backfire effect](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC7462781/)
+    - "A backfire effect is when people report believing even more in misinformation after they have seen an evidence-based correction aiming to rectify it.""
 
 ---
 
