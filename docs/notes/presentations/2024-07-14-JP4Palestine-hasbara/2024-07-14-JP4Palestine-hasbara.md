@@ -11,7 +11,7 @@
   - "Never argue with a zionist" (my mom, speaking from long experience)
     - The [Bullshit Assymmetry Principle](https://en.wikipedia.org/wiki/Brandolini%27s_law) and The [Gish Gallop](https://en.wikipedia.org/wiki/Gish_gallop) Trap 
   - They don't deserve your time/energy
-    - The UT Kid
+
   - [Backfire effect](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC7462781/)
   
 - Option B - Be strategic
@@ -22,9 +22,11 @@
     - *Audience* - Are there convincible people watching?
   - "We get to choose who we have these conversations with"
 - Option C - Employ cult deprogramming techniques
-    - Engage with curiosity, compassion, and a TRUE desire to understand
-    - Let them speak and seek to understand their position
-      - Try to get them to reach the conclusion WITHOUT triggering defensiveness
+  - Engage with curiosity, compassion, and a TRUE desire to understand
+  - Let them speak and seek to understand their position
+  - Try to get them to follow each thought to its conclusion
+    - Seek mis-match between their core moral beliefs
+    - Try to get them to reach the conclusion WITHOUT triggering defensiveness
   
 ## Botermelon 🍉 - Fighting mechanized language with a language machine!
 - System prompt aimed at countering inherent zionist bias in base LLM
