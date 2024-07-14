@@ -16,38 +16,31 @@ theme: default
 ---
 
 # Responding to Hasbara
-_
 
-**"Never argue with a zionist"** 
-- *my mom, speaking from experience*
 
 ---
 
-### **Option A**: Don't! 
-- They don't deserve your time and energy
-- Stalemates favor the Status Quo
-- Its not effective
+### **Option A:** Don't! 
+
+> **"Never argue with a zionist"** 
+> - *my mom, speaking from experience*
+- **They don't deserve your time and energy**
+- **Stalemates favor the Status Quo**
+- **Its not effective**
   - [The emotional dog and its rational tail](https://pubmed.ncbi.nlm.nih.gov/11699120/)
-- You could be doing literally anything else
-
-- Beware -  
   - The [Bullshit Assymmetry Principle](https://en.wikipedia.org/wiki/Brandolini%27s_law) and the [Gish Gallop](https://en.wikipedia.org/wiki/Gish_gallop) Trap 
-    - "It requires an order of magnitude more energy to counter BS than it does to create it"
   - [Backfire effect](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC7462781/)
-    - "A backfire effect is when people report believing even more in misinformation after they have seen an evidence-based correction aiming to rectify it.""
-
 ---
 
 ### **Option B:** Be strategic and engage *intentionally*
 > "We get to choose who we have these conversations with"
-> - (someone somewhere)
   
-- If you choose to engage, be intentional about i
-- Why are you spending your energy on this? 
-  - *Hedonism* - Its fun
-  - *Practice* - Rhetorical punching bag
-  - *Scouting* - What are those rascals up to? 
-  - *Audience* - Are there convincible people watching?
+- If you choose to engage, be intentional about WHY
+- Why are you spending your energy on this? How does this help Palestine?
+  - **Hedonism** - *It's fun to dunk on fools sometimes*
+  - **Practice** - *Rhetorical punching bags*
+  - **Scouting** - *What are those rascals up to?*
+  - **Audience** - *Are there any on-the-fence people watching?*
 
 ---
 
