@@ -13,4 +13,4 @@
 - Or do, just be strategic
   - "We get to choose who we have these conversations with"
   - Cult deprogramming
-    - Engage with curiosity 
+    - Engage with curiosity, compassion, and a TRUE desire to understand
