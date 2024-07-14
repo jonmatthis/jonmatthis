@@ -3,34 +3,35 @@
 
 
 ## The Zionist Playbook(s)
-- The Israel Project's 2009 Global Language Dictionary 
-  - https://www.transcend.org/tms/wp-content/uploads/2014/07/sf-israel-projects-2009-global-language-dictionary.pdf
-- Toned down version specifically for colleges
-  -  https://www.juf.org/iec/resources.aspx
+- [The Israel Project's 2009 Global Language Dictionary[PDF]](https://www.transcend.org/tms/wp-content/uploads/2014/07/sf-israel-projects-2009-global-language-dictionary.pdf)
+- [Toned down version specifically for colleges](https://www.juf.org/iec/resources.aspx)
+
+**Counter-arguments to standard Hasbara:** https://decolonizepalestine.com/myths/
+  
+
 
 ## Responding to Hasbara
 >**"Never argue with a zionist"** 
 >- *my mom, speaking from experience*
 
 ### **Option A**: Don't! 
-  - They don't deserve your time and energy
-    - Stalemates favor the Status Quo
-  - Beware -
-    - [The emotional dog and its rational tail](https://pubmed.ncbi.nlm.nih.gov/11699120/)
-    - The [Bullshit Assymmetry Principle](https://en.wikipedia.org/wiki/Brandolini%27s_law) and the [Gish Gallop](https://en.wikipedia.org/wiki/Gish_gallop) Trap 
-    - [Backfire effect](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC7462781/)
+- They don't deserve your time and energy
+  - Stalemates favor the Status Quo
+- Beware -
+  - [The emotional dog and its rational tail](https://pubmed.ncbi.nlm.nih.gov/11699120/)
+  - The [Bullshit Assymmetry Principle](https://en.wikipedia.org/wiki/Brandolini%27s_law) and the [Gish Gallop](https://en.wikipedia.org/wiki/Gish_gallop) Trap 
+  - [Backfire effect](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC7462781/)
     
 ### **Option B:** Be strategic and engage *intentionally*
 > "We get to choose who we have these conversations with"
 > - (someone somewhere)
-
-  - Why are you spending your energy on this? 
-    - *Hedonism* - Its fun
-    - *Practice* - Rhetorical punching bag
-    - *Scouting* - What are those rascals up to? 
-    - *Audience* - Are there convincible people watching?
   
-  
+- If you choose to engage, be intentional about i
+- Why are you spending your energy on this? 
+  - *Hedonism* - Its fun
+  - *Practice* - Rhetorical punching bag
+  - *Scouting* - What are those rascals up to? 
+  - *Audience* - Are there convincible people watching?
   
 - **Option C **: Cult deprogramming techniques
   > Look up `Daryl Davis`
