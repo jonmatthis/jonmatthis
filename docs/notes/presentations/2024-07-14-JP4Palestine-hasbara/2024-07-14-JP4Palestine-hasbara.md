@@ -1,6 +1,8 @@
-# 2024-07-174 - JP4Palestine - Hasbara
+# 2024-07-17 - JP4Palestine - Hasbara
 
 ## 1.  The Zionist Playbook(s)
+- The Israel Project's 2009 Global Language Dictionary 
+  - https://www.transcend.org/tms/wp-content/uploads/2014/07/sf-israel-projects-2009-global-language-dictionary.pdf
 - Toned down version specifically for colleges
   -  https://www.juf.org/iec/resources.aspx
 
