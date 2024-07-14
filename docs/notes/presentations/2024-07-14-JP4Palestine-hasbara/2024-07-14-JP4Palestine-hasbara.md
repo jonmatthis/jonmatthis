@@ -1,15 +1,6 @@
 # 2024-07-17 - JP4Palestine - Hasbara
-> ## **Hasbara**
-> #### Definition
->- Hebrew for "explanation"
->- Israel's public relations strategy
->#### Objectives
->- Promote positive image of Israel
->- Counter negative perceptions
->#### Methods
->- Media campaigns
->- Diplomatic outreach
->- Grassroots mobilization
+> **Hasbara**, Hebrew for "explanation," is **Israel's public relations strategy** aimed at promoting a **positive image of Israel** and countering negative perceptions through **media campaigns, diplomatic outreach, and grassroots mobilization**.
+
 
 ## The Zionist Playbook(s)
 - The Israel Project's 2009 Global Language Dictionary 
