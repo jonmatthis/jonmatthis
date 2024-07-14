@@ -3,8 +3,9 @@ marp: true
 
 theme: default
 ---
-# 2024-07-17 - JP4Palestine - Hasbara
+# [2024-07-17 - JP4Palestine - Hasbara](https://github.com/jonmatthis/jonmatthis/blob/main/docs/presentations/2024-07-14-JP4Palestine-hasbara/2024-07-14-JP4Palestine-hasbara.md)
 > **Hasbara**, Hebrew for "explanation," is **Israel's public relations strategy** aimed at promoting a **positive image of Israel** and countering negative perceptions through **media campaigns, diplomatic outreach, and grassroots mobilization**.
+
 
 ---
 ## The Zionist Playbook(s)
