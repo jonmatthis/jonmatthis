@@ -24,8 +24,8 @@ theme: default
 > **"Never argue with a zionist"** 
 > - *my mom, speaking from experience*
 
+- **It's what they want!**
 - **They don't deserve your time and energy**
-- **Its what they want!**
 - **Stalemates favor the Status Quo**
    - The [Bullshit Assymmetry Principle](https://en.wikipedia.org/wiki/Brandolini%27s_law) and the [Gish Gallop](https://en.wikipedia.org/wiki/Gish_gallop) Trap 
 - **Its not effective**
