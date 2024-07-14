@@ -4,7 +4,7 @@
 
 ## The Zionist Playbook(s)
 - [The Israel Project's 2009 Global Language Dictionary[PDF]](https://www.transcend.org/tms/wp-content/uploads/2014/07/sf-israel-projects-2009-global-language-dictionary.pdf)
-- [Toned down version specifically for colleges](https://www.juf.org/iec/resources.aspx)
+- [Toned down playbook specifically for colleges](https://www.juf.org/iec/resources.aspx)
 
 **Counter-arguments to standard Hasbara:** https://decolonizepalestine.com/myths/
   
