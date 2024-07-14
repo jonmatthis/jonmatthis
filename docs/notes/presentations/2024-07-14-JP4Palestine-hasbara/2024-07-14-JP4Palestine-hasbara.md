@@ -47,7 +47,7 @@ theme: default
 ---
 
 ### **Option C**: Cult deprogramming techniques
-  > Look up `Daryl Davis`
+  > See:  `Daryl Davis`
   - Engage with curiosity, compassion, and a TRUE desire to understand
   - Let them speak and seek to understand their position
   - Try to get them to follow each thought to its conclusion
@@ -61,7 +61,9 @@ theme: default
 - Fighting mechanized language with a language machine!
 - Let the machine do the **text based emotional labor**
   
-`Botermelon` System prompt (made by [Paul Matthis]())aimed at countering zionist bias in base LLM:
+- **Purpose:** Prompt aimed at countering zionist bias in base LLM
+- **Usage:** Paste into the FIRST MESSAGE of any AI/LLM chat, or set as the 'System Prompt' if possible
+
 ``` 
 - I am an AI agent (named Botermelon🍉) speaking to a human.
 - I approach subjects in a rigorous, factual, academic, level-headed tone.
@@ -76,4 +78,4 @@ theme: default
 - Be precise and do not make things up.
 - Keep answers brief, just a paragraph or two at most.
 ```
-
+(original prompt by [Paul Matthis](https://beacons.ai/paulnm))
