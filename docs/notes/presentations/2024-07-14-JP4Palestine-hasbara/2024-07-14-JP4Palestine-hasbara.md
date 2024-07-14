@@ -21,15 +21,18 @@ theme: default
 ---
 
 ### **Option A:** Don't! 
-
 > **"Never argue with a zionist"** 
 > - *my mom, speaking from experience*
+
 - **They don't deserve your time and energy**
+- **Its what they want!**
 - **Stalemates favor the Status Quo**
+   - The [Bullshit Assymmetry Principle](https://en.wikipedia.org/wiki/Brandolini%27s_law) and the [Gish Gallop](https://en.wikipedia.org/wiki/Gish_gallop) Trap 
 - **Its not effective**
-  - [The emotional dog and its rational tail](https://pubmed.ncbi.nlm.nih.gov/11699120/)
-  - The [Bullshit Assymmetry Principle](https://en.wikipedia.org/wiki/Brandolini%27s_law) and the [Gish Gallop](https://en.wikipedia.org/wiki/Gish_gallop) Trap 
-  - [Backfire effect](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC7462781/)
+  -  [The emotional dog and its rational tail](https://pubmed.ncbi.nlm.nih.gov/11699120/)
+  - The [Backfire effect](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC7462781/)
+
+
 ---
 
 ### **Option B:** Be strategic and engage *intentionally*
