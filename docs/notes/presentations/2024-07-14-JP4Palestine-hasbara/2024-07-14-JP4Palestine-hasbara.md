@@ -9,11 +9,14 @@
   -  https://www.juf.org/iec/resources.aspx
 
 ## Responding to Hasbara
+> "Never argue with a zionist" (my mom, speaking from experience)
 - Option A - Don't!
-  - "Never argue with a zionist" (my mom, speaking from long experience)
-  - The [Bullshit Assymmetry Principle](https://en.wikipedia.org/wiki/Brandolini%27s_law) and The [Gish Gallop](https://en.wikipedia.org/wiki/Gish_gallop) Trap 
-  - They don't deserve your time/energy
-  - [Backfire effect](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC7462781/)
+  - They don't deserve your time and energy
+  - Stalemates favorsupport the Status Quo
+  - Beware -
+    - The [Bullshit Assymmetry Principle](https://en.wikipedia.org/wiki/Brandolini%27s_law) and the [Gish Gallop](https://en.wikipedia.org/wiki/Gish_gallop) Trap 
+    - [Backfire effect](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC7462781/)
+    
   
 - Option B - Be strategic
   - Why are you spending your energy on this? 
