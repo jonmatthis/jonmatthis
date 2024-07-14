@@ -1,5 +1,6 @@
 ---
 marp: true
+
 theme: default
 ---
 # 2024-07-17 - JP4Palestine - Hasbara
@@ -24,9 +25,12 @@ _
 
 ### **Option A**: Don't! 
 - They don't deserve your time and energy
-  - Stalemates favor the Status Quo
-- Beware -
+- Stalemates favor the Status Quo
+- Its not effective
   - [The emotional dog and its rational tail](https://pubmed.ncbi.nlm.nih.gov/11699120/)
+- You could be doing literally anything else
+
+- Beware -  
   - The [Bullshit Assymmetry Principle](https://en.wikipedia.org/wiki/Brandolini%27s_law) and the [Gish Gallop](https://en.wikipedia.org/wiki/Gish_gallop) Trap 
   - [Backfire effect](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC7462781/)
 
