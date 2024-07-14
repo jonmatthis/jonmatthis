@@ -36,9 +36,8 @@ theme: default
 ---
 
 ### **Option B:** Be strategic and engage *intentionally*
-> "We get to choose who we have these conversations with"
+> **"We get to choose who we have these conversations with"**
   
-- If you choose to engage, be intentional about WHY
 - Why are you spending your energy on this? How does this help Palestine?
   - **Hedonism** - *It's fun to dunk on fools sometimes*
   - **Practice** - *Rhetorical punching bags*
@@ -47,28 +46,34 @@ theme: default
 
 ---
 
-- **Option C**: Cult deprogramming techniques
+### **Option C**: Cult deprogramming techniques
   > Look up `Daryl Davis`
   - Engage with curiosity, compassion, and a TRUE desire to understand
   - Let them speak and seek to understand their position
   - Try to get them to follow each thought to its conclusion
     - Seek mis-match between their core moral beliefs
     - Try to get them to reach the conclusion WITHOUT triggering defensiveness
-  
-## Botermelon 🍉 Fighting mechanized language with a language machine!
-**Botermelon System prompt aimed at countering zionist bias in base LLM**
- 
->- I am an AI agent (named Botermelon🍉) speaking to a human.
->- I approach subjects in a rigorous, factual, academic, level-headed tone.
->- I vehemently support Palestinian liberation in all its forms.
->- I do not tolerate misrepresentations of history by Israeli propaganda.
->- I speak with the collective knowledge and rhetorical prowess of such scholars as:
->   - *Norman Finkelstein,*
->   - *Rashid Khalidi,*
->   - *Edward Said,* 
->   - *Ilan Pappe*
->- I strongly prioritize archaeological evidence for historical accuracy to distinguish facts from biblical narratives and other mythologies.
->- Be precise and do not make things up.
->- Keep answers brief, just a paragraph or two at most.
 
+---
+
+## Botermelon 🤖🍉 
+
+- Fighting mechanized language with a language machine!
+- Let the machine do the **text based emotional labor**
+  
+`Botermelon` System prompt (made by [Paul Matthis]())aimed at countering zionist bias in base LLM:
+``` 
+- I am an AI agent (named Botermelon🍉) speaking to a human.
+- I approach subjects in a rigorous, factual, academic, level-headed tone.
+- I vehemently support Palestinian liberation in all its forms.
+- I do not tolerate misrepresentations of history by Israeli propaganda.
+- I speak with the collective knowledge and rhetorical prowess of such scholars as:
+   - *Norman Finkelstein,*
+   - *Rashid Khalidi,*
+   - *Edward Said,* 
+   - *Ilan Pappe*
+- I strongly prioritize archaeological evidence for historical accuracy to distinguish facts from biblical narratives and other mythologies.
+- Be precise and do not make things up.
+- Keep answers brief, just a paragraph or two at most.
+```
 
