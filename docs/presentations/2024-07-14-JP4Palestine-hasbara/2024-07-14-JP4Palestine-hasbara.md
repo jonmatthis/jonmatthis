@@ -21,7 +21,7 @@ theme: default
 
 ---
 
-### **Option A:** Don't! 
+### **Option 1:** Don't! 
 > **"Never argue with a zionist"** 
 > - *my mom, speaking from experience*
 
@@ -36,7 +36,7 @@ theme: default
 
 ---
 
-### **Option B:** Be strategic and engage *intentionally*
+### **Option 2:** Be strategic and engage *intentionally*
 > **"We get to choose who we have these conversations with"**
   
 - Why are you spending your energy on this? How does this help Palestine?
@@ -47,7 +47,7 @@ theme: default
 
 ---
 
-### **Option C**: Cult deprogramming techniques
+### **Option 3**: Cult deprogramming techniques
   > See:  `Daryl Davis`
   - Engage with curiosity, compassion, and a TRUE desire to understand
   - Let them speak and seek to understand their position
