@@ -12,10 +12,12 @@
 > "Never argue with a zionist" (my mom, speaking from experience)
 - Option A - Don't!
   - They don't deserve your time and energy
-  - Stalemates favorsupport the Status Quo
+    - Stalemates favor the Status Quo
   - Beware -
+    - [The emotional dog and its rational tail](https://pubmed.ncbi.nlm.nih.gov/11699120/)
     - The [Bullshit Assymmetry Principle](https://en.wikipedia.org/wiki/Brandolini%27s_law) and the [Gish Gallop](https://en.wikipedia.org/wiki/Gish_gallop) Trap 
     - [Backfire effect](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC7462781/)
+
     
   
 - Option B - Be strategic
