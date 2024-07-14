@@ -1,5 +1,6 @@
 ---
 marp: true
+style: 
 ---
 # 2024-07-17 - JP4Palestine - Hasbara
 > **Hasbara**, Hebrew for "explanation," is **Israel's public relations strategy** aimed at promoting a **positive image of Israel** and countering negative perceptions through **media campaigns, diplomatic outreach, and grassroots mobilization**.
