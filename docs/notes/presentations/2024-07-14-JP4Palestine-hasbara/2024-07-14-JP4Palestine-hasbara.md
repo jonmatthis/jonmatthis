@@ -21,3 +21,6 @@
   - "We get to choose who we have these conversations with"
   - Cult deprogramming
     - Engage with curiosity, compassion, and a TRUE desire to understand
+    - Let them speak and seek to understand their position
+      - Try to get them to reach the conclusion WITHOUT triggering defensiveness
+    - 
