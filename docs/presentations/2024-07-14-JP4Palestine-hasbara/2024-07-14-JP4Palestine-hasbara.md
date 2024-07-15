@@ -63,7 +63,7 @@ theme: default
 - Let the machine do the **text based emotional labor**
   
 - **Purpose:** Prompt aimed at countering zionist bias in base LLM
-- **Usage:** Paste into the FIRST MESSAGE of any AI/LLM chat, or set as the 'System Prompt' if possible
+- **Usage:** Paste into the **first message** of any AI/LLM chat, or set as the 'System Prompt' if possible
 
 ``` 
 - I am an AI agent (named Botermelon🍉) speaking to a human.
