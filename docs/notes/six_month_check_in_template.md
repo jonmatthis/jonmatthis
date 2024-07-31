@@ -1,86 +1,46 @@
-# [Person] & Jon 6-month check-ins
+# 6-month check-in TEMPLATE
 
-[![hackmd-github-sync-badge](https://hackmd.io/YXfY_mxpQHeVgPgyT2bCeA/badge)](https://hackmd.io/YXfY_mxpQHeVgPgyT2bCeA)
+(Copy the Template and replace the ##YYYY-MM-DD with the date of the check in. Save this document, and in ~6 months, copy a new template on TOP of the old one and filled out again. For best results, Fill this out as part of a conversation with a friend/mentor type object. If you are in charge of planning for an organization, consider separate sections in heading for YOURSELF as a separate-but-overlapping entitity to the ORGANIZATION)
 
-
-## YYY-MM-DD
-###### tags: `2022-summer-checkin` `template`
+## YYYY-MM-DD 
 
 ### Things Done in the past 6 months
-- literally
-- just
-- list
-- things
-- as
-- you
-- think
-- of 
-- them
+- Brain dump of ANYTHING and EVERYTHING you can think that you've done in the past 6 months
+    - Tasks completed
+    - Skills learned/improved
+    - Events attended/planned
+    - Milestones reached
+    - Literally anything you can think of, the more the better
 
-### Things you're most proud of
-- Ask them which on the previous list they are most proud of
-- Ask them Why, and note - 
-    - what part of it was satisfying?
-        - topic was interesting?
-        - skills involved?
-        - enjoyed the challenge?
-        - liked that other people liked it?
-    - How is this person motivated?
-        - Questions - scientist-type
-        - Hard problems - enigneer-type
-        - Helping people - clinical-type
-        - Presenting work - communicator-type
-        - etc
-    - Do they have too much, or not enough confidence?
-        - ESPECIALLY - Are they able to say good things about their own work? 
-        
-
-### Things you want to work on 
-- skills they want to get better at
-    - give them tasks with that thing in it. 
-    - encourage pairing them with other person in lab with that XP (and then actively push this to happen, because they won't do it on their own)
-- things they want to know more about
-    - 'assign' lit review, recommend papers, etc
+### What are you most excited about getting better at? 
+- skills you want to get better at
+- things you want to know more about
+- topics you want to explore
 - etc
 
-### PLANS - Next 6 months
-- Ideally these are 'S.M.A.R.T.' style goals, i.e. things that would fall under the 'milestones' category in the Github Project Managament whosit
-    - but I think vagueness is fine here to keep things moving. You can nail things down later
-    - or also things like 
+### Plans/Dreams/Visions for...
+#### ...next 6 months 
+- Fairly specific plans
+- Ideally these are 'S.M.A.R.T.' style goals
+    - Vagueness is fine here to keep things moving. You can nail things down later    
 - Probably like 2-3 achievable goals, ideally in different areas
 
-### PLANS - Next 1 year 
-- these are the things that would be available if the things in the `next 6 months` secion work out.
-    - Like, if you make the experiment and get all the data, then you'll be able to submit the paper, etc
+#### ...next 1 year 
 - Still fairly specific
+- Often more like milestones/goals/keystone events
 
-### PLANS - Next 2 years
+### ...next 2 years
 - Getting less specific here. 
-- Kinda imagining different possible futures, depending on how things go with `6-month` and `1-year` plans
+- What do your 1-year plans set you up for?
 
-### PLANS - Next 5 years
+### ... next 5 years
 - Getting way more generic here
-- this is usually thinking about the purpose of 'this phase' of life
+- this is usually thinking about the purpose of this 'phase'
     - usually this is like, "You'll recently graduated or about to graduate, etc"
 - Starting to learn more about the "why are you doing this" side of things
-- getting more info about their values and whatnot
-- talking more about differnt potential future trajectories and whatnot
+- getting more info about your values 
+- Good place for thinking about about differnt potential future trajectories 
+- "After you climb this mountain, whats next?"
 
 ### PLANS - Next 10 years
-- just to freak 'em out a bit lol
-- this is basically just daydreaming
-
----
----
-
-# YYYY-MM-DD 
-- and 
-- this
-- is
-- where
-- we'll 
-- do
-- the
-- next 
-- one 
-- ✨
+- This is pretty much just vibe 
