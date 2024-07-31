@@ -2,7 +2,9 @@
 
 ## FreeMoCap-Core
 **- Turns light into Skeletons**
-
+- Stand-alone GUI workflows
+- Clear API's for each repo fo scripty stuff 
+  
 ### Critical sub-skellies
 1. SkellyCam
    1. Cameras
