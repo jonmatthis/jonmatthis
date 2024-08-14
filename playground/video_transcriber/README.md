@@ -1,0 +1,1 @@
+Transcribe videos in a folder using whisper

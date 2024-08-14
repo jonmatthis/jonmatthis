@@ -1,0 +1,4 @@
+audio-extract==0.6.0
+openai-whisper==20231117
+numpy==1.*
+
