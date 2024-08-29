@@ -1,6 +1,6 @@
 # 2024 Fall - HMN class syllabus
 
-## Class #0 - Intro and setup
+## Class #1 - Intro and setup
 ### Github
 - Make account
 - Connect to Classroom
@@ -18,45 +18,69 @@
   
 ### Assignment #1 - Intro chat with bot (follow JKL's format? - generate doc)
 
-## Class #1 - Mocap lab tour (?)
+## Class #2 - Mocap lab tour (?)
 - Intro to mocap
 - parade walk students over force plates? 
 
-## Class #2 - SI Units & 3d Space
+### Assignment #2 - Chat with bot about the experience, in context of previous
+
+## Class #3 - SI Units & 3d Space
 - SI Units stick schtick
 - Intro to 3d space (building origins)
 - Look @ data from lab tour
 
-### Assignment #2 - Look at data and have chat about it w/ bot (generate doc)
+### Assignment #3 - Look at data and have chat about it w/ bot (generate doc)
 
-## Class #3 - COM, Gait, and Posture
+## Class #4 - COM, Gait, and Posture
 - Intro to COM
 - Kinematics (geometry) vs Kinetics (physics)
 - COM vs BOS - theory of gait and balance
 - Record 'standard' fmc rec - one foot + jump
 
-### Assignment #3 - Look at data and have chat about it w/ bot - focus on mechanics (generate doc)
+### Assignment #4 - Look at data and have chat about it w/ bot - focus on mechanics (generate doc)
 
-## Class #4 - Evolution of human gait and posture
+## Class #5 - Evolution of human gait and posture
 - Lovejoy stuff
 - Pelvis, spine, feet, etc
 - Laotoli footprints
 
-### Assignment #4 - something related to final project, based on previous assignments (basically mapping out their interest space)
+### Assignment #5 - something related to final project, based on previous assignments (basically mapping out their interest space)
 
 ## Class #5 - Muscles and Bones
 - Intro to muscles & bones
 - how muscles work, bone geometry, etc
-### Assignment #5 - more about project
+
+### Assignment #6 - more about project
 
 ## Class #7 -  Intro to eyeballs
 - Intro to visual neuroscience and eyeball physiology
 - Intro to eye tracking
 - Record some eye tracking data in class
-### Assignment #6 - Talk to bot about vision and sensory control - Consider in context of project
+### Assignment #7 - Provide project structure/outline (3x3 w/ summary intro)
 
 ## Class #8 - Gaze data
 - VOR, Saccades, fixation, etc 
+- Looking at eye tracking data
+
+### Assignment #8 - Discuss intersections between your assignment and 2-3 others w/ bot
+
+## Class #9 - Intro to laser skeletons
+- Jon talks about his own research 
+
+### Assignment #9 - Fleshing out Course-wide docs (built from the individual ones)
+
+## Class #10 - Intro to robots
+- Talking about perceptrons, compass gait walkers, general control theory (PID, drones, etc)
+- Machine learning, NN's, LLMs, etc
+
+
+## Class #11 - Meat robots and Laser skeletons - The view from here
+- Review of topics covered, plans for rest of semester
+
+## Class #11 - Lecture by request (extracting topics from course tree)
+## Class #11 - Project and group work
+## Class #13 - Class wrap-up
+
 
 
 
