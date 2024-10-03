@@ -11,4 +11,18 @@
 - SkellyBot currently represents a minimal UI onto `gpt4o` model, but that's very much not a constraint
   
 - Briefly talk about how the basic ChatGPT/SkellyBot UI works (i.e. interface + server calls)
-  - Mention that OpenAI is conflating 'agent' and 'model' with their latest `
+  - Mention that OpenAI is conflating 'agent' and 'model' with their latest `o1` models
+  
+- **KEY FACTOR** - Flexiblity and specificity of purpose, and STUDENT CHAT DATA availability
+  
+## 2 - Integration with LMS (i.e. Canvas/Blackboard)?
+- Yes, for sure! Could be built around the LMS' API for external applications 
+  
+## 3 - Long term development plans? 
+- Discord definitely is NOT the long term plan! 
+  - This is somewhere between 'proof of concept' and 'minimal viable product'
+- Future is highly flexible, and can/will/must be built to suit specific use cases and adapted continuously based on real/desired user experiences
+
+## 4 - Piloting solutions?
+- Easiest route is to find some brave professors teaching 'topics' courses and adapt existing methods to their use cases
+- Depending on desired timelines and available resources, we can do refactoring and development to improve various aspects of functionlity (i.e. refactor existing code, adapt to Slack, build bespoke UI, develop more robust processing/analysis pipelines, etc)
