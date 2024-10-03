@@ -13,7 +13,10 @@
 - Briefly talk about how the basic ChatGPT/SkellyBot UI works (i.e. interface + server calls)
   - Mention that OpenAI is conflating 'agent' and 'model' with their latest `o1` models
   
-- **KEY FACTOR** - Flexiblity and specificity of purpose, and STUDENT CHAT DATA availability
+- **KEY FACTORS OF CURRENT IMPLEMENTATION** 
+  - Flexiblity and specificity of purpose
+  - Heirarchical prompting frameworks
+  - STUDENT CHAT DATA availability
   
 ## 2 - Integration with LMS (i.e. Canvas/Blackboard)?
 - Yes, for sure! Could be built around the LMS' API for external applications 
