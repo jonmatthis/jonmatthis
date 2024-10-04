@@ -4,7 +4,7 @@
 - Distinguishing MODEL (vs Agent) vs User Interface (UI)
   - 'Model' is the base tech
     - Think like "internal combustion engine"
-  - 'Agent' is (roughly)Model+Tools
+  - 'Agent' is (roughly) Model+Tools
   - UI is the way we use it
     - Think like cars vs planes vs boats vs irrigation pumps
   
