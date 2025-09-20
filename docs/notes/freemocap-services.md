@@ -20,3 +20,6 @@
 
 ## Feature request
 - client requests some feature that doesn't exist yet, which we then fast-track in order to get it finished sooner than it would have otherwise (e.g. support for a particular camera, tracker, etc)
+
+## Bespoke analysis pipelines
+- Build analysis pipelines to configure data into client's desired format, or extract/compute particular outcomes from base output data. Cost based on complexity and desire for future support
