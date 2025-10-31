@@ -1,0 +1,23 @@
+{
+  "name": "openai-agents-sdk-play",
+  "version": "1.0.0",
+  "type": "module",
+  "main": "dist/index.js",
+  "scripts": {
+    "dev": "tsx src/index.ts",
+    "hello": "tsx hello-world.ts",
+    "build": "tsc",
+    "start": "node dist/index.js"
+  },
+  "dependencies": {
+    "@openai/agents": "^0.1.3",
+    "dotenv": "^17.2.2",
+    "ts-node": "^10.9.2",
+    "zod": "^3.25.76"
+  },
+  "devDependencies": {
+    "@types/node": "^24.5.2",
+    "tsx": "^4.20.5",
+    "typescript": "^5.9.2"
+  }
+}
