@@ -650,7 +650,7 @@ def create_animated_visualization(
         y=translations[:, 1],
         z=translations[:, 2],
         mode="lines",
-        line=dict(color="rgba(100, 100, 255, 0.4)", width=3),
+        line=dict(color="rgba(100, 100, 255)", width=3),
         name="Path",
         hoverinfo="skip",
     ), row=1, col=1)
@@ -870,7 +870,7 @@ def create_animated_visualization(
                 [str(idx)],
                 dict(
                     mode="immediate",
-                    frame=dict(duration=50, redraw=True),
+                    frame=dict(duration=10, redraw=True),
                     transition=dict(duration=0),
                 )
             ],
@@ -908,7 +908,7 @@ def create_animated_visualization(
                         args=[
                             None,
                             dict(
-                                frame=dict(duration=50, redraw=True),
+                                frame=dict(duration=10, redraw=True),
                                 fromcurrent=True,
                                 transition=dict(duration=0),
                             )
