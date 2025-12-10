@@ -17,7 +17,7 @@ from pathlib import Path
 import pandas as pd
 import matplotlib.pyplot as plt
 import matplotlib
-matplotlib.use('Agg')  # Non-interactive backend for saving figures
+
 
 
 # =============================================================================
@@ -550,6 +550,7 @@ def create_visualization(result_df: pd.DataFrame, output_path: Path) -> None:
     
     plt.tight_layout()
     plt.savefig(output_path, dpi=150, bbox_inches='tight')
+    plt.show()
     plt.close()
 
 
