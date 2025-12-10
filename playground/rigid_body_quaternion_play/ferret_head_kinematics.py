@@ -570,13 +570,15 @@ def main(head_rotation_translation_csv_path:str) -> None:
     result_df = analyze_ferret_head_kinematics(input_path)
     
     # Save results
-    output_csv = Path("/mnt/user-data/outputs/ferret_head_kinematics.csv")
+    output_file_name = "ferret_head_kinematics.csv"
+    output_csv = input_path.parent / output_file_name
+    
     result_df.to_csv(output_csv, index=False)
     print(f"\nSaved kinematic data to: {output_csv}")
     
     # Create visualization
     print("\nCreating visualization...")
-    output_png = Path("/mnt/user-data/outputs/ferret_head_kinematics.png")
+    output_png = input_path.parent / "ferret_head_kinematics_visualization.png"
     create_visualization(result_df, output_png)
     print(f"Saved visualization to: {output_png}")
     
@@ -633,5 +635,5 @@ def main(head_rotation_translation_csv_path:str) -> None:
 
 
 if __name__ == "__main__":
-    head_rotation_translation_csv_path = "/mnt/user-data/inputs/ferret_skull_rotation_translation_data.csv"
-    main()
+    head_rotation_translation_csv_path = r"D:\bs\ferret_recordings\clips\0m_37s-1m_37s\mocap_data\output_data\solver_output\rotation_translation_data.csv"
+    main(head_rotation_translation_csv_path)
