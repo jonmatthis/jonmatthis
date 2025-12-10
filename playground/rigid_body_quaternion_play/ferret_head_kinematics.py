@@ -557,14 +557,14 @@ def create_visualization(result_df: pd.DataFrame, output_path: Path) -> None:
 # MAIN
 # =============================================================================
 
-def main() -> None:
+def main(head_rotation_translation_csv_path:str) -> None:
     """Main entry point."""
     print("=" * 70)
     print("FERRET HEAD KINEMATICS ANALYSIS")
     print("=" * 70)
     
     # Input file
-    input_path = Path("/mnt/user-data/uploads/rotation_translation_data.csv")
+    input_path = Path(head_rotation_translation_csv_path)
     
     # Run analysis
     result_df = analyze_ferret_head_kinematics(input_path)
@@ -633,4 +633,5 @@ def main() -> None:
 
 
 if __name__ == "__main__":
+    head_rotation_translation_csv_path = "/mnt/user-data/inputs/ferret_skull_rotation_translation_data.csv"
     main()
