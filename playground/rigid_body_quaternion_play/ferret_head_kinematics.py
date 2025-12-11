@@ -150,9 +150,6 @@ def omega_world_to_local(omega_world: NDArray[np.float64], q: Quaternion) -> NDA
 # DATA LOADING
 # =============================================================================
 
-def load_rotation_data(filepath: str | Path) -> pd.DataFrame:
-    return pd.read_csv(filepath)
-
 
 def extract_rotation_matrix(row: pd.Series) -> NDArray[np.float64]:
     return np.array([
@@ -168,7 +165,7 @@ def extract_rotation_matrix(row: pd.Series) -> NDArray[np.float64]:
 
 def analyze_ferret_head_kinematics(rotation_data_path: str | Path) -> pd.DataFrame:
     print("Loading rotation data...")
-    df = load_rotation_data(rotation_data_path)
+    df = pd.read_csv(rotation_data_path)
     n_frames = len(df)
     print(f"Processing {n_frames} frames...")
     
@@ -220,9 +217,9 @@ def analyze_ferret_head_kinematics(rotation_data_path: str | Path) -> pd.DataFra
         'omega_local_x': omega_local[:, 0],
         'omega_local_y': omega_local[:, 1],
         'omega_local_z': omega_local[:, 2],
-        'roll_deg': np.degrees(euler_world[:, 0]),
-        'pitch_deg': np.degrees(euler_world[:, 1]),
-        'yaw_deg': np.degrees(euler_world[:, 2]),
+        'euler_world_x_roll_rad': euler_world[:, 0],
+        'euler_world_y_pitch_rad': euler_world[:, 1],
+        'euler_world_z_yaw_rad': euler_world[:, 2],
     })
 
 
