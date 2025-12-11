@@ -3,16 +3,11 @@ name = "jonmatthis"
 version = "0.1.0"
 description = "Add your description here"
 readme = "README.md"
-<<<<<<< HEAD
 requires-python = ">=3.12"
 dependencies = [
     "matplotlib>=3.10.7",
     "seaborn>=0.13.2",
-=======
-requires-python = ">=3.11"
-dependencies = [
     "numpy>=2.3.5",
     "pandas>=2.3.3",
     "plotly>=6.5.0",
->>>>>>> fe51b269c98ac0b2bc0f0adc52232b33721ed905
 ]
