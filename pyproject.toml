@@ -10,4 +10,8 @@ dependencies = [
     "numpy>=2.3.5",
     "pandas>=2.3.3",
     "plotly>=6.5.0",
+    "dash>=3.3.0",
+    "rerun-sdk>=0.27.3",
+    "jupyter>=1.1.1",
+    "plotnine>=0.15.1",
 ]
