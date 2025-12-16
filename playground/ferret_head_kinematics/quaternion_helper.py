@@ -1,6 +1,4 @@
-# =============================================================================
-# QUATERNION CLASS
-# =============================================================================
+"""Unit quaternion class for 3D rotations."""
 from dataclasses import dataclass
 
 import numpy as np

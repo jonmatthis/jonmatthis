@@ -1,397 +1,208 @@
 """
 Ferret Head Kinematics Analysis
-================================
 
-This script analyzes the ferret skull motion data to compute:
-1. Angular velocity in world (global) frame
-2. Angular velocity in local (head) frame
-3. Angular velocity in body-relative frame
-4. Euler angles (pitch, roll, yaw) in world and body-relative frames
-
-Uses quaternion mathematics for robust rotation handling.
-Body frame is constructed from spine markers with zero-roll assumption.
+Computes head position, orientation (Euler angles), angular velocity
+in both world frame and head-local frame (roll, pitch, yaw rates in degrees/second),
+and orthonormal basis vectors of the head coordinate frame.
 """
+from dataclasses import dataclass
 from pathlib import Path
 
 import numpy as np
 import pandas as pd
 from numpy.typing import NDArray
 
-from playground.ferret_head_kinematics.angular_velocity_helpers import (
-    compute_omega_world,
-    omega_world_to_local,
-)
-from playground.ferret_head_kinematics.ferret_head_kinematics_visualization import (
-    load_trajectory_data,
-    run_visualization,
-)
-from playground.ferret_head_kinematics.quaternion_helper import Quaternion
+from quaternion_helper import Quaternion
 
 
-# =============================================================================
-# BODY FRAME CONSTRUCTION
-# =============================================================================
-def construct_body_frame_from_spine(
-    sacrum: NDArray[np.float64],
-    spine_t1: NDArray[np.float64],
-    world_up: NDArray[np.float64],
-) -> NDArray[np.float64]:
-    """
-    Construct body coordinate frame from spine markers with zero-roll assumption.
+@dataclass
+class HeadKinematics:
+    """Head kinematics data."""
 
-    The body frame is defined as:
-    - X-axis: pointing right (lateral)
-    - Y-axis: pointing forward along spine (cranial direction)
-    - Z-axis: pointing up (dorsal direction)
-
-    Zero-roll assumption: body "up" is derived from world up projected
-    perpendicular to the spine direction.
-
-    Returns:
-        3x3 rotation matrix where columns are the body frame axes in world coordinates.
-    """
-    # Spine direction: sacrum -> spine_t1 (caudal to cranial = forward)
-    spine_vec = spine_t1 - sacrum
-    spine_norm = np.linalg.norm(spine_vec)
-    if spine_norm < 1e-10:
-        raise ValueError("Spine markers are coincident")
-    body_forward = spine_vec / spine_norm
-
-    # Body right = forward × up (then normalize)
-    # This gives us the lateral direction perpendicular to both
-    body_right = np.cross(body_forward, world_up)
-    right_norm = np.linalg.norm(body_right)
-
-    if right_norm < 1e-10:
-        # Spine is pointing straight up/down - degenerate case
-        # Fall back to arbitrary perpendicular
-        if abs(body_forward[0]) < 0.9:
-            body_right = np.cross(body_forward, np.array([1.0, 0.0, 0.0]))
-        else:
-            body_right = np.cross(body_forward, np.array([0.0, 1.0, 0.0]))
-        right_norm = np.linalg.norm(body_right)
-
-    body_right = body_right / right_norm
-
-    # Body up = right × forward (completing right-handed system)
-    body_up = np.cross(body_right, body_forward)
-
-    # Rotation matrix: columns are body axes expressed in world frame
-    R_body: NDArray[np.float64] = np.column_stack([body_right, body_forward, body_up])
-
-    return R_body
+    timestamps: NDArray[np.float64]  # (N,) seconds
+    position: NDArray[np.float64]  # (N, 3) mm, world frame
+    euler_angles_deg: NDArray[np.float64]  # (N, 3) degrees [roll, pitch, yaw]
+    angular_velocity_world_deg_s: NDArray[np.float64]  # (N, 3) deg/s, world frame [x, y, z]
+    angular_velocity_local_deg_s: NDArray[np.float64]  # (N, 3) deg/s, head-local [roll_rate, pitch_rate, yaw_rate]
+    # Basis vectors transformed to world frame (origin at head position, unit length)
+    basis_x: NDArray[np.float64]  # (N, 3) head's x-axis direction in world frame
+    basis_y: NDArray[np.float64]  # (N, 3) head's y-axis direction in world frame
+    basis_z: NDArray[np.float64]  # (N, 3) head's z-axis direction in world frame
 
 
-# =============================================================================
-# DATA LOADING
-# =============================================================================
-def extract_rotation_matrix(row: pd.Series) -> NDArray[np.float64]:
-    """Extract 3x3 rotation matrix from a DataFrame row."""
-    return np.array(
-        [
-            [row["rotation_r0_c0"], row["rotation_r0_c1"], row["rotation_r0_c2"]],
-            [row["rotation_r1_c0"], row["rotation_r1_c1"], row["rotation_r1_c2"]],
-            [row["rotation_r2_c0"], row["rotation_r2_c1"], row["rotation_r2_c2"]],
-        ],
-        dtype=np.float64,
-    )
+def compute_omega_world(q1: Quaternion, q2: Quaternion, dt: float) -> NDArray[np.float64]:
+    """Compute angular velocity in world frame from two quaternions."""
+    if dt <= 0:
+        raise ValueError(f"dt must be positive, got {dt}")
+
+    delta_q = q2 * q1.inverse()
+    if delta_q.w < 0:
+        delta_q = Quaternion(w=-delta_q.w, x=-delta_q.x, y=-delta_q.y, z=-delta_q.z)
+
+    axis, angle = delta_q.to_axis_angle()
+    return (angle / dt) * axis
 
 
-def load_spine_markers(
-    marker_csv_path: Path,
-    data_type: str,
-) -> pd.DataFrame:
-    """
-    Load spine marker data from CSV.
-
-    Returns DataFrame with columns: frame, timestamp, sacrum_x/y/z, spine_t1_x/y/z
-    """
-    df = pd.read_csv(marker_csv_path)
-
-    # Filter to requested data type
-    df = df[df["data_type"] == data_type].copy()
-
-    # Pivot to get one row per frame with marker positions as columns
-    sacrum_df = df[df["marker"] == "sacrum"][
-        ["frame", "timestamp", "x", "y", "z"]
-    ].copy()
-    sacrum_df = sacrum_df.rename(
-        columns={"x": "sacrum_x", "y": "sacrum_y", "z": "sacrum_z"}
-    )
-
-    spine_t1_df = df[df["marker"] == "spine_t1"][["frame", "x", "y", "z"]].copy()
-    spine_t1_df = spine_t1_df.rename(
-        columns={"x": "spine_t1_x", "y": "spine_t1_y", "z": "spine_t1_z"}
-    )
-
-    result = sacrum_df.merge(spine_t1_df, on="frame")
-
-    if len(result) == 0:
-        raise ValueError(f"No matching spine markers found for data_type='{data_type}'")
-
-    return result
+def omega_world_to_local(omega_world: NDArray[np.float64], q: Quaternion) -> NDArray[np.float64]:
+    """Transform angular velocity from world frame to local (body-attached) frame."""
+    return q.inverse().rotate_vector(omega_world)
 
 
-# =============================================================================
-# QUATERNION CONTINUITY
-# =============================================================================
-def ensure_quaternion_continuity(quaternions: list[Quaternion]) -> None:
-    """Ensure quaternion continuity by flipping signs to avoid discontinuities."""
-    for i in range(1, len(quaternions)):
-        q_prev = quaternions[i - 1]
-        q_curr = quaternions[i]
-        dot = (
-            q_prev.w * q_curr.w
-            + q_prev.x * q_curr.x
-            + q_prev.y * q_curr.y
-            + q_prev.z * q_curr.z
-        )
-        if dot < 0:
-            quaternions[i] = Quaternion(
-                w=-q_curr.w, x=-q_curr.x, y=-q_curr.y, z=-q_curr.z
-            )
-
-
-# =============================================================================
-# MAIN ANALYSIS
-# =============================================================================
-def analyze_ferret_head_kinematics(
-    head_rotation_csv_path: Path,
-    trajectory_data_csv: Path,
-    spine_data_type: str,
-    world_up: NDArray[np.float64],
-) -> pd.DataFrame:
-    """
-    Analyze ferret head kinematics from rotation and spine marker data.
-
-    Args:
-        head_rotation_csv_path: Path to CSV with head rotation matrices
-        trajectory_data_csv: Path to CSV with spine markers
-        spine_data_type: Which data type to use from spine markers ('optimized' or 'noisy')
-        world_up: World "up" direction for zero-roll body frame assumption
+def load_skull_pose(csv_path: Path) -> tuple[NDArray[np.float64], NDArray[np.float64], list[Quaternion]]:
+    """Load skull 6DoF pose from CSV.
 
     Returns:
-        DataFrame with timestamps, angular velocities, and Euler angles
+        timestamps: (N,) array of timestamps in seconds
+        positions: (N, 3) array of positions in mm
+        quaternions: list of N Quaternion objects
     """
-    print("Loading head rotation data...")
-    head_df = pd.read_csv(head_rotation_csv_path)
-    n_frames = len(head_df)
-    print(f"  {n_frames} frames")
+    df = pd.read_csv(csv_path)
+    n_frames = len(df)
 
-    # Load spine data
-    print("Loading spine marker data...")
-    spine_df = load_spine_markers(
-        marker_csv_path=trajectory_data_csv, data_type=spine_data_type
-    )
-    print(f"  {len(spine_df)} frames with spine markers")
+    timestamps = df["timestamp"].values.astype(np.float64)
+    positions = np.zeros((n_frames, 3), dtype=np.float64)
+    quaternions: list[Quaternion] = []
 
-    # Verify timestamp alignment
-    if not np.allclose(
-        head_df["timestamp"].values, spine_df["timestamp"].values, rtol=1e-6
-    ):
-        raise ValueError(
-            "Timestamp mismatch between head rotation and spine marker data. "
-            "Interpolation not yet implemented."
-        )
-
-    timestamps: NDArray[np.float64] = head_df["timestamp"].values
-
-    # Convert head rotations to quaternions
-    print("Converting head rotation matrices to quaternions...")
-    head_quaternions: list[Quaternion] = []
-    for _, row in head_df.iterrows():
-        R = extract_rotation_matrix(row)
-        q = Quaternion.from_rotation_matrix(R)
-        head_quaternions.append(q)
-
-    # Ensure quaternion continuity (avoid sign flips)
-    print("Ensuring quaternion continuity...")
-    ensure_quaternion_continuity(head_quaternions)
-
-    # Compute body frame quaternions from spine data
-    print("Computing body frame from spine markers...")
-    body_quaternions: list[Quaternion] = []
-    for i in range(n_frames):
-        sacrum = np.array(
+    for i, (_, row) in enumerate(df.iterrows()):
+        R = np.array(
             [
-                spine_df.iloc[i]["sacrum_x"],
-                spine_df.iloc[i]["sacrum_y"],
-                spine_df.iloc[i]["sacrum_z"],
-            ]
+                [row["rotation_r0_c0"], row["rotation_r0_c1"], row["rotation_r0_c2"]],
+                [row["rotation_r1_c0"], row["rotation_r1_c1"], row["rotation_r1_c2"]],
+                [row["rotation_r2_c0"], row["rotation_r2_c1"], row["rotation_r2_c2"]],
+            ],
+            dtype=np.float64,
         )
-        spine_t1 = np.array(
-            [
-                spine_df.iloc[i]["spine_t1_x"],
-                spine_df.iloc[i]["spine_t1_y"],
-                spine_df.iloc[i]["spine_t1_z"],
-            ]
-        )
-        R_body = construct_body_frame_from_spine(
-            sacrum=sacrum, spine_t1=spine_t1, world_up=world_up
-        )
-        q_body = Quaternion.from_rotation_matrix(R_body)
-        body_quaternions.append(q_body)
+        quaternions.append(Quaternion.from_rotation_matrix(R))
 
-    # Ensure body quaternion continuity
-    ensure_quaternion_continuity(body_quaternions)
-
-    # Compute head-relative-to-body quaternions
-    print("Computing head orientation relative to body...")
-    head_body_relative_quaternions: list[Quaternion] = []
-    for i in range(n_frames):
-        # Q_head_body = Q_body^-1 * Q_head_world
-        q_rel = body_quaternions[i].inverse() * head_quaternions[i]
-        head_body_relative_quaternions.append(q_rel)
-
-    # Ensure continuity
-    ensure_quaternion_continuity(head_body_relative_quaternions)
-
-    # Compute angular velocities
-    print("Computing angular velocities...")
-    omega_world = np.zeros((n_frames, 3))
-    omega_head_local = np.zeros((n_frames, 3))
-    omega_body_relative = np.zeros((n_frames, 3))
-
-    for i in range(n_frames):
-        # Central difference for interior points, forward/backward at boundaries
-        if i == 0:
-            dt = timestamps[1] - timestamps[0]
-            ow = compute_omega_world(
-                q1=head_quaternions[0], q2=head_quaternions[1], dt=dt
-            )
-        elif i == n_frames - 1:
-            dt = timestamps[-1] - timestamps[-2]
-            ow = compute_omega_world(
-                q1=head_quaternions[-2], q2=head_quaternions[-1], dt=dt
-            )
+        if "translation_x" in row.index:
+            positions[i] = [row["translation_x"], row["translation_y"], row["translation_z"]]
+        elif "tx" in row.index:
+            positions[i] = [row["tx"], row["ty"], row["tz"]]
+        elif "x" in row.index:
+            positions[i] = [row["x"], row["y"], row["z"]]
         else:
-            dt = timestamps[i + 1] - timestamps[i - 1]
-            ow = compute_omega_world(
-                q1=head_quaternions[i - 1], q2=head_quaternions[i + 1], dt=dt
-            )
+            raise ValueError("No recognized translation columns in CSV")
 
-        omega_world[i] = ow
-        omega_head_local[i] = omega_world_to_local(
-            omega_world=ow, q=head_quaternions[i]
-        )
-
-        # Body-relative angular velocity
-        if i == 0:
-            dt = timestamps[1] - timestamps[0]
-            ow_rel = compute_omega_world(
-                q1=head_body_relative_quaternions[0],
-                q2=head_body_relative_quaternions[1],
-                dt=dt,
-            )
-        elif i == n_frames - 1:
-            dt = timestamps[-1] - timestamps[-2]
-            ow_rel = compute_omega_world(
-                q1=head_body_relative_quaternions[-2],
-                q2=head_body_relative_quaternions[-1],
-                dt=dt,
-            )
-        else:
-            dt = timestamps[i + 1] - timestamps[i - 1]
-            ow_rel = compute_omega_world(
-                q1=head_body_relative_quaternions[i - 1],
-                q2=head_body_relative_quaternions[i + 1],
-                dt=dt,
-            )
-        omega_body_relative[i] = ow_rel
-
-    # Extract Euler angles
-    print("Extracting Euler angles...")
-    euler_world = np.zeros((n_frames, 3))
-    euler_body_relative = np.zeros((n_frames, 3))
-
-    for i in range(n_frames):
-        euler_world[i] = head_quaternions[i].to_euler_xyz()
-        euler_body_relative[i] = head_body_relative_quaternions[i].to_euler_xyz()
-
-    # Unwrap world Euler angles to remove discontinuities at ±π
-    # (only world frame - body-relative angles should stay bounded since
-    # the head can't physically rotate 360° relative to the body)
-    print("Unwrapping world-frame Euler angles...")
-    for axis in range(3):
-        euler_world[:, axis] = np.unwrap(euler_world[:, axis])
-
-    # Build result DataFrame
-    result = pd.DataFrame(
-        {
-            "timestamp": timestamps,
-            "omega_world_x": omega_world[:, 0],
-            "omega_world_y": omega_world[:, 1],
-            "omega_world_z": omega_world[:, 2],
-            "omega_head_local_x": omega_head_local[:, 0],
-            "omega_head_local_y": omega_head_local[:, 1],
-            "omega_head_local_z": omega_head_local[:, 2],
-            "euler_world_roll_rad": euler_world[:, 0],
-            "euler_world_pitch_rad": euler_world[:, 1],
-            "euler_world_yaw_rad": euler_world[:, 2],
-            "omega_body_relative_x": omega_body_relative[:, 0],
-            "omega_body_relative_y": omega_body_relative[:, 1],
-            "omega_body_relative_z": omega_body_relative[:, 2],
-            "euler_body_relative_roll_rad": euler_body_relative[:, 0],
-            "euler_body_relative_pitch_rad": euler_body_relative[:, 1],
-            "euler_body_relative_yaw_rad": euler_body_relative[:, 2],
-        }
-    )
-
-    return result
+    return timestamps, positions, quaternions
 
 
-# =============================================================================
-# MAIN
-# =============================================================================
-def main(
-    head_rotation_csv_path: str,
-    trajectory_data_csv: str,
-    spawn_viewer: bool = True,
-) -> None:
-    """
-    Run ferret head kinematics analysis and launch Rerun visualization.
+def compute_head_kinematics(
+    timestamps: NDArray[np.float64],
+    positions: NDArray[np.float64],
+    quaternions: list[Quaternion],
+) -> HeadKinematics:
+    """Compute head kinematics from pose data.
 
     Args:
-        head_rotation_csv_path: Path to CSV with head rotation matrices
-        trajectory_data_csv: Path to CSV with spine markers
-        spawn_viewer: Whether to spawn the Rerun viewer window
+        timestamps: (N,) array of timestamps in seconds
+        positions: (N, 3) array of head positions in mm
+        quaternions: list of N Quaternion objects representing head orientation
+
+    Returns:
+        HeadKinematics with position, orientation, angular velocity (world and local), and basis vectors
     """
-    input_path = Path(head_rotation_csv_path)
-    trajectory_path = Path(trajectory_data_csv)
+    n_frames = len(timestamps)
+    if len(positions) != n_frames or len(quaternions) != n_frames:
+        raise ValueError("timestamps, positions, and quaternions must have the same length")
 
-    for thing_path in [
-        input_path,
-        trajectory_path,]:
-        if not thing_path.exists():
-            raise FileNotFoundError(f"File not found: {thing_path}")
+    euler_angles_deg = np.zeros((n_frames, 3), dtype=np.float64)
+    angular_velocity_world_deg_s = np.zeros((n_frames, 3), dtype=np.float64)
+    angular_velocity_local_deg_s = np.zeros((n_frames, 3), dtype=np.float64)
 
-    result_df = analyze_ferret_head_kinematics(
-        head_rotation_csv_path=input_path,
-        trajectory_data_csv=trajectory_path,
-        spine_data_type="optimized",
-        world_up=np.array([0.0, 0.0, 1.0]),
+    # Canonical basis vectors
+    canonical_basis = np.eye(3, dtype=np.float64)  # rows are x_hat, y_hat, z_hat
+    basis_x = np.zeros((n_frames, 3), dtype=np.float64)
+    basis_y = np.zeros((n_frames, 3), dtype=np.float64)
+    basis_z = np.zeros((n_frames, 3), dtype=np.float64)
+
+    for i, q in enumerate(quaternions):
+        roll, pitch, yaw = q.to_euler_xyz()
+        euler_angles_deg[i] = np.rad2deg([roll, pitch, yaw])
+
+        # Rotate canonical basis vectors by head orientation
+        basis_x[i] = q.rotate_vector(canonical_basis[0])
+        basis_y[i] = q.rotate_vector(canonical_basis[1])
+        basis_z[i] = q.rotate_vector(canonical_basis[2])
+
+    # Compute angular velocity using finite differences
+    for i in range(1, n_frames):
+        dt = timestamps[i] - timestamps[i - 1]
+        if dt > 0:
+            omega_world = compute_omega_world(quaternions[i - 1], quaternions[i], dt)
+            omega_local = omega_world_to_local(omega_world, quaternions[i])
+            angular_velocity_world_deg_s[i] = np.rad2deg(omega_world)
+            angular_velocity_local_deg_s[i] = np.rad2deg(omega_local)
+
+    # First frame: copy from second frame
+    if n_frames > 1:
+        angular_velocity_world_deg_s[0] = angular_velocity_world_deg_s[1]
+        angular_velocity_local_deg_s[0] = angular_velocity_local_deg_s[1]
+
+    return HeadKinematics(
+        timestamps=timestamps,
+        position=positions,
+        euler_angles_deg=euler_angles_deg,
+        angular_velocity_world_deg_s=angular_velocity_world_deg_s,
+        angular_velocity_local_deg_s=angular_velocity_local_deg_s,
+        basis_x=basis_x,
+        basis_y=basis_y,
+        basis_z=basis_z,
     )
 
-    output_csv = input_path.parent / "ferret_head_kinematics.csv"
-    result_df.to_csv(output_csv, index=False)
-    print(f"Saved results: {output_csv}")
 
-    # Load trajectory data for visualization
-    trajectory_data = load_trajectory_data(trajectory_path)
-
-    run_visualization(
-        result_df=result_df,
-        trajectory_data=trajectory_data,
-        spawn=spawn_viewer,
-    )
+def head_kinematics_to_dataframe(hk: HeadKinematics) -> pd.DataFrame:
+    """Convert HeadKinematics to a pandas DataFrame."""
+    return pd.DataFrame({
+        "timestamp": hk.timestamps,
+        "position_x_mm": hk.position[:, 0],
+        "position_y_mm": hk.position[:, 1],
+        "position_z_mm": hk.position[:, 2],
+        "roll_deg": hk.euler_angles_deg[:, 0],
+        "pitch_deg": hk.euler_angles_deg[:, 1],
+        "yaw_deg": hk.euler_angles_deg[:, 2],
+        "omega_world_x_deg_s": hk.angular_velocity_world_deg_s[:, 0],
+        "omega_world_y_deg_s": hk.angular_velocity_world_deg_s[:, 1],
+        "omega_world_z_deg_s": hk.angular_velocity_world_deg_s[:, 2],
+        "omega_local_roll_deg_s": hk.angular_velocity_local_deg_s[:, 0],
+        "omega_local_pitch_deg_s": hk.angular_velocity_local_deg_s[:, 1],
+        "omega_local_yaw_deg_s": hk.angular_velocity_local_deg_s[:, 2],
+        # Basis vectors (unit vectors in world frame, rotated by head orientation)
+        "basis_x_x": hk.basis_x[:, 0],
+        "basis_x_y": hk.basis_x[:, 1],
+        "basis_x_z": hk.basis_x[:, 2],
+        "basis_y_x": hk.basis_y[:, 0],
+        "basis_y_y": hk.basis_y[:, 1],
+        "basis_y_z": hk.basis_y[:, 2],
+        "basis_z_x": hk.basis_z[:, 0],
+        "basis_z_y": hk.basis_z[:, 1],
+        "basis_z_z": hk.basis_z[:, 2],
+    })
 
 
 if __name__ == "__main__":
-    # Example usage - update paths as needed
-    head_rotation_csv = r"D:\bs\ferret_recordings\2025-07-11_ferret_757_EyeCameras_P43_E15__1\clips\0m_37s-1m_37s\mocap_data\output_data\solver_output\rotation_translation_data.csv"
-    trajectory_data_csv = r"D:\bs\ferret_recordings\2025-07-11_ferret_757_EyeCameras_P43_E15__1\clips\0m_37s-1m_37s\mocap_data\output_data\solver_output\tidy_trajectory_data.csv"
+    from ferret_head_kinematics_visualization import load_trajectory_data, run_visualization
 
-    main(
-        head_rotation_csv_path=head_rotation_csv,
-        trajectory_data_csv=trajectory_data_csv,
+    # Paths - edit these
+    skull_pose_csv = Path(r"D:\bs\ferret_recordings\2025-07-11_ferret_757_EyeCameras_P43_E15__1\clips\0m_37s-1m_37s\mocap_data\output_data\solver_output\rotation_translation_data.csv")
+    trajectory_csv = Path(r"D:\bs\ferret_recordings\2025-07-11_ferret_757_EyeCameras_P43_E15__1\clips\0m_37s-1m_37s\mocap_data\output_data\solver_output\tidy_trajectory_data.csv")
+
+    print(f"Loading skull pose data from {skull_pose_csv}...")
+    timestamps, positions, quaternions = load_skull_pose(skull_pose_csv)
+    print(f"  Loaded {len(timestamps)} frames")
+
+    print("Computing head kinematics...")
+    hk = compute_head_kinematics(
+        timestamps=timestamps,
+        positions=positions,
+        quaternions=quaternions,
     )
+
+    # Save CSV
+    output_path = skull_pose_csv.parent / "head_kinematics.csv"
+    df = head_kinematics_to_dataframe(hk)
+    df.to_csv(output_path, index=False)
+    print(f"Saved: {output_path}")
+
+    # Load trajectory and run visualization
+    trajectory_data = load_trajectory_data(trajectory_csv)
+    run_visualization(hk=hk, trajectory_data=trajectory_data)
