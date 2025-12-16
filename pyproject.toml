@@ -14,4 +14,5 @@ dependencies = [
     "rerun-sdk>=0.27.3",
     "jupyter>=1.1.1",
     "plotnine>=0.15.1",
+    "pydantic>=2.12.5",
 ]

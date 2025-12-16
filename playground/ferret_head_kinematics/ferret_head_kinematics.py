@@ -359,6 +359,12 @@ def main(
     input_path = Path(head_rotation_csv_path)
     trajectory_path = Path(trajectory_data_csv)
 
+    for thing_path in [
+        input_path,
+        trajectory_path,]:
+        if not thing_path.exists():
+            raise FileNotFoundError(f"File not found: {thing_path}")
+
     result_df = analyze_ferret_head_kinematics(
         head_rotation_csv_path=input_path,
         trajectory_data_csv=trajectory_path,
@@ -373,10 +379,8 @@ def main(
     # Load trajectory data for visualization
     trajectory_data = load_trajectory_data(trajectory_path)
 
-    has_body_relative = "euler_body_relative_roll_rad" in result_df.columns
     run_visualization(
         result_df=result_df,
-        has_body_relative=has_body_relative,
         trajectory_data=trajectory_data,
         spawn=spawn_viewer,
     )
@@ -384,8 +388,8 @@ def main(
 
 if __name__ == "__main__":
     # Example usage - update paths as needed
-    head_rotation_csv = r"D:\bs\ferret_recordings\clips\0m_37s-1m_37s\mocap_data\output_data\solver_output\rotation_translation_data.csv"
-    trajectory_data_csv = r"D:\bs\ferret_recordings\clips\0m_37s-1m_37s\mocap_data\output_data\solver_output\tidy_trajectory_data.csv"
+    head_rotation_csv = r"D:\bs\ferret_recordings\2025-07-11_ferret_757_EyeCameras_P43_E15__1\clips\0m_37s-1m_37s\mocap_data\output_data\solver_output\rotation_translation_data.csv"
+    trajectory_data_csv = r"D:\bs\ferret_recordings\2025-07-11_ferret_757_EyeCameras_P43_E15__1\clips\0m_37s-1m_37s\mocap_data\output_data\solver_output\tidy_trajectory_data.csv"
 
     main(
         head_rotation_csv_path=head_rotation_csv,

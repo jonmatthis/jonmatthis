@@ -14,24 +14,66 @@ from pathlib import Path
 import numpy as np
 import pandas as pd
 import rerun as rr
+import rerun.blueprint as rrb
 from numpy.typing import NDArray
+from pydantic import BaseModel
+
+# =============================================================================
+# PYDANTIC MODELS FOR DATA TRANSFER
+# =============================================================================
+
+
+class MarkerColumnsData(BaseModel):
+    """Data for marker points in columnar format."""
+
+    model_config = {"arbitrary_types_allowed": True}
+
+    times: list[float]
+    positions: list[NDArray[np.float64]]
+    partition_lengths: list[int]
+    colors: list[NDArray[np.uint8]]
+
+
+class EdgeColumnsData(BaseModel):
+    """Data for edge line strips in columnar format."""
+
+    model_config = {"arbitrary_types_allowed": True}
+
+    times: list[float]
+    strips: list[NDArray[np.float64]]
+    partition_lengths: list[int]
+
+
+class SkeletonColumnsData(BaseModel):
+    """Combined skeleton data for columnar logging."""
+
+    markers: MarkerColumnsData
+    edges: EdgeColumnsData
+
 
 # =============================================================================
 # TOPOLOGY DEFINITION
 # =============================================================================
-MARKER_NAMES: list[str] = [
+SKULL_MARKER_NAMES: list[str] = [
     "nose",
     "left_eye",
     "right_eye",
     "left_ear",
     "right_ear",
     "base",
+]
+EYE_CAM_MARKER_NAMES: list[str] = [
     "left_cam_tip",
     "right_cam_tip",
+]
+BODY_MARKER_NAMES: list[str] = [
     "spine_t1",
     "sacrum",
     "tail_tip",
 ]
+
+MARKER_NAMES: list[str] = (SKULL_MARKER_NAMES + EYE_CAM_MARKER_NAMES + BODY_MARKER_NAMES)
+
 
 DISPLAY_EDGES: list[tuple[int, int]] = [
     (0, 1),
@@ -71,12 +113,15 @@ AXIS_COLORS: dict[str, tuple[int, int, int]] = {
     "z": (255, 230, 109),  # yellow
 }
 
+# Enclosure size in mm (1m³ = 1000mm per side)
+ENCLOSURE_SIZE_MM: float = 1000.0
+
 
 # =============================================================================
 # DATA LOADING
 # =============================================================================
 def load_trajectory_data(
-        trajectory_csv_path: Path,
+    trajectory_csv_path: Path,
 ) -> dict[int, dict[str, NDArray[np.float64]]]:
     """Load trajectory data from CSV and organize by frame."""
     df = pd.read_csv(trajectory_csv_path)
@@ -107,25 +152,16 @@ def load_trajectory_data(
 # COLUMNAR DATA PREPARATION
 # =============================================================================
 def prepare_skeleton_columns(
-        trajectory_data: dict[int, dict[str, NDArray[np.float64]]],
-        timestamps: NDArray[np.float64],
-        t0: float,
-        marker_names: list[str],
-        display_edges: list[tuple[int, int]],
-) -> tuple[
-    list[float],  # times for markers
-    list[NDArray[np.float64]],  # all marker positions flattened
-    list[int],  # partition lengths for markers
-    list[NDArray[np.uint8]],  # all marker colors flattened
-    list[str],  # all marker labels flattened
-    list[float],  # times for edges
-    list[NDArray[np.float64]],  # all edge strips flattened
-    list[int],  # partition lengths for edges (strips per timestep)
-]:
+    trajectory_data: dict[int, dict[str, NDArray[np.float64]]],
+    timestamps: NDArray[np.float64],
+    t0: float,
+    marker_names: list[str],
+    display_edges: list[tuple[int, int]],
+) -> SkeletonColumnsData:
     """
     Prepare skeleton data in columnar format for send_columns.
 
-    Returns data structures needed for efficient columnar logging.
+    Returns validated Pydantic model with data structures needed for efficient columnar logging.
     """
     available_traj_frames = sorted(trajectory_data.keys())
 
@@ -134,7 +170,6 @@ def prepare_skeleton_columns(
     all_positions: list[NDArray[np.float64]] = []
     marker_partition_lengths: list[int] = []
     all_colors: list[NDArray[np.uint8]] = []
-    all_labels: list[str] = []
 
     edge_times: list[float] = []
     all_edge_strips: list[NDArray[np.float64]] = []
@@ -155,7 +190,6 @@ def prepare_skeleton_columns(
         # Collect marker data for this frame
         frame_positions: list[NDArray[np.float64]] = []
         frame_colors: list[NDArray[np.uint8]] = []
-        frame_labels: list[str] = []
 
         for name in marker_names:
             if name in frame_data:
@@ -164,13 +198,11 @@ def prepare_skeleton_columns(
                     frame_positions.append(pos)
                     color = MARKER_COLORS.get(name, (255, 255, 255))
                     frame_colors.append(np.array(color, dtype=np.uint8))
-                    frame_labels.append(name)
 
         if frame_positions:
             marker_times.append(time_val)
             all_positions.extend(frame_positions)
             all_colors.extend(frame_colors)
-            all_labels.extend(frame_labels)
             marker_partition_lengths.append(len(frame_positions))
 
         # Collect edge data for this frame
@@ -192,36 +224,30 @@ def prepare_skeleton_columns(
             all_edge_strips.extend(frame_strips)
             edge_partition_lengths.append(len(frame_strips))
 
-    return (
-        marker_times,
-        all_positions,
-        marker_partition_lengths,
-        all_colors,
-        all_labels,
-        edge_times,
-        all_edge_strips,
-        edge_partition_lengths,
+    return SkeletonColumnsData(
+        markers=MarkerColumnsData(
+            times=marker_times,
+            positions=all_positions,
+            partition_lengths=marker_partition_lengths,
+            colors=all_colors,
+        ),
+        edges=EdgeColumnsData(
+            times=edge_times,
+            strips=all_edge_strips,
+            partition_lengths=edge_partition_lengths,
+        ),
     )
 
 
 def send_skeleton_columns(
-        trajectory_data: dict[int, dict[str, NDArray[np.float64]]],
-        timestamps: NDArray[np.float64],
-        t0: float,
-        marker_names: list[str],
-        display_edges: list[tuple[int, int]],
+    trajectory_data: dict[int, dict[str, NDArray[np.float64]]],
+    timestamps: NDArray[np.float64],
+    t0: float,
+    marker_names: list[str],
+    display_edges: list[tuple[int, int]],
 ) -> None:
     """Send skeleton data using columnar API."""
-    (
-        marker_times,
-        all_positions,
-        marker_partition_lengths,
-        all_colors,
-        all_labels,
-        edge_times,
-        all_edge_strips,
-        edge_partition_lengths,
-    ) = prepare_skeleton_columns(
+    skeleton_data = prepare_skeleton_columns(
         trajectory_data=trajectory_data,
         timestamps=timestamps,
         t0=t0,
@@ -229,50 +255,102 @@ def send_skeleton_columns(
         display_edges=display_edges,
     )
 
-    # Send marker points using columnar API
-    if marker_times and all_positions:
-        positions_array = np.array(all_positions)
-        colors_array = np.array(all_colors)
+    markers = skeleton_data.markers
+    edges = skeleton_data.edges
+
+    # Send marker points using columnar API (no labels - hover to see info)
+    if markers.times and markers.positions:
+        positions_array = np.array(markers.positions)
+        colors_array = np.array(markers.colors)
 
         rr.send_columns(
             "skeleton/markers",
-            indexes=[rr.TimeColumn("time", duration=marker_times)],
+            indexes=[rr.TimeColumn("time", duration=markers.times)],
             columns=[
                 *rr.Points3D.columns(positions=positions_array).partition(
-                    lengths=marker_partition_lengths
+                    lengths=markers.partition_lengths
                 ),
                 *rr.Points3D.columns(
                     colors=colors_array,
-                    radii=[8.0] * len(all_positions),
-                    labels=all_labels,
-                ).partition(lengths=marker_partition_lengths),
+                    radii=[8.0] * len(markers.positions),
+                ).partition(lengths=markers.partition_lengths),
             ],
         )
 
     # Send edge line strips using columnar API
-    if edge_times and all_edge_strips:
+    if edges.times and edges.strips:
         rr.send_columns(
             "skeleton/edges",
-            indexes=[rr.TimeColumn("time", duration=edge_times)],
+            indexes=[rr.TimeColumn("time", duration=edges.times)],
             columns=[
                 *rr.LineStrips3D.columns(
-                    strips=all_edge_strips,
-                    colors=[(0, 255, 200)] * len(all_edge_strips),
-                    radii=[2.0] * len(all_edge_strips),
-                ).partition(lengths=edge_partition_lengths),
+                    strips=edges.strips,
+                    colors=[(0, 255, 200)] * len(edges.strips),
+                    radii=[2.0] * len(edges.strips),
+                ).partition(lengths=edges.partition_lengths),
             ],
         )
 
 
+def send_enclosure() -> None:
+    """Send a 1m³ enclosure as wireframe box."""
+    half = ENCLOSURE_SIZE_MM / 2.0
+
+    # Define the 8 corners of the cube centered at origin
+    corners = np.array(
+        [
+            [-half, -half, 0],  # bottom corners (z=0)
+            [half, -half, 0],
+            [half, half, 0],
+            [-half, half, 0],
+            [-half, -half, ENCLOSURE_SIZE_MM],  # top corners
+            [half, -half, ENCLOSURE_SIZE_MM],
+            [half, half, ENCLOSURE_SIZE_MM],
+            [-half, half, ENCLOSURE_SIZE_MM],
+        ],
+        dtype=np.float64,
+    )
+
+    # Define the 12 edges of the cube as line strips
+    edge_indices = [
+        # Bottom face
+        (0, 1),
+        (1, 2),
+        (2, 3),
+        (3, 0),
+        # Top face
+        (4, 5),
+        (5, 6),
+        (6, 7),
+        (7, 4),
+        # Vertical edges
+        (0, 4),
+        (1, 5),
+        (2, 6),
+        (3, 7),
+    ]
+
+    strips = [np.array([corners[i], corners[j]]) for i, j in edge_indices]
+
+    # Log the enclosure as static geometry with subtle appearance
+    rr.log(
+        "skeleton/enclosure",
+        rr.LineStrips3D(
+            strips=strips,
+            colors=[(180, 180, 180, 100)] * len(strips),  # Very subtle gray, semi-transparent
+            radii=[2] * len(strips),  # Thin lines
+        ),
+        static=True,
+    )
+
+
 def send_time_series_columns(
-        result_df: pd.DataFrame,
-        has_body_relative: bool,
+    result_df: pd.DataFrame,
 ) -> None:
     """Send all time series data at once using columnar API."""
     timestamps = result_df["timestamp"].values
     t0 = timestamps[0]
     times = timestamps - t0
-    n_frames = len(times)
 
     # Convert Euler angles to degrees
     euler_world_roll_deg = np.rad2deg(result_df["euler_world_roll_rad"].values)
@@ -313,90 +391,73 @@ def send_time_series_columns(
         columns=rr.Scalars.columns(scalars=result_df["omega_world_z"].values),
     )
 
-    if has_body_relative:
-        # Euler angles (body-relative)
-        euler_body_roll_deg = np.rad2deg(
-            result_df["euler_body_relative_roll_rad"].values
-        )
-        euler_body_pitch_deg = np.rad2deg(
-            result_df["euler_body_relative_pitch_rad"].values
-        )
-        euler_body_yaw_deg = np.rad2deg(
-            result_df["euler_body_relative_yaw_rad"].values
-        )
+    # Euler angles (body-relative)
+    euler_body_roll_deg = np.rad2deg(
+        result_df["euler_body_relative_roll_rad"].values
+    )
+    euler_body_pitch_deg = np.rad2deg(
+        result_df["euler_body_relative_pitch_rad"].values
+    )
+    euler_body_yaw_deg = np.rad2deg(
+        result_df["euler_body_relative_yaw_rad"].values
+    )
 
-        rr.send_columns(
-            "euler_body/roll_deg",
-            indexes=[rr.TimeColumn("time", duration=times)],
-            columns=rr.Scalars.columns(scalars=euler_body_roll_deg),
-        )
-        rr.send_columns(
-            "euler_body/pitch_deg",
-            indexes=[rr.TimeColumn("time", duration=times)],
-            columns=rr.Scalars.columns(scalars=euler_body_pitch_deg),
-        )
-        rr.send_columns(
-            "euler_body/yaw_deg",
-            indexes=[rr.TimeColumn("time", duration=times)],
-            columns=rr.Scalars.columns(scalars=euler_body_yaw_deg),
-        )
+    rr.send_columns(
+        "euler_body/roll_deg",
+        indexes=[rr.TimeColumn("time", duration=times)],
+        columns=rr.Scalars.columns(scalars=euler_body_roll_deg),
+    )
+    rr.send_columns(
+        "euler_body/pitch_deg",
+        indexes=[rr.TimeColumn("time", duration=times)],
+        columns=rr.Scalars.columns(scalars=euler_body_pitch_deg),
+    )
+    rr.send_columns(
+        "euler_body/yaw_deg",
+        indexes=[rr.TimeColumn("time", duration=times)],
+        columns=rr.Scalars.columns(scalars=euler_body_yaw_deg),
+    )
 
-        # Angular velocity (body-relative)
-        rr.send_columns(
-            "omega_body/x",
-            indexes=[rr.TimeColumn("time", duration=times)],
-            columns=rr.Scalars.columns(
-                scalars=result_df["omega_body_relative_x"].values
-            ),
-        )
-        rr.send_columns(
-            "omega_body/y",
-            indexes=[rr.TimeColumn("time", duration=times)],
-            columns=rr.Scalars.columns(
-                scalars=result_df["omega_body_relative_y"].values
-            ),
-        )
-        rr.send_columns(
-            "omega_body/z",
-            indexes=[rr.TimeColumn("time", duration=times)],
-            columns=rr.Scalars.columns(
-                scalars=result_df["omega_body_relative_z"].values
-            ),
-        )
-    else:
-        # Angular velocity (head-local)
-        rr.send_columns(
-            "omega_local/x",
-            indexes=[rr.TimeColumn("time", duration=times)],
-            columns=rr.Scalars.columns(
-                scalars=result_df["omega_head_local_x"].values
-            ),
-        )
-        rr.send_columns(
-            "omega_local/y",
-            indexes=[rr.TimeColumn("time", duration=times)],
-            columns=rr.Scalars.columns(
-                scalars=result_df["omega_head_local_y"].values
-            ),
-        )
-        rr.send_columns(
-            "omega_local/z",
-            indexes=[rr.TimeColumn("time", duration=times)],
-            columns=rr.Scalars.columns(
-                scalars=result_df["omega_head_local_z"].values
-            ),
-        )
+    # Angular velocity (body-relative)
+    rr.send_columns(
+        "omega_body/x",
+        indexes=[rr.TimeColumn("time", duration=times)],
+        columns=rr.Scalars.columns(
+            scalars=result_df["omega_body_relative_x"].values
+        ),
+    )
+    rr.send_columns(
+        "omega_body/y",
+        indexes=[rr.TimeColumn("time", duration=times)],
+        columns=rr.Scalars.columns(
+            scalars=result_df["omega_body_relative_y"].values
+        ),
+    )
+    rr.send_columns(
+        "omega_body/z",
+        indexes=[rr.TimeColumn("time", duration=times)],
+        columns=rr.Scalars.columns(
+            scalars=result_df["omega_body_relative_z"].values
+        ),
+    )
+
 
 
 # =============================================================================
 # RERUN STYLING AND BLUEPRINT
 # =============================================================================
-def setup_plot_styling(has_body_relative: bool) -> None:
+def setup_plot_styling() -> None:
     """Configure plot colors and styling using blueprints."""
-    # Set up series line colors
+    # Set up series line colors with markers (dots)
+    # Log both SeriesLines and SeriesPoints for each series to show lines with dots
     rr.log(
         "euler_world/roll_deg",
         rr.SeriesLines(colors=AXIS_COLORS["x"], names="Roll"),
+        static=True,
+    )
+    rr.log(
+        "euler_world/roll_deg",
+        rr.SeriesPoints(colors=AXIS_COLORS["x"], markers="circle", marker_sizes=1.0),
         static=True,
     )
     rr.log(
@@ -405,8 +466,18 @@ def setup_plot_styling(has_body_relative: bool) -> None:
         static=True,
     )
     rr.log(
+        "euler_world/pitch_deg",
+        rr.SeriesPoints(colors=AXIS_COLORS["y"], markers="circle", marker_sizes=1.0),
+        static=True,
+    )
+    rr.log(
         "euler_world/yaw_deg",
         rr.SeriesLines(colors=AXIS_COLORS["z"], names="Yaw"),
+        static=True,
+    )
+    rr.log(
+        "euler_world/yaw_deg",
+        rr.SeriesPoints(colors=AXIS_COLORS["z"], markers="circle", marker_sizes=1.0),
         static=True,
     )
 
@@ -416,8 +487,18 @@ def setup_plot_styling(has_body_relative: bool) -> None:
         static=True,
     )
     rr.log(
+        "omega_world/x",
+        rr.SeriesPoints(colors=AXIS_COLORS["x"], markers="circle", marker_sizes=1.0),
+        static=True,
+    )
+    rr.log(
         "omega_world/y",
         rr.SeriesLines(colors=AXIS_COLORS["y"], names="ωy"),
+        static=True,
+    )
+    rr.log(
+        "omega_world/y",
+        rr.SeriesPoints(colors=AXIS_COLORS["y"], markers="circle", marker_sizes=1.0),
         static=True,
     )
     rr.log(
@@ -425,108 +506,144 @@ def setup_plot_styling(has_body_relative: bool) -> None:
         rr.SeriesLines(colors=AXIS_COLORS["z"], names="ωz"),
         static=True,
     )
+    rr.log(
+        "omega_world/z",
+        rr.SeriesPoints(colors=AXIS_COLORS["z"], markers="circle", marker_sizes=1.0),
+        static=True,
+    )
 
-    if has_body_relative:
-        rr.log(
-            "euler_body/roll_deg",
-            rr.SeriesLines(colors=AXIS_COLORS["x"], names="Roll"),
-            static=True,
-        )
-        rr.log(
-            "euler_body/pitch_deg",
-            rr.SeriesLines(colors=AXIS_COLORS["y"], names="Pitch"),
-            static=True,
-        )
-        rr.log(
-            "euler_body/yaw_deg",
-            rr.SeriesLines(colors=AXIS_COLORS["z"], names="Yaw"),
-            static=True,
-        )
+    rr.log(
+        "euler_body/roll_deg",
+        rr.SeriesLines(colors=AXIS_COLORS["x"], names="Roll"),
+        static=True,
+    )
+    rr.log(
+        "euler_body/roll_deg",
+        rr.SeriesPoints(colors=AXIS_COLORS["x"], markers="circle", marker_sizes=1.0),
+        static=True,
+    )
+    rr.log(
+        "euler_body/pitch_deg",
+        rr.SeriesLines(colors=AXIS_COLORS["y"], names="Pitch"),
+        static=True,
+    )
+    rr.log(
+        "euler_body/pitch_deg",
+        rr.SeriesPoints(colors=AXIS_COLORS["y"], markers="circle", marker_sizes=1.0),
+        static=True,
+    )
+    rr.log(
+        "euler_body/yaw_deg",
+        rr.SeriesLines(colors=AXIS_COLORS["z"], names="Yaw"),
+        static=True,
+    )
+    rr.log(
+        "euler_body/yaw_deg",
+        rr.SeriesPoints(colors=AXIS_COLORS["z"], markers="circle", marker_sizes=1.0),
+        static=True,
+    )
 
-        rr.log(
-            "omega_body/x",
-            rr.SeriesLines(colors=AXIS_COLORS["x"], names="ωx"),
-            static=True,
-        )
-        rr.log(
-            "omega_body/y",
-            rr.SeriesLines(colors=AXIS_COLORS["y"], names="ωy"),
-            static=True,
-        )
-        rr.log(
-            "omega_body/z",
-            rr.SeriesLines(colors=AXIS_COLORS["z"], names="ωz"),
-            static=True,
-        )
-    else:
-        rr.log(
-            "omega_local/x",
-            rr.SeriesLines(colors=AXIS_COLORS["x"], names="ωx"),
-            static=True,
-        )
-        rr.log(
-            "omega_local/y",
-            rr.SeriesLines(colors=AXIS_COLORS["y"], names="ωy"),
-            static=True,
-        )
-        rr.log(
-            "omega_local/z",
-            rr.SeriesLines(colors=AXIS_COLORS["z"], names="ωz"),
-            static=True,
-        )
+    rr.log(
+        "omega_body/x",
+        rr.SeriesLines(colors=AXIS_COLORS["x"], names="ωx"),
+        static=True,
+    )
+    rr.log(
+        "omega_body/x",
+        rr.SeriesPoints(colors=AXIS_COLORS["x"], markers="circle", marker_sizes=1.0),
+        static=True,
+    )
+    rr.log(
+        "omega_body/y",
+        rr.SeriesLines(colors=AXIS_COLORS["y"], names="ωy"),
+        static=True,
+    )
+    rr.log(
+        "omega_body/y",
+        rr.SeriesPoints(colors=AXIS_COLORS["y"], markers="circle", marker_sizes=1.0),
+        static=True,
+    )
+    rr.log(
+        "omega_body/z",
+        rr.SeriesLines(colors=AXIS_COLORS["z"], names="ωz"),
+        static=True,
+    )
+    rr.log(
+        "omega_body/z",
+        rr.SeriesPoints(colors=AXIS_COLORS["z"], markers="circle", marker_sizes=1.0),
+        static=True,
+    )
 
 
-def create_blueprint(has_body_relative: bool) -> rr.blueprint.Blueprint:
+def create_blueprint() -> rrb.Blueprint:
     """Create a Rerun blueprint for the visualization layout."""
-    time_series_panels: list[rr.blueprint.TimeSeriesView] = [
-        rr.blueprint.TimeSeriesView(
+
+    # Time series views on the same timeline sync automatically via the timeline panel
+    time_series_panels: list[rrb.TimeSeriesView] = [
+        rrb.TimeSeriesView(
             name="Euler Angles (World, deg)",
             origin="euler_world",
+            plot_legend=rrb.PlotLegend(visible=True),
+            time_ranges=[
+                rrb.VisibleTimeRange(
+                    timeline="time",  # Assuming 'time' is your timeline name
+                    start=rrb.TimeRangeBoundary.cursor_relative(seconds=-2.0),
+                    end=rrb.TimeRangeBoundary.cursor_relative(seconds=2.0)
+                )
+            ]
         ),
     ]
 
-    if has_body_relative:
-        time_series_panels.append(
-            rr.blueprint.TimeSeriesView(
-                name="Euler Angles (Body-Relative, deg)",
-                origin="euler_body",
-            )
+    time_series_panels.append(
+        rrb.TimeSeriesView(
+            name="Euler Angles (Body-Relative, deg)",
+            origin="euler_body",
+            plot_legend=rrb.PlotLegend(visible=True),
+            time_ranges=[
+                rrb.VisibleTimeRange(
+                    timeline="time",  # Assuming 'time' is your timeline name
+                    start=rrb.TimeRangeBoundary.cursor_relative(seconds=-2.0),
+                    end=rrb.TimeRangeBoundary.cursor_relative(seconds=2.0)
+                )
+            ]
         )
-        time_series_panels.append(
-            rr.blueprint.TimeSeriesView(
-                name="Angular Velocity (World, rad/s)",
-                origin="omega_world",
-            )
+    )
+    time_series_panels.append(
+        rrb.TimeSeriesView(
+            name="Angular Velocity (World, rad/s)",
+            origin="omega_world",
+            plot_legend=rrb.PlotLegend(visible=True),
+            time_ranges=[
+                rrb.VisibleTimeRange(
+                    timeline="time",  # Assuming 'time' is your timeline name
+                    start=rrb.TimeRangeBoundary.cursor_relative(seconds=-2.0),
+                    end=rrb.TimeRangeBoundary.cursor_relative(seconds=2.0)
+                )
+            ]
         )
-        time_series_panels.append(
-            rr.blueprint.TimeSeriesView(
-                name="Angular Velocity (Body-Relative, rad/s)",
-                origin="omega_body",
-            )
+    )
+    time_series_panels.append(
+        rrb.TimeSeriesView(
+            name="Angular Velocity (Body-Relative, rad/s)",
+            origin="omega_body",
+            plot_legend=rrb.PlotLegend(visible=True),
+            time_ranges=[
+                rrb.VisibleTimeRange(
+                    timeline="time",  # Assuming 'time' is your timeline name
+                    start=rrb.TimeRangeBoundary.cursor_relative(seconds=-2.0),
+                    end=rrb.TimeRangeBoundary.cursor_relative(seconds=2.0)
+                )
+            ]
         )
-    else:
-        time_series_panels.append(
-            rr.blueprint.TimeSeriesView(
-                name="Angular Velocity (World, rad/s)",
-                origin="omega_world",
-            )
-        )
-        time_series_panels.append(
-            rr.blueprint.TimeSeriesView(
-                name="Angular Velocity (Head-Local, rad/s)",
-                origin="omega_local",
-            )
-        )
+    )
 
     # Configure the 3D view for mm-scale data (~1m³ cube = 1000mm)
     # Camera positioned to view the whole scene
-    spatial_3d_view = rr.blueprint.Spatial3DView(
+    spatial_3d_view = rrb.Spatial3DView(
         name="3D Skeleton",
         origin="skeleton",
-        # Background color (dark gray)
-        background=[30, 30, 30],
         # Configure eye/camera to view ~1m³ scene (data in mm)
-        eye_controls=rr.blueprint.EyeControls3D(
+        eye_controls=rrb.EyeControls3D(
             # Position camera ~2m back to see 1m³ cube
             position=(0.0, -2000.0, 500.0),
             # Look at center of scene
@@ -535,23 +652,23 @@ def create_blueprint(has_body_relative: bool) -> rr.blueprint.Blueprint:
             eye_up=(0.0, 0.0, 1.0),
         ),
         # Configure grid for mm-scale (100mm = 10cm spacing)
-        line_grid=rr.blueprint.LineGrid3D(
+        line_grid=rrb.LineGrid3D(
             visible=True,
             spacing=100.0,  # 100mm = 10cm grid lines
             plane=rr.components.Plane3D.XY,
             color=[100, 100, 100, 128],
         ),
-        # Show axes and bounding box for reference
-        spatial_information=rr.blueprint.SpatialInformation(
+
+        spatial_information=rrb.SpatialInformation(
             show_axes=True,
             show_bounding_box=True,
         ),
     )
 
-    return rr.blueprint.Blueprint(
-        rr.blueprint.Horizontal(
+    return rrb.Blueprint(
+        rrb.Horizontal(
             spatial_3d_view,
-            rr.blueprint.Vertical(*time_series_panels),
+            rrb.Vertical(*time_series_panels),
             column_shares=[1, 1],
         ),
         collapse_panels=True,
@@ -562,25 +679,23 @@ def create_blueprint(has_body_relative: bool) -> rr.blueprint.Blueprint:
 # MAIN VISUALIZATION FUNCTION
 # =============================================================================
 def run_visualization(
-        result_df: pd.DataFrame,
-        has_body_relative: bool,
-        trajectory_data: dict[int, dict[str, NDArray[np.float64]]] | None,
-        application_id: str = "ferret_head_kinematics",
-        spawn: bool = True,
+    result_df: pd.DataFrame,
+    trajectory_data: dict[int, dict[str, NDArray[np.float64]]],
+    application_id: str = "ferret_head_kinematics",
+    spawn: bool = True,
 ) -> None:
     """
     Run the Rerun visualization using columnar data loading.
 
     Args:
         result_df: DataFrame with kinematics data
-        has_body_relative: Whether body-relative data is present
-        trajectory_data: Optional trajectory data for 3D skeleton
+        trajectory_data:  trajectory data for 3D skeleton
         application_id: Rerun application ID
         spawn: Whether to spawn the Rerun viewer
     """
     rr.init(application_id)
 
-    blueprint = create_blueprint(has_body_relative)
+    blueprint = create_blueprint()
 
     if spawn:
         rr.spawn()
@@ -588,7 +703,7 @@ def run_visualization(
     rr.send_blueprint(blueprint)
 
     # Set up styling (static data)
-    setup_plot_styling(has_body_relative)
+    setup_plot_styling()
 
     timestamps = result_df["timestamp"].values
     t0 = timestamps[0]
@@ -596,11 +711,14 @@ def run_visualization(
 
     print(f"Logging {n_frames} frames using columnar API...")
 
+    # Send the 1m³ enclosure
+    print("  Sending enclosure...")
+    send_enclosure()
+
     # Send all time series data at once using columnar API
     print("  Sending time series data...")
     send_time_series_columns(
         result_df=result_df,
-        has_body_relative=has_body_relative,
     )
 
     # Send skeleton data if available
@@ -616,26 +734,3 @@ def run_visualization(
 
     print("Done!")
 
-
-def run_visualization_from_files(
-        kinematics_csv_path: Path,
-        trajectory_csv_path: Path | None,
-        application_id: str = "ferret_head_kinematics",
-        spawn: bool = True,
-) -> None:
-    """Run visualization from CSV files."""
-    result_df = pd.read_csv(kinematics_csv_path)
-
-    trajectory_data: dict[int, dict[str, NDArray[np.float64]]] | None = None
-    if trajectory_csv_path is not None and trajectory_csv_path.exists():
-        trajectory_data = load_trajectory_data(trajectory_csv_path)
-
-    has_body_relative = "euler_body_relative_roll_rad" in result_df.columns
-
-    run_visualization(
-        result_df=result_df,
-        has_body_relative=has_body_relative,
-        trajectory_data=trajectory_data,
-        application_id=application_id,
-        spawn=spawn,
-    )
