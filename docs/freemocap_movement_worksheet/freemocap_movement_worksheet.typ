@@ -2,7 +2,7 @@
 // FREEMOCAP COUNTER-HEGEMONIC PROJECT WORKSHEET
 // A Strategic Framework for Liberating Knowledge, Education, and Science
 // ============================================================================
-
+ 
 #set document(
   title: "FreeMoCap as Counter-Hegemonic Project",
   author: "FreeMoCap Foundation",
@@ -10,77 +10,74 @@
 
 #set page(
   paper: "us-letter",
-  margin: (x: 1in, y: 1in), 
+  margin: (x: 0.75in, y: 0.75in),
   numbering: "1",
   number-align: center,
-  header: context { 
-    if counter(page).get().first() > 1 [ 
-      #set text(9pt, fill: gray)
+  header: context {
+    if counter(page).get().first() > 1 [
+      #set text(8pt, fill: rgb("#666"))
       #emph[FreeMoCap Movement-Building Worksheet]
-      #h(1fr) 
-      #emph[Liberating Knowledge Production] 
-    ] 
+      #h(1fr)
+      #emph[Liberating Knowledge Production]
+    ]
   }
 )
 
 #set text(
   font: "New Computer Modern",
-  size: 11pt,
+  size: 9.5pt,
   hyphenate: true,
 )
 
 #set par(
   justify: true,
-  leading: 0.65em,
+  leading: 0.6em,
 )
 
 #set heading(numbering: "1.1")
 
 #show heading.where(level: 1): it => {
   pagebreak(weak: true)
-  v(0.5em)
+  v(0.3em)
   block(
-    fill: rgb("#1a1a2e"),
+    stroke: (bottom: 2pt + rgb("#e94560")),
+    inset: (bottom: 8pt),
     width: 100%,
-    inset: 16pt,
-    radius: 4pt,
     [
-      #set text(fill: white, weight: "bold", size: 16pt)
-      #it.body
-    ]
-  )
-  v(0.5em)
-}
-
-#show heading.where(level: 2): it => {
-  v(0.8em)
-  block(
-    stroke: (left: 4pt + rgb("#e94560")),
-    inset: (left: 12pt, y: 8pt),
-    [
-      #set text(fill: rgb("#1a1a2e"), weight: "bold", size: 13pt)
-      #it.body
+      #text(fill: rgb("#1a1a2e"), weight: "bold", size: 14pt)[#it.body]
     ]
   )
   v(0.4em)
 }
 
-#show heading.where(level: 3): it => {
-  v(0.5em)
-  text(weight: "bold", size: 11pt, fill: rgb("#0f3460"))[#it.body]
+#show heading.where(level: 2): it => {
+  v(0.6em)
+  block(
+    stroke: (left: 3pt + rgb("#e94560")),
+    inset: (left: 10pt, y: 6pt),
+    [
+      #text(fill: rgb("#1a1a2e"), weight: "bold", size: 11pt)[#it.body]
+    ]
+  )
   v(0.3em)
+}
+
+#show heading.where(level: 3): it => {
+  v(0.4em)
+  text(weight: "bold", size: 10pt, fill: rgb("#0f3460"))[#it.body]
+  v(0.2em)
 }
 
 // Custom components
 #let epigraph(quote, author) = {
   block(
     width: 100%,
-    inset: (x: 2em, y: 1em),
+    inset: (x: 1.5em, y: 0.6em),
     [
-      #set text(style: "italic", size: 10.5pt)
+      #set text(style: "italic", size: 9pt, fill: rgb("#555"))
       #quote
-      #v(0.3em)
-      #align(right)[— #author]
+      #h(1fr)
+      — #author
     ]
   )
 }
@@ -88,14 +85,16 @@
 #let callout(title, body, accent: rgb("#e94560")) = {
   block(
     width: 100%,
-    fill: accent.lighten(90%),
-    stroke: (left: 4pt + accent),
-    inset: 12pt,
-    radius: (right: 4pt),
+    fill: accent.lighten(92%),
+    stroke: (left: 3pt + accent),
+    inset: 10pt,
+    radius: (right: 3pt),
     [
-      #text(weight: "bold", fill: accent)[#title]
-      #v(0.3em)
-      #body
+      #text(weight: "bold", size: 9pt, fill: accent.darken(20%))[#title]
+      #if body != [] [
+        #v(0.2em)
+        #text(size: 9pt)[#body]
+      ]
     ]
   )
 }
@@ -103,17 +102,17 @@
 #let worksheet-field(prompt, lines: 3) = {
   block(
     width: 100%,
-    inset: (y: 0.5em),
+    inset: (y: 0.4em),
     [
-      #text(weight: "medium", fill: rgb("#333"))[#prompt]
-      #v(0.3em)
+      #text(weight: "medium", size: 9pt, fill: rgb("#333"))[#prompt]
+      #v(0.2em)
       #block(
         width: 100%,
-        height: lines * 1.5em,
-        fill: rgb("#f8f9fa"),
-        stroke: 1pt + rgb("#dee2e6"),
-        radius: 4pt,
-        inset: 8pt,
+        height: lines * 1.2em,
+        fill: rgb("#fafafa"),
+        stroke: 0.75pt + rgb("#ddd"),
+        radius: 3pt,
+        inset: 6pt,
         []
       )
     ]
@@ -123,20 +122,22 @@
 #let completion-prompt(start) = {
   block(
     width: 100%,
-    inset: (y: 0.3em),
+    inset: (y: 0.25em),
     [
-      #box(
-        fill: rgb("#e9ecef"),
-        inset: (x: 8pt, y: 4pt),
-        radius: 3pt,
-        [#text(style: "italic")[#start]]
-      )
-      #box(
-        width: 1fr,
-        stroke: (bottom: 1pt + rgb("#adb5bd")),
-        inset: (bottom: 2pt),
-        []
-      )
+      #text(size: 9pt)[
+        #box(
+          fill: rgb("#f0f0f0"),
+          inset: (x: 6pt, y: 3pt),
+          radius: 2pt,
+          [#text(style: "italic")[#start]]
+        )
+        #box(
+          width: 1fr,
+          stroke: (bottom: 0.75pt + rgb("#bbb")),
+          inset: (bottom: 2pt),
+          []
+        )
+      ]
     ]
   )
 }
@@ -144,11 +145,13 @@
 #let resource-link(title, url, description) = {
   block(
     width: 100%,
-    inset: (y: 0.3em),
+    inset: (y: 0.2em),
     [
-      #link(url)[#text(fill: rgb("#0066cc"), weight: "medium")[#title]]
-      #h(0.5em)
-      #text(size: 9pt, fill: gray)[#description]
+      #text(size: 8.5pt)[
+        #link(url)[#text(fill: rgb("#0066cc"), weight: "medium")[#title]]
+        #h(0.3em)
+        #text(fill: rgb("#777"))[— #description]
+      ]
     ]
   )
 }
@@ -158,56 +161,57 @@
 // ============================================================================
 
 #align(center)[
-  #v(2fr)
+  #v(1.5fr)
   
   #block(
-    width: 80%,
+    width: 85%,
     [
-      #text(size: 32pt, weight: "bold", fill: rgb("#1a1a2e"))[
+      #text(size: 24pt, weight: "bold", fill: rgb("#1a1a2e"))[
         FreeMoCap as Counter-Hegemonic Project
       ]
       
-      #v(1em)
+      #v(0.6em)
       
-      #line(length: 60%, stroke: 2pt + rgb("#e94560"))
+      #line(length: 50%, stroke: 1.5pt + rgb("#e94560"))
       
-      #v(1em)
+      #v(0.6em)
       
-      #text(size: 16pt, fill: rgb("#0f3460"))[
+      #text(size: 12pt, fill: rgb("#0f3460"))[
         A Strategic Worksheet for Liberating \ Knowledge, Education, and Science
       ]
     ]
   )
   
-  #v(2em)
+  #v(1.5em)
   
   #block(
-    width: 70%,
-    fill: rgb("#f8f9fa"),
-    inset: 20pt,
-    radius: 8pt,
+    width: 75%,
+    fill: rgb("#f8f8f8"),
+    stroke: 0.75pt + rgb("#ddd"),
+    inset: 16pt,
+    radius: 6pt,
     [
-      #set text(size: 10pt, style: "italic")
-      #set par(leading: 0.8em)
+      #set text(size: 9pt, style: "italic")
+      #set par(leading: 0.7em)
       
       "The great revolution in the history of man, past, present and future, is the revolution of those determined to be free."
       #align(right)[— *Toussaint Louverture*]
       
-      #v(1em)
+      #v(0.8em)
       
       "Information is power. But like all power, there are those who want to keep it for themselves."
       #align(right)[— *Aaron Swartz*]
       
-      #v(1em)
+      #v(0.8em)
       
-      #set text(style: "normal", size: 9.5pt)
+      #set text(style: "normal", size: 8.5pt)
       *On tools:* The Haitian revolutionaries got their muskets from the French. They got their military tactics from the French. They got the language of universal liberty from the French Revolution — then held France accountable to ideals France never intended for them. Tools are not ideologically fixed to their origins. The code doesn't know who's running it. *Appropriate everything.*
     ]
   )
   
-  #v(3fr)
+  #v(2fr)
   
-  #text(size: 10pt, fill: gray)[
+  #text(size: 8.5pt, fill: rgb("#666"))[
     Based on Jonathan Smucker's _Hegemony How-To_ and political organizing theory \
     Prepared for the FreeMoCap Foundation
   ]
@@ -222,70 +226,51 @@
 #pagebreak()
 
 #align(center)[
-  #text(size: 18pt, weight: "bold")[Contents]
+  #text(size: 14pt, weight: "bold")[Contents]
 ]
 
-#v(1em)
+#v(0.8em)
 
 #outline(
   title: none,
-  indent: 1.5em,
+  indent: 1.2em,
   depth: 2,
 )
 
-#v(2em)
+#v(1.5em)
 
 #callout(
   "How to Use This Worksheet",
   [
-    This worksheet is designed for both individual reflection and group discussion:
-    
     + *Individual first pass:* Each core team member completes sections independently
     + *Compare and discuss:* Share responses and identify patterns, disagreements, tensions  
     + *Synthesize:* Develop shared answers that represent collective understanding
-    + *Revisit quarterly:* These questions aren't "solved" once — return to them as the project evolves
+    + *Revisit quarterly:* These questions aren't "solved" once — return as the project evolves
     
-    Set aside dedicated time. This isn't a 30-minute exercise — budget 2-3 hours for serious engagement with each major section.
+    Budget 2-3 hours for serious engagement with each major section.
   ],
   accent: rgb("#0f3460")
 )
 
-// ============================================================================
-// FRAMING
-// ============================================================================
+#v(1em)
 
-#pagebreak()
-
-#align(center)[
-  #block(
-    width: 90%,
-    fill: rgb("#1a1a2e"),
-    inset: 24pt,
-    radius: 8pt,
-    [
-      #set text(fill: white)
-      #text(size: 14pt, weight: "bold")[Framing: What Are We Actually Doing?]
+#block(
+  fill: rgb("#fff8e6"),
+  stroke: (left: 3pt + rgb("#e6a700")),
+  inset: 10pt,
+  radius: (right: 3pt),
+  [
+    #text(weight: "bold", size: 9pt, fill: rgb("#996600"))[Framing: What Are We Actually Doing?]
+    #v(0.3em)
+    #text(size: 8.5pt)[
+      FreeMoCap the motion capture software is *Stage 1* — a concrete demonstration that research-grade scientific tools can be free and accessible, that you don't need a university affiliation or \$200,000 budget to produce knowledge, and that the barriers are artificial.
       
-      #v(1em)
+      #v(0.3em)
       
-      FreeMoCap the motion capture software is *Stage 1* — a concrete demonstration that:
-      
-      #v(0.5em)
-      
-      #set text(size: 10.5pt)
-      - Research-grade scientific tools can be free, open, and accessible to everyone
-      - You don't need a university affiliation to do real science
-      - You don't need a \$200,000 budget to produce knowledge
-      - The barriers are artificial, maintained by institutions that benefit from scarcity
-      
-      #v(1em)
-      
-      #text(size: 11pt)[
-        The *actual project* is much larger: dismantling the current hegemony of knowledge production — the interlocking system of universities, academic journals, proprietary software, professional credentialism, and institutional gatekeeping that determines who gets to participate in science, education, and the creation of knowledge.
-      ]
+      The *actual project* is much larger: dismantling the current hegemony of knowledge production — the interlocking system of universities, journals, proprietary software, credentialism, and gatekeeping that determines who gets to participate in science, education, and knowledge creation.
     ]
-  )
-]
+  ]
+)
 
 // ============================================================================
 // PART 1: MAPPING THE ENEMY
@@ -302,57 +287,58 @@
 
 Map the interlocking institutions that control knowledge production:
 
-#v(0.5em)
+#v(0.3em)
 
 #table(
-  columns: (1.2fr, 1.2fr, 1.5fr, 1.5fr),
-  inset: 8pt,
+  columns: (1.1fr, 1.1fr, 1.4fr, 1.4fr),
+  inset: 6pt,
   align: (left, left, left, left),
-  fill: (col, row) => if row == 0 { rgb("#1a1a2e") } else if calc.odd(row) { rgb("#f8f9fa") } else { white },
+  stroke: 0.5pt + rgb("#ccc"),
+  fill: (_, row) => if row == 0 { rgb("#f0f0f0") } else { white },
   
-  [#text(fill: white, weight: "bold", size: 9pt)[Institution]], 
-  [#text(fill: white, weight: "bold", size: 9pt)[What it Controls]], 
-  [#text(fill: white, weight: "bold", size: 9pt)[How it Maintains Control]], 
-  [#text(fill: white, weight: "bold", size: 9pt)[Justifying Ideology]],
+  [#text(weight: "bold", size: 8pt)[Institution]], 
+  [#text(weight: "bold", size: 8pt)[What it Controls]], 
+  [#text(weight: "bold", size: 8pt)[How it Maintains Control]], 
+  [#text(weight: "bold", size: 8pt)[Justifying Ideology]],
   
-  [*Universities*], 
-  [Access to education, research resources, credentials], 
-  [Accreditation, degree requirements, tenure system], 
-  [_"Expertise requires formal training"_],
+  text(size: 8pt)[*Universities*], 
+  text(size: 8pt)[Access to education, research resources, credentials], 
+  text(size: 8pt)[Accreditation, degree requirements, tenure system], 
+  text(size: 8pt, style: "italic")["Expertise requires formal training"],
   
-  [*Academic Journals*], 
-  [What counts as "real" knowledge], 
-  [Peer review gatekeeping, impact factors, paywalls], 
-  [_"Peer review ensures quality"_],
+  text(size: 8pt)[*Academic Journals*], 
+  text(size: 8pt)[What counts as "real" knowledge], 
+  text(size: 8pt)[Peer review gatekeeping, impact factors, paywalls], 
+  text(size: 8pt, style: "italic")["Peer review ensures quality"],
   
-  [*Proprietary Software*], 
-  [Tools for knowledge production], 
-  [Licensing, prices, closed formats], 
-  [_"Professional tools cost money"_],
+  text(size: 8pt)[*Proprietary Software*], 
+  text(size: 8pt)[Tools for knowledge production], 
+  text(size: 8pt)[Licensing, prices, closed formats], 
+  text(size: 8pt, style: "italic")["Professional tools cost money"],
   
-  [*Professional Associations*], 
-  [Who counts as "qualified"], 
-  [Certifications, ethical codes as gatekeeping], 
-  [_"Credentials protect the public"_],
+  text(size: 8pt)[*Professional Associations*], 
+  text(size: 8pt)[Who counts as "qualified"], 
+  text(size: 8pt)[Certifications, ethical codes as gatekeeping], 
+  text(size: 8pt, style: "italic")["Credentials protect the public"],
   
-  [*Funding Agencies*], 
-  [What research gets done], 
-  [Grant systems, overhead rates], 
-  [_"Competitive funding ensures quality"_],
+  text(size: 8pt)[*Funding Agencies*], 
+  text(size: 8pt)[What research gets done], 
+  text(size: 8pt)[Grant systems, overhead rates], 
+  text(size: 8pt, style: "italic")["Competitive funding ensures quality"],
 )
 
-#v(1em)
+#v(0.5em)
 
 *Add others you identify:*
 
 #table(
   columns: (1fr, 1fr, 1fr, 1fr),
-  inset: 10pt,
-  rows: (auto, 2.5em, 2.5em, 2.5em),
-  fill: (_, row) => if row == 0 { rgb("#e9ecef") } else { rgb("#f8f9fa") },
+  inset: 6pt,
+  stroke: 0.5pt + rgb("#ccc"),
+  rows: (auto, 1.8em, 1.8em),
+  fill: (_, row) => if row == 0 { rgb("#f5f5f5") } else { rgb("#fafafa") },
   
-  [Institution], [What it Controls], [How it Maintains Control], [Justifying Ideology],
-  [], [], [], [],
+  text(size: 8pt)[Institution], text(size: 8pt)[Controls], text(size: 8pt)[Maintains Control], text(size: 8pt)[Ideology],
   [], [], [], [],
   [], [], [], [],
 )
@@ -372,11 +358,10 @@ Map the interlocking institutions that control knowledge production:
 #completion-prompt("Education requires")
 #completion-prompt("If software/journals/education were free,")
 #completion-prompt("People outside institutions can't do real research because")
-#completion-prompt("We need universities because")
 
-#v(1em)
+#v(0.5em)
 
-#worksheet-field("Where did these beliefs come from? Who benefits from people believing them?", lines: 4)
+#worksheet-field("Where did these beliefs come from? Who benefits from people believing them?", lines: 3)
 
 == Cracks in the Edifice
 
@@ -384,69 +369,77 @@ No hegemony is total. Where is the current system failing?
 
 #table(
   columns: (1.2fr, 1.2fr, 1.5fr),
-  inset: 8pt,
-  fill: (_, row) => if row == 0 { rgb("#1a1a2e") } else if calc.odd(row) { rgb("#f8f9fa") } else { white },
+  inset: 6pt,
+  stroke: 0.5pt + rgb("#ccc"),
+  fill: (_, row) => if row == 0 { rgb("#f0f0f0") } else { white },
   
-  [#text(fill: white, weight: "bold", size: 9pt)[System Failure]], 
-  [#text(fill: white, weight: "bold", size: 9pt)[Who Experiences This?]], 
-  [#text(fill: white, weight: "bold", size: 9pt)[What Do They Currently Blame?]],
+  text(size: 8pt, weight: "bold")[System Failure], 
+  text(size: 8pt, weight: "bold")[Who Experiences This?], 
+  text(size: 8pt, weight: "bold")[What Do They Currently Blame?],
   
-  [Reproducibility crisis], [Researchers, public], [_"Bad actors," not systemic incentives_],
-  [Student debt crisis], [Students, families], [_"Expensive schools," not credentialism itself_],
-  [Journal paywalls], [Everyone outside elite institutions], [_"Greedy publishers," not the publication model_],
-  [Adjunctification], [Early-career academics], [_"Budget cuts," not the tenure system_],
-  [Research irrelevance], [Practitioners, public], [_"Ivory tower," not funding structures_],
-  [Proprietary lock-in], [Researchers, educators], [_Specific vendors, not proprietary model_],
+  text(size: 8pt)[Reproducibility crisis], text(size: 8pt)[Researchers, public], text(size: 8pt, style: "italic")["Bad actors," not systemic incentives],
+  text(size: 8pt)[Student debt crisis], text(size: 8pt)[Students, families], text(size: 8pt, style: "italic")["Expensive schools," not credentialism itself],
+  text(size: 8pt)[Journal paywalls], text(size: 8pt)[Everyone outside elite institutions], text(size: 8pt, style: "italic")["Greedy publishers," not the publication model],
+  text(size: 8pt)[Adjunctification], text(size: 8pt)[Early-career academics], text(size: 8pt, style: "italic")["Budget cuts," not the tenure system],
+  text(size: 8pt)[Proprietary lock-in], text(size: 8pt)[Researchers, educators], text(size: 8pt, style: "italic")[Specific vendors, not proprietary model],
 )
 
-#v(0.5em)
+#v(0.3em)
 
-#worksheet-field("Key question: These people are experiencing real problems with the system. How could you help them see the SYSTEMIC cause rather than blaming individuals or specific bad actors?", lines: 4)
+#worksheet-field("How could you help people see the SYSTEMIC cause rather than blaming individuals?", lines: 3)
 
 == Who Benefits, Who Loses
 
-#columns(2, gutter: 1.5em)[
-  *Under the current system, who benefits?*
-  
-  #table(
-    columns: (1fr, 1.5fr),
-    inset: 6pt,
-    fill: (_, row) => if row == 0 { rgb("#c9ffc9") } else { rgb("#f0fff0") },
-    [*Who*], [*How*],
-    [Tenured faculty at elite institutions], [],
-    [Academic publishers], [],
-    [Proprietary software companies], [],
-    [], [],
-    [], [],
+#columns(2, gutter: 1em)[
+  #block(
+    fill: rgb("#f0fff0"),
+    stroke: 0.5pt + rgb("#9c9"),
+    inset: 8pt,
+    radius: 3pt,
+    width: 100%,
+    [
+      #text(size: 8.5pt, weight: "bold")[Who benefits?]
+      #v(0.2em)
+      #text(size: 8pt)[
+        - Tenured faculty at elite institutions
+        - Academic publishers
+        - Proprietary software companies
+        - #box(width: 1fr, stroke: (bottom: 0.5pt + rgb("#ccc")), [])
+      ]
+    ]
   )
   
   #colbreak()
   
-  *Who loses?*
-  
-  #table(
-    columns: (1fr, 1.5fr),
-    inset: 6pt,
-    fill: (_, row) => if row == 0 { rgb("#ffc9c9") } else { rgb("#fff0f0") },
-    [*Who*], [*How*],
-    [Students (debt, limited access)], [],
-    [Adjuncts and contingent faculty], [],
-    [Under-resourced institutions], [],
-    [Global South academics], [],
-    [Independent researchers], [],
-    [The public], [],
+  #block(
+    fill: rgb("#fff0f0"),
+    stroke: 0.5pt + rgb("#c99"),
+    inset: 8pt,
+    radius: 3pt,
+    width: 100%,
+    [
+      #text(size: 8.5pt, weight: "bold")[Who loses?]
+      #v(0.2em)
+      #text(size: 8pt)[
+        - Students (debt, limited access)
+        - Adjuncts and contingent faculty
+        - Global South academics
+        - Independent researchers
+        - The public
+      ]
+    ]
   )
 ]
 
-#v(1em)
+#v(0.5em)
 
 #callout(
-  "Critical Question",
-  [The people who lose vastly outnumber those who benefit. *Why hasn't the system already changed?*],
+  "Critical Question: The people who lose vastly outnumber those who benefit. Why hasn't the system already changed?",
+  [],
   accent: rgb("#e94560")
 )
 
-#worksheet-field("Your analysis:", lines: 4)
+#worksheet-field("Your analysis:", lines: 3)
 
 // ============================================================================
 // PART 2: THE COUNTER-HEGEMONIC VISION
@@ -468,35 +461,26 @@ No hegemony is total. Where is the current system failing?
 #completion-prompt("When I need research tools, I")
 #completion-prompt("Knowledge is validated by")
 #completion-prompt("Education happens")
-#completion-prompt("My work is valued because..., not because I have credentials from")
 
 == Core Principles of the New Hegemony
 
-What are the foundational beliefs of the world you're building?
-
 #block(
-  fill: rgb("#f8f9fa"),
-  inset: 16pt,
-  radius: 8pt,
+  fill: rgb("#f8f8f8"),
+  stroke: 0.5pt + rgb("#ddd"),
+  inset: 12pt,
+  radius: 4pt,
   width: 100%,
   [
-    *Draft 5-7 core principles:*
+    #text(size: 9pt, weight: "bold")[Draft 5-7 core principles of the world you're building:]
     
-    #v(0.5em)
+    #v(0.4em)
     
     #for i in range(1, 8) {
-      [#i. #box(width: 1fr, stroke: (bottom: 1pt + rgb("#dee2e6")), inset: (bottom: 4pt), [])]
-      v(1em)
+      text(size: 8.5pt)[#i. #box(width: 1fr, stroke: (bottom: 0.5pt + rgb("#ccc")), inset: (bottom: 3pt), [])]
+      v(0.7em)
     }
   ]
 )
-
-#v(1em)
-
-For each principle, you'll need to articulate:
-- *Why it's true* (the positive case)
-- *What current belief it displaces*
-- *What changes if people accept it*
 
 == Prefigurative Politics
 
@@ -506,25 +490,9 @@ For each principle, you'll need to articulate:
   accent: rgb("#0f3460")
 )
 
-#table(
-  columns: (1fr, 2fr),
-  inset: 10pt,
-  fill: (_, row) => if row == 0 { rgb("#1a1a2e") } else { rgb("#f8f9fa") },
-  
-  [#text(fill: white, weight: "bold")[Principle]], 
-  [#text(fill: white, weight: "bold")[How FreeMoCap Demonstrates This NOW]],
-  
-  [], [],
-  [], [],
-  [], [],
-  [], [],
-)
+#worksheet-field("How does FreeMoCap currently embody these principles?", lines: 2)
 
-#v(0.5em)
-
-#worksheet-field("Where does FreeMoCap fall short of its own principles? (Be honest)", lines: 3)
-
-#worksheet-field("What would it look like to more fully embody these principles?", lines: 3)
+#worksheet-field("Where does FreeMoCap fall short of its own principles? (Be honest)", lines: 2)
 
 // ============================================================================
 // PART 3: THEORY OF CHANGE
@@ -540,125 +508,115 @@ For each principle, you'll need to articulate:
 == Historical Models
 
 #table(
-  columns: (1fr, 1.2fr, 1.5fr, 1.5fr),
-  inset: 8pt,
-  fill: (_, row) => if row == 0 { rgb("#1a1a2e") } else if calc.odd(row) { rgb("#f8f9fa") } else { white },
+  columns: (1fr, 1.2fr, 1.5fr, 1.3fr),
+  inset: 5pt,
+  stroke: 0.5pt + rgb("#ccc"),
+  fill: (_, row) => if row == 0 { rgb("#f0f0f0") } else { white },
   
-  [#text(fill: white, weight: "bold", size: 9pt)[Movement/Project]], 
-  [#text(fill: white, weight: "bold", size: 9pt)[Hegemony Challenged]], 
-  [#text(fill: white, weight: "bold", size: 9pt)[How They Won]], 
-  [#text(fill: white, weight: "bold", size: 9pt)[Lessons for FreeMoCap]],
+  text(size: 8pt, weight: "bold")[Movement], 
+  text(size: 8pt, weight: "bold")[Hegemony Challenged], 
+  text(size: 8pt, weight: "bold")[How They Won], 
+  text(size: 8pt, weight: "bold")[Lessons],
   
-  [Free Software Movement], 
-  [Proprietary software as default], 
-  [Built viable alternatives, created licensing infrastructure, changed developer culture],
+  text(size: 8pt)[Free Software], 
+  text(size: 8pt)[Proprietary software], 
+  text(size: 8pt)[Built alternatives, licensing infrastructure, changed culture],
   [],
   
-  [Open Access Movement], 
-  [Journal paywalls], 
-  [Mandates, repositories, demonstrated demand, Sci-Hub as civil disobedience],
+  text(size: 8pt)[Open Access], 
+  text(size: 8pt)[Journal paywalls], 
+  text(size: 8pt)[Mandates, repositories, Sci-Hub],
   [],
   
-  [Wikipedia], 
-  [Expert-only encyclopedias], 
-  [Just built it, proved it worked, became too useful to ignore],
+  text(size: 8pt)[Wikipedia], 
+  text(size: 8pt)[Expert-only encyclopedias], 
+  text(size: 8pt)[Just built it, proved it worked],
   [],
   
-  [Linux], 
-  [Microsoft/proprietary OS hegemony], 
-  [Server dominance first, enterprise adoption, Android],
+  text(size: 8pt)[Linux], 
+  text(size: 8pt)[Microsoft hegemony], 
+  text(size: 8pt)[Server dominance first, Android],
   [],
 )
 
-#worksheet-field("What do successful counter-hegemonic projects have in common?", lines: 3)
+#worksheet-field("What do successful counter-hegemonic projects have in common?", lines: 2)
 
 == Your Theory of Change
 
 #block(
-  fill: rgb("#e9ecef"),
-  inset: 16pt,
-  radius: 8pt,
+  fill: rgb("#f5f5f5"),
+  stroke: 0.5pt + rgb("#ddd"),
+  inset: 12pt,
+  radius: 4pt,
   [
-    Complete this theory of change:
+    #text(size: 9pt)[Complete this theory of change:]
     
-    #v(0.5em)
-    
-    *If* FreeMoCap #box(width: 1fr, stroke: (bottom: 1pt + rgb("#adb5bd")), [])
-    
-    #v(0.8em)
-    
-    *Then* [constituency] will #box(width: 1fr, stroke: (bottom: 1pt + rgb("#adb5bd")), [])
-    
-    #v(0.8em)
-    
-    *Which will cause* [institutional change] #box(width: 1fr, stroke: (bottom: 1pt + rgb("#adb5bd")), [])
-    
-    #v(0.8em)
-    
-    *Leading to* [broader shift] #box(width: 1fr, stroke: (bottom: 1pt + rgb("#adb5bd")), [])
-    
-    #v(0.8em)
-    
-    *Until eventually* [new hegemony] #box(width: 1fr, stroke: (bottom: 1pt + rgb("#adb5bd")), [])
+    #v(0.4em)
+    #text(size: 8.5pt)[
+      *If* FreeMoCap #box(width: 1fr, stroke: (bottom: 0.5pt + rgb("#aaa")), [])
+      
+      #v(0.6em)
+      
+      *Then* [constituency] will #box(width: 1fr, stroke: (bottom: 0.5pt + rgb("#aaa")), [])
+      
+      #v(0.6em)
+      
+      *Which will cause* #box(width: 1fr, stroke: (bottom: 0.5pt + rgb("#aaa")), [])
+      
+      #v(0.6em)
+      
+      *Leading to* #box(width: 1fr, stroke: (bottom: 0.5pt + rgb("#aaa")), [])
+      
+      #v(0.6em)
+      
+      *Until eventually* #box(width: 1fr, stroke: (bottom: 0.5pt + rgb("#aaa")), [])
+    ]
   ]
 )
-
-#v(1em)
-
-#worksheet-field("What are the key assumptions in this theory? What has to be true for it to work?", lines: 4)
 
 == The Stages
 
 If FreeMoCap motion capture is Stage 1, what are the subsequent stages?
 
 #table(
-  columns: (0.5fr, 1fr, 1fr, 1.2fr, 1.2fr),
-  inset: 8pt,
-  fill: (_, row) => if row == 0 { rgb("#1a1a2e") } else if row == 1 { rgb("#e9ecef") } else { rgb("#f8f9fa") },
+  columns: (0.4fr, 1fr, 1fr, 1.2fr, 1.2fr),
+  inset: 5pt,
+  stroke: 0.5pt + rgb("#ccc"),
+  fill: (_, row) => if row == 0 { rgb("#f0f0f0") } else if row == 1 { rgb("#f8f8f8") } else { white },
   
-  [#text(fill: white, weight: "bold", size: 9pt)[Stage]], 
-  [#text(fill: white, weight: "bold", size: 9pt)[Focus]], 
-  [#text(fill: white, weight: "bold", size: 9pt)[Goal]], 
-  [#text(fill: white, weight: "bold", size: 9pt)[Success Looks Like]], 
-  [#text(fill: white, weight: "bold", size: 9pt)[Enables Next Stage By...]],
+  text(size: 8pt, weight: "bold")[Stage], 
+  text(size: 8pt, weight: "bold")[Focus], 
+  text(size: 8pt, weight: "bold")[Goal], 
+  text(size: 8pt, weight: "bold")[Success Looks Like], 
+  text(size: 8pt, weight: "bold")[Enables Next Stage By...],
   
-  [*1*], [Motion capture], [Prove FOSS can match proprietary], [Adoption in labs, citations], [Builds credibility, community],
-  [*2*], [], [], [], [],
-  [*3*], [], [], [], [],
-  [*4*], [], [], [], [],
-  [*5*], [], [], [], [],
+  text(size: 8pt)[*1*], text(size: 8pt)[Motion capture], text(size: 8pt)[Prove FOSS can match proprietary], text(size: 8pt)[Adoption, citations], text(size: 8pt)[Builds credibility],
+  text(size: 8pt)[*2*], [], [], [], [],
+  text(size: 8pt)[*3*], [], [], [], [],
+  text(size: 8pt)[*4*], [], [], [], [],
+  text(size: 8pt)[*5*], [], [], [], [],
 )
-
-#v(0.5em)
-
-*What capabilities/resources/credibility do you need to build at each stage?*
-
-#completion-prompt("Stage 1 → 2 requires:")
-#completion-prompt("Stage 2 → 3 requires:")
-#completion-prompt("Stage 3 → 4 requires:")
 
 == Multiple Fronts
 
-Counter-hegemonic projects usually require pressure on multiple fronts simultaneously.
-
 #table(
-  columns: (1fr, 1.2fr, 1.2fr, 1fr),
-  inset: 8pt,
-  fill: (_, row) => if row == 0 { rgb("#1a1a2e") } else if calc.odd(row) { rgb("#f8f9fa") } else { white },
+  columns: (0.9fr, 1.2fr, 1.2fr, 0.9fr),
+  inset: 5pt,
+  stroke: 0.5pt + rgb("#ccc"),
+  fill: (_, row) => if row == 0 { rgb("#f0f0f0") } else { white },
   
-  [#text(fill: white, weight: "bold", size: 9pt)[Front]], 
-  [#text(fill: white, weight: "bold", size: 9pt)[What Victory Looks Like]], 
-  [#text(fill: white, weight: "bold", size: 9pt)[Who's Already Fighting Here?]], 
-  [#text(fill: white, weight: "bold", size: 9pt)[FreeMoCap's Role]],
+  text(size: 8pt, weight: "bold")[Front], 
+  text(size: 8pt, weight: "bold")[Victory Looks Like], 
+  text(size: 8pt, weight: "bold")[Who's Fighting Here?], 
+  text(size: 8pt, weight: "bold")[FreeMoCap's Role],
   
-  [*Tools* (FOSS research software)], [FOSS default for research], [NumPy, R, Jupyter, etc.], [Active combatant],
-  [*Publishing* (Open Access)], [Paywalls gone, new validation], [PLOS, arXiv, Sci-Hub], [?],
-  [*Education* (alt credentials)], [Degrees not required], [MOOCs, bootcamps], [?],
-  [*Funding* (alt models)], [Research funded outside grants], [Crowdfunding, citizen science], [?],
-  [*Community* (indie research)], [Legitimate research outside academy], [Indie researchers], [?],
+  text(size: 8pt)[*Tools* (FOSS)], text(size: 8pt)[FOSS default], text(size: 8pt)[NumPy, R, Jupyter], text(size: 8pt)[Active combatant],
+  text(size: 8pt)[*Publishing*], text(size: 8pt)[Paywalls gone], text(size: 8pt)[PLOS, arXiv, Sci-Hub], [],
+  text(size: 8pt)[*Education*], text(size: 8pt)[Degrees not required], text(size: 8pt)[MOOCs, bootcamps], [],
+  text(size: 8pt)[*Funding*], text(size: 8pt)[Alt funding models], text(size: 8pt)[Crowdfunding, citizen science], [],
 )
 
-#worksheet-field("Where should FreeMoCap focus? Where should it build alliances?", lines: 3)
+#worksheet-field("Where should FreeMoCap focus? Where build alliances?", lines: 2)
 
 // ============================================================================
 // PART 4: PUBLIC NARRATIVE
@@ -685,125 +643,101 @@ Counter-hegemonic projects usually require pressure on multiple fronts simultane
 
 *Why are YOU, Jon, fighting to liberate knowledge production?*
 
-#worksheet-field("The Encounter: When did you first experience the injustice of the current system? What specific moment showed you something was wrong?", lines: 4)
+#worksheet-field("The Encounter: When did you first experience the injustice of the current system?", lines: 3)
 
-#worksheet-field("The Choice: What moment of choice committed you to this fight? (Not a gradual drift — a moment when you could have done otherwise but chose this.)", lines: 4)
+#worksheet-field("The Choice: What moment committed you to this fight?", lines: 3)
 
-#worksheet-field("The Cost: What have you given up or risked by making this choice? (Sacrifice demonstrates commitment and values.)", lines: 3)
-
-#worksheet-field("The Values: What deep values drive this work? Not 'open source is good' but the VALUES underneath — justice? freedom? democracy? human flourishing?", lines: 3)
+#worksheet-field("The Values: What deep values drive this? (Not 'open source is good' — the values underneath)", lines: 2)
 
 #block(
-  fill: rgb("#fff3cd"),
-  stroke: 1pt + rgb("#ffc107"),
-  inset: 12pt,
-  radius: 4pt,
+  fill: rgb("#fffde7"),
+  stroke: (left: 3pt + rgb("#fbc02d")),
+  inset: 10pt,
+  radius: (right: 3pt),
   [
-    *Draft your Story of Self (3-4 sentences, conversational):*
-    #v(0.5em)
-    #block(height: 4em, width: 100%, fill: white, stroke: 1pt + rgb("#dee2e6"), radius: 4pt, [])
+    #text(weight: "bold", size: 8.5pt, fill: rgb("#996600"))[Draft your Story of Self (3-4 sentences):]
+    #v(0.3em)
+    #block(height: 3em, width: 100%, fill: white, stroke: 0.5pt + rgb("#ddd"), radius: 3pt, [])
   ]
 )
 
 == Story of Us
 
-*Who is the "we" fighting for liberated knowledge? This must be MUCH bigger than "FreeMoCap users."*
+*Who is the "we" fighting for liberated knowledge? Much bigger than "FreeMoCap users."*
 
 #block(
-  fill: rgb("#f8f9fa"),
-  inset: 12pt,
-  radius: 4pt,
+  fill: rgb("#f8f8f8"),
+  stroke: 0.5pt + rgb("#ddd"),
+  inset: 10pt,
+  radius: 3pt,
   [
-    *The broadest possible "we" — who has been harmed by or excluded from the current knowledge system?*
-    
-    - Students crushed by debt for credentials that gatekeep knowledge
-    - Researchers at under-resourced institutions  
-    - Global South academics locked out by paywalls and equipment costs
-    - Independent researchers dismissed as "not real scientists"
-    - Practitioners who can't access research relevant to their work
-    - Curious people told "you're not qualified to understand this"
-    - #box(width: 1fr, stroke: (bottom: 1pt + rgb("#dee2e6")), [])
-    - #box(width: 1fr, stroke: (bottom: 1pt + rgb("#dee2e6")), [])
+    #text(size: 8.5pt, weight: "bold")[The broadest possible "we" — who has been harmed/excluded?]
+    #text(size: 8pt)[
+      - Students crushed by debt for credentials that gatekeep knowledge
+      - Researchers at under-resourced institutions  
+      - Global South academics locked out by paywalls
+      - Independent researchers dismissed as "not real scientists"
+      - Curious people told "you're not qualified"
+      - #box(width: 1fr, stroke: (bottom: 0.5pt + rgb("#ccc")), [])
+    ]
   ]
 )
 
 #completion-prompt("The shared experience — what do all these people have in common?")
-
-#completion-prompt("The shared enemy (not 'universities' — the SYSTEM, the ideology):")
-
-#completion-prompt("The shared vision — what world are 'we' building together?")
-
-#block(
-  fill: rgb("#fff3cd"),
-  stroke: 1pt + rgb("#ffc107"),
-  inset: 12pt,
-  radius: 4pt,
-  [
-    *Draft your Story of Us (3-4 sentences):*
-    #v(0.5em)
-    #block(height: 4em, width: 100%, fill: white, stroke: 1pt + rgb("#dee2e6"), radius: 4pt, [])
-  ]
-)
+#completion-prompt("The shared enemy (the SYSTEM, not 'universities'):")
+#completion-prompt("The shared vision — what world are 'we' building?")
 
 == Story of Now
 
 *Why is THIS MOMENT critical?*
 
-#worksheet-field("What's happening RIGHT NOW that creates opportunity or urgency? (AI democratizing/concentrating capabilities, reproducibility crisis, student debt crisis, pandemic lessons, institutional distrust, climate crisis...)", lines: 4)
+#worksheet-field("What's happening NOW that creates urgency? (AI, reproducibility crisis, debt crisis, climate...)", lines: 3)
 
-#worksheet-field("What window is closing? What opportunity will we lose if we don't act?", lines: 3)
-
-*The specific ask (for different audiences):*
+*The ask for different audiences:*
 
 #table(
   columns: (1fr, 2fr),
-  inset: 10pt,
-  fill: (_, row) => if row == 0 { rgb("#1a1a2e") } else { rgb("#f8f9fa") },
+  inset: 6pt,
+  stroke: 0.5pt + rgb("#ccc"),
+  fill: (_, row) => if row == 0 { rgb("#f0f0f0") } else { rgb("#fafafa") },
   
-  [#text(fill: white, weight: "bold")[Audience]], 
-  [#text(fill: white, weight: "bold")[What Do You Want Them to DO?]],
+  text(size: 8pt, weight: "bold")[Audience], 
+  text(size: 8pt, weight: "bold")[What Do You Want Them to DO?],
   
-  [Someone experiencing the system's failures], [],
-  [A potential contributor], [],
-  [A potential ally organization], [],
-  [Someone with resources], [],
-  [Someone with platform/influence], [],
+  text(size: 8pt)[Someone experiencing system failures], [],
+  text(size: 8pt)[A potential contributor], [],
+  text(size: 8pt)[A potential ally organization], [],
+  text(size: 8pt)[Someone with resources], [],
 )
 
 == The Integrated Narrative
 
 #block(
-  fill: rgb("#e8f4ea"),
-  stroke: 2pt + rgb("#28a745"),
-  inset: 16pt,
-  radius: 8pt,
+  fill: rgb("#f0f8f0"),
+  stroke: (left: 3pt + rgb("#4caf50")),
+  inset: 12pt,
+  radius: (right: 3pt),
   [
-    *Weave them together. This should take 3-5 minutes to tell. Practice out loud.*
+    #text(size: 9pt, weight: "bold")[Weave them together. 3-5 minutes to tell. Practice out loud.]
     
-    #v(0.5em)
+    #v(0.4em)
     
-    *[Story of Self — your encounter with injustice, your choice, your values]*
-    #block(height: 3em, width: 100%, fill: white, stroke: 1pt + rgb("#dee2e6"), radius: 4pt, [])
+    #text(size: 8.5pt)[*[Story of Self]*]
+    #block(height: 2em, width: 100%, fill: white, stroke: 0.5pt + rgb("#ddd"), radius: 3pt, [])
     
-    #v(0.5em)
-    #align(center)[_"And I discovered I wasn't alone..."_]
-    #v(0.5em)
+    #v(0.3em)
+    #align(center)[#text(size: 8pt, style: "italic")["And I discovered I wasn't alone..."]]
+    #v(0.3em)
     
-    *[Story of Us — the shared experience, the shared enemy, the shared vision]*
-    #block(height: 3em, width: 100%, fill: white, stroke: 1pt + rgb("#dee2e6"), radius: 4pt, [])
+    #text(size: 8.5pt)[*[Story of Us]*]
+    #block(height: 2em, width: 100%, fill: white, stroke: 0.5pt + rgb("#ddd"), radius: 3pt, [])
     
-    #v(0.5em)
-    #align(center)[_"And right now, we face a critical moment..."_]
-    #v(0.5em)
+    #v(0.3em)
+    #align(center)[#text(size: 8pt, style: "italic")["And right now, we face a critical moment..."]]
+    #v(0.3em)
     
-    *[Story of Now — the urgency, the opportunity, the ask]*
-    #block(height: 3em, width: 100%, fill: white, stroke: 1pt + rgb("#dee2e6"), radius: 4pt, [])
-    
-    #v(0.5em)
-    #align(center)[*"That's why I'm asking you to..."*]
-    #v(0.5em)
-    
-    #block(height: 2em, width: 100%, fill: rgb("#fff3cd"), stroke: 1pt + rgb("#ffc107"), radius: 4pt, [])
+    #text(size: 8.5pt)[*[Story of Now + The Ask]*]
+    #block(height: 2em, width: 100%, fill: rgb("#fffde7"), stroke: 0.5pt + rgb("#fbc02d"), radius: 3pt, [])
   ]
 )
 
@@ -814,92 +748,71 @@ Counter-hegemonic projects usually require pressure on multiple fronts simultane
 = Alliance Mapping
 
 #epigraph(
-  "You're not fighting alone. Many movements share pieces of this vision. Who are your allies?",
+  "You're not fighting alone. Many movements share pieces of this vision.",
   "Strategic Principle"
 )
 
 == Allied Movements
 
 #table(
-  columns: (1fr, 1.2fr, 1.2fr, 1.5fr),
-  inset: 7pt,
-  fill: (_, row) => if row == 0 { rgb("#1a1a2e") } else if calc.odd(row) { rgb("#f8f9fa") } else { white },
+  columns: (0.9fr, 1.2fr, 1.2fr, 1.3fr),
+  inset: 5pt,
+  stroke: 0.5pt + rgb("#ccc"),
+  fill: (_, row) => if row == 0 { rgb("#f0f0f0") } else { white },
   
-  [#text(fill: white, weight: "bold", size: 8pt)[Movement]], 
-  [#text(fill: white, weight: "bold", size: 8pt)[What They Fight For]], 
-  [#text(fill: white, weight: "bold", size: 8pt)[Overlap with FreeMoCap]], 
-  [#text(fill: white, weight: "bold", size: 8pt)[Key Organizations]],
+  text(size: 8pt, weight: "bold")[Movement], 
+  text(size: 8pt, weight: "bold")[What They Fight For], 
+  text(size: 8pt, weight: "bold")[Overlap], 
+  text(size: 8pt, weight: "bold")[Key Organizations],
   
-  [Free Software], [Software freedom], [FOSS as default, anti-proprietary], [FSF, SFLC],
-  [Open Access], [Free access to research], [Against paywalls, open publishing], [SPARC, PLOS],
-  [Open Science], [Reproducibility, transparency], [Open tools, data, methods], [COS, FOSTER],
-  [Right to Repair], [Ownership of technology], [Against proprietary lock-in], [iFixit, Repair.org],
-  [Citizen Science], [Public participation in research], [Research outside institutions], [SciStarter],
-  [Hacker Culture], [Information wants to be free], [Tool-building, sharing knowledge], [Hackerspaces, CCC],
-  [Library Movement], [Public access to knowledge], [Against information enclosure], [ALA, Internet Archive],
-)
-
-== Potential Organizational Allies
-
-#table(
-  columns: (1.2fr, 1.5fr, 1fr, 1fr),
-  inset: 8pt,
-  fill: (_, row) => if row == 0 { rgb("#1a1a2e") } else { rgb("#f8f9fa") },
-  
-  [#text(fill: white, weight: "bold", size: 9pt)[Organization]], 
-  [#text(fill: white, weight: "bold", size: 9pt)[What They Do]], 
-  [#text(fill: white, weight: "bold", size: 9pt)[Alliance Potential]], 
-  [#text(fill: white, weight: "bold", size: 9pt)[Who Do You Know There?]],
-  
-  [Software Freedom Conservancy], [], [], [],
-  [Internet Archive], [], [], [],
-  [Electronic Frontier Foundation], [], [], [],
-  [Mozilla Foundation], [], [], [],
-  [Wikimedia Foundation], [], [], [],
-  [NumFOCUS], [], [], [],
-  [Center for Open Science], [], [], [],
+  text(size: 8pt)[Free Software], text(size: 8pt)[Software freedom], text(size: 8pt)[FOSS as default], text(size: 8pt)[FSF, SFLC],
+  text(size: 8pt)[Open Access], text(size: 8pt)[Free research access], text(size: 8pt)[Against paywalls], text(size: 8pt)[SPARC, PLOS],
+  text(size: 8pt)[Open Science], text(size: 8pt)[Reproducibility], text(size: 8pt)[Open tools/data], text(size: 8pt)[COS, FOSTER],
+  text(size: 8pt)[Right to Repair], text(size: 8pt)[Tech ownership], text(size: 8pt)[Anti lock-in], text(size: 8pt)[iFixit],
+  text(size: 8pt)[Citizen Science], text(size: 8pt)[Public participation], text(size: 8pt)[Outside institutions], text(size: 8pt)[SciStarter],
+  text(size: 8pt)[Hacker Culture], text(size: 8pt)[Information freedom], text(size: 8pt)[Tool-building], text(size: 8pt)[Hackerspaces, CCC],
+  text(size: 8pt)[Library Movement], text(size: 8pt)[Public access], text(size: 8pt)[Against enclosure], text(size: 8pt)[Internet Archive],
 )
 
 == Intellectual Lineages
 
-What thinkers/traditions inform this work?
-
 #table(
   columns: (1fr, 2fr, 1.5fr),
-  inset: 8pt,
-  fill: (_, row) => if row == 0 { rgb("#1a1a2e") } else if calc.odd(row) { rgb("#f8f9fa") } else { white },
+  inset: 5pt,
+  stroke: 0.5pt + rgb("#ccc"),
+  fill: (_, row) => if row == 0 { rgb("#f0f0f0") } else { white },
   
-  [#text(fill: white, weight: "bold", size: 9pt)[Thinker/Tradition]], 
-  [#text(fill: white, weight: "bold", size: 9pt)[Key Ideas]], 
-  [#text(fill: white, weight: "bold", size: 9pt)[How It Informs FreeMoCap]],
+  text(size: 8pt, weight: "bold")[Thinker], 
+  text(size: 8pt, weight: "bold")[Key Ideas], 
+  text(size: 8pt, weight: "bold")[Application to FreeMoCap],
   
-  [Ivan Illich], [Deschooling, convivial tools, institutional critique], [],
-  [Aaron Swartz], [Information liberation, guerrilla open access], [],
-  [Richard Stallman], [Free software as freedom, not just price], [],
-  [Paulo Freire], [Critical pedagogy, education as liberation], [],
-  [Yochai Benkler], [Commons-based peer production], [],
-  [Elinor Ostrom], [Governance of commons], [],
+  text(size: 8pt)[Ivan Illich], text(size: 8pt)[Deschooling, convivial tools], [],
+  text(size: 8pt)[Aaron Swartz], text(size: 8pt)[Information liberation, guerrilla open access], [],
+  text(size: 8pt)[Paulo Freire], text(size: 8pt)[Critical pedagogy, conscientização], [],
+  text(size: 8pt)[Yochai Benkler], text(size: 8pt)[Commons-based peer production], [],
+  text(size: 8pt)[Elinor Ostrom], text(size: 8pt)[Governance of commons], [],
 )
 
 == Building Alliances
 
-*For your top 5 potential allies, develop an approach:*
+*For top 5 potential allies:*
 
 #table(
-  columns: (0.8fr, 1.2fr, 1.2fr, 1.5fr),
-  inset: 8pt,
-  fill: (_, row) => if row == 0 { rgb("#1a1a2e") } else { rgb("#f8f9fa") },
+  columns: (0.6fr, 1.2fr, 1.2fr, 1.4fr),
+  inset: 5pt,
+  stroke: 0.5pt + rgb("#ccc"),
+  fill: (_, row) => if row == 0 { rgb("#f0f0f0") } else { rgb("#fafafa") },
   
-  [#text(fill: white, weight: "bold", size: 9pt)[Ally]], 
-  [#text(fill: white, weight: "bold", size: 9pt)[What You Offer Them]], 
-  [#text(fill: white, weight: "bold", size: 9pt)[What You Need From Them]], 
-  [#text(fill: white, weight: "bold", size: 9pt)[First Step]],
+  text(size: 8pt, weight: "bold")[Ally], 
+  text(size: 8pt, weight: "bold")[What You Offer], 
+  text(size: 8pt, weight: "bold")[What You Need], 
+  text(size: 8pt, weight: "bold")[First Step],
   
-  [1.], [], [], [],
-  [2.], [], [], [],
-  [3.], [], [], [],
-  [4.], [], [], [],
-  [5.], [], [], [],
+  text(size: 8pt)[1.], [], [], [],
+  text(size: 8pt)[2.], [], [], [],
+  text(size: 8pt)[3.], [], [], [],
+  text(size: 8pt)[4.], [], [], [],
+  text(size: 8pt)[5.], [], [], [],
 )
 
 // ============================================================================
@@ -915,86 +828,57 @@ What thinkers/traditions inform this work?
 
 == The FreeMoCap Foundation as Vehicle
 
-*Is the FreeMoCap Foundation the right organizational vehicle for the larger vision?*
-
-#table(
-  columns: (1fr, 1.5fr, 1.5fr),
-  inset: 10pt,
-  fill: (_, row) => if row == 0 { rgb("#1a1a2e") } else { rgb("#f8f9fa") },
-  
-  [#text(fill: white, weight: "bold")[Consideration]], 
-  [#text(fill: white, weight: "bold")[Current State]], 
-  [#text(fill: white, weight: "bold")[What's Needed for Larger Vision]],
-  
-  [Legal structure], [501(c)(3)], [],
-  [Name/brand], ["FreeMoCap" = motion capture], [],
-  [Mission statement], [], [],
-  [Governance], [], [],
-)
-
-#v(0.5em)
-
 #callout(
   "Critical Question",
-  [Should there be a broader organizational entity that FreeMoCap is one project *within*?],
+  [Is the FreeMoCap Foundation the right organizational vehicle for the larger vision? Should there be a broader entity that FreeMoCap is one project *within*?],
   accent: rgb("#e94560")
 )
 
-#worksheet-field("Your thinking:", lines: 4)
+#worksheet-field("Your thinking:", lines: 3)
 
 == Developing Leadership
 
 #block(
-  fill: rgb("#f0f0f0"),
-  inset: 12pt,
-  radius: 4pt,
+  fill: rgb("#f5f5f5"),
+  stroke: 0.5pt + rgb("#ddd"),
+  inset: 10pt,
+  radius: 3pt,
   [
-    #text(style: "italic")[
-      "Strong people don't need a strong leader." — *Ella Baker*
-    ]
+    #text(size: 8.5pt, style: "italic")["Strong people don't need a strong leader." — Ella Baker]
   ]
 )
 
-#v(0.5em)
+#v(0.3em)
 
-*What leadership roles will you need that don't exist yet?*
+#worksheet-field("What leadership roles will you need that don't exist yet?", lines: 2)
 
-#for i in range(1, 4) {
-  [#i. #box(width: 1fr, stroke: (bottom: 1pt + rgb("#dee2e6")), inset: (bottom: 4pt), [])]
-  v(0.8em)
-}
-
-#worksheet-field("How do people BECOME leaders in your organization? (Make this explicit)", lines: 3)
+#worksheet-field("How do people BECOME leaders in your organization? (Make this explicit)", lines: 2)
 
 == Organizational Culture
 
-#table(
-  columns: (1.2fr, 2fr, 0.8fr),
-  inset: 8pt,
-  fill: (_, row) => if row == 0 { rgb("#1a1a2e") } else { rgb("#f8f9fa") },
+#columns(2, gutter: 1em)[
+  #text(size: 8.5pt, weight: "bold")[Values to cultivate:]
+  #text(size: 8pt)[
+    - Radical accessibility
+    - Distributed leadership
+    - Long-term thinking
+    - Solidarity with allies
+    - Prefigurative practice
+  ]
   
-  [#text(fill: white, weight: "bold")[Value]], 
-  [#text(fill: white, weight: "bold")[What It Looks Like in Practice]], 
-  [#text(fill: white, weight: "bold")[Current State (1-10)]],
+  #colbreak()
   
-  [Radical accessibility], [], [],
-  [Distributed leadership], [], [],
-  [Long-term thinking], [], [],
-  [Solidarity with allied movements], [], [],
-  [Prefigurative practice], [], [],
-)
+  #text(size: 8.5pt, weight: "bold")[Patterns to AVOID:]
+  #text(size: 8pt)[
+    - Founder dependency
+    - Insider/outsider dynamics
+    - Technical elitism
+    - Burnout/martyrdom culture
+    - Purity politics
+  ]
+]
 
-#v(0.5em)
-
-*Cultural patterns to AVOID:*
-- Founder dependency
-- Insider/outsider dynamics
-- Technical elitism
-- Burnout/martyrdom culture
-- Purity politics
-- Short-term thinking
-
-#worksheet-field("Which of these are you most at risk for?", lines: 3)
+#worksheet-field("Which risks are you most vulnerable to?", lines: 2)
 
 // ============================================================================
 // PART 7: STRATEGIC QUESTIONS
@@ -1007,86 +891,58 @@ What thinkers/traditions inform this work?
   "Ongoing Practice"
 )
 
-== The Smucker Questions
-
-#callout(
-  "Ask yourself monthly:",
-  [],
-  accent: rgb("#e94560")
-)
+== The Smucker Questions (Ask Monthly)
 
 #block(
-  fill: rgb("#f8f9fa"),
-  inset: 16pt,
-  radius: 8pt,
+  fill: rgb("#fff5f5"),
+  stroke: (left: 3pt + rgb("#e94560")),
+  inset: 10pt,
+  radius: (right: 3pt),
   [
-    #set text(size: 10.5pt)
-    
-    *"Is what we're doing likely to advance our mission, or does it primarily express our identity as [open source developers / academics / hackers / activists]?"*
-    
-    #block(height: 2.5em, width: 100%, fill: white, stroke: 1pt + rgb("#dee2e6"), radius: 4pt, inset: 6pt, [])
-    
-    #v(1em)
-    
-    *"Are we building power, or are we performing righteousness?"*
-    
-    #block(height: 2.5em, width: 100%, fill: white, stroke: 1pt + rgb("#dee2e6"), radius: 4pt, inset: 6pt, [])
-    
-    #v(1em)
-    
-    *"Who are we bringing IN to this work who wasn't here before? Or are we just activating the already-convinced?"*
-    
-    #block(height: 2.5em, width: 100%, fill: white, stroke: 1pt + rgb("#dee2e6"), radius: 4pt, inset: 6pt, [])
-    
-    #v(1em)
-    
-    *"What have we WON recently? What concrete victory can we point to?"*
-    
-    #block(height: 2.5em, width: 100%, fill: white, stroke: 1pt + rgb("#dee2e6"), radius: 4pt, inset: 6pt, [])
-  ]
-)
-
-== The Scale Questions
-
-#block(
-  fill: rgb("#e8f4ea"),
-  inset: 16pt,
-  radius: 8pt,
-  [
-    *"Is what we're doing now building toward the larger vision, or are we getting stuck at Stage 1?"*
-    #block(height: 2em, width: 100%, fill: white, stroke: 1pt + rgb("#dee2e6"), radius: 4pt, [])
-    
-    #v(0.8em)
-    
-    *"Are we building the organizational capacity to do MORE than motion capture software?"*
-    #block(height: 2em, width: 100%, fill: white, stroke: 1pt + rgb("#dee2e6"), radius: 4pt, [])
-    
-    #v(0.8em)
-    
-    *"Are we connecting with allied movements, or operating in isolation?"*
-    #block(height: 2em, width: 100%, fill: white, stroke: 1pt + rgb("#dee2e6"), radius: 4pt, [])
+    #text(size: 8.5pt)[
+      *"Is what we're doing likely to advance our mission, or does it primarily express our identity?"*
+      #block(height: 1.8em, width: 100%, fill: white, stroke: 0.5pt + rgb("#ddd"), radius: 3pt, [])
+      
+      #v(0.5em)
+      
+      *"Are we building power, or performing righteousness?"*
+      #block(height: 1.8em, width: 100%, fill: white, stroke: 0.5pt + rgb("#ddd"), radius: 3pt, [])
+      
+      #v(0.5em)
+      
+      *"Who are we bringing IN who wasn't here before?"*
+      #block(height: 1.8em, width: 100%, fill: white, stroke: 0.5pt + rgb("#ddd"), radius: 3pt, [])
+      
+      #v(0.5em)
+      
+      *"What have we WON recently?"*
+      #block(height: 1.8em, width: 100%, fill: white, stroke: 0.5pt + rgb("#ddd"), radius: 3pt, [])
+    ]
   ]
 )
 
 == The Sustainability Questions
 
 #block(
-  fill: rgb("#fff3cd"),
-  inset: 16pt,
-  radius: 8pt,
+  fill: rgb("#fffde7"),
+  stroke: (left: 3pt + rgb("#fbc02d")),
+  inset: 10pt,
+  radius: (right: 3pt),
   [
-    *"Can this continue without Jon?"*
-    #block(height: 2em, width: 100%, fill: white, stroke: 1pt + rgb("#dee2e6"), radius: 4pt, [])
-    
-    #v(0.8em)
-    
-    *"What happens if a key contributor burns out or leaves?"*
-    #block(height: 2em, width: 100%, fill: white, stroke: 1pt + rgb("#dee2e6"), radius: 4pt, [])
-    
-    #v(0.8em)
-    
-    *"Are we moving at a sustainable pace?"*
-    #block(height: 2em, width: 100%, fill: white, stroke: 1pt + rgb("#dee2e6"), radius: 4pt, [])
+    #text(size: 8.5pt)[
+      *"Can this continue without Jon?"*
+      #block(height: 1.5em, width: 100%, fill: white, stroke: 0.5pt + rgb("#ddd"), radius: 3pt, [])
+      
+      #v(0.4em)
+      
+      *"What happens if a key contributor burns out?"*
+      #block(height: 1.5em, width: 100%, fill: white, stroke: 0.5pt + rgb("#ddd"), radius: 3pt, [])
+      
+      #v(0.4em)
+      
+      *"Are we moving at a sustainable pace?"*
+      #block(height: 1.5em, width: 100%, fill: white, stroke: 0.5pt + rgb("#ddd"), radius: 3pt, [])
+    ]
   ]
 )
 
@@ -1104,45 +960,47 @@ What thinkers/traditions inform this work?
 == Top Priorities for Next 90 Days
 
 #table(
-  columns: (0.5fr, 1.5fr, 1.5fr, 0.8fr, 0.8fr),
-  inset: 8pt,
-  fill: (_, row) => if row == 0 { rgb("#1a1a2e") } else { rgb("#f8f9fa") },
+  columns: (0.4fr, 1.5fr, 1.5fr, 0.7fr, 0.7fr),
+  inset: 5pt,
+  stroke: 0.5pt + rgb("#ccc"),
+  fill: (_, row) => if row == 0 { rgb("#f0f0f0") } else { rgb("#fafafa") },
   
-  [#text(fill: white, weight: "bold", size: 9pt)[\#]], 
-  [#text(fill: white, weight: "bold", size: 9pt)[Priority]], 
-  [#text(fill: white, weight: "bold", size: 9pt)[First Concrete Step]], 
-  [#text(fill: white, weight: "bold", size: 9pt)[Deadline]], 
-  [#text(fill: white, weight: "bold", size: 9pt)[Owner]],
+  text(size: 8pt, weight: "bold")[\#], 
+  text(size: 8pt, weight: "bold")[Priority], 
+  text(size: 8pt, weight: "bold")[First Concrete Step], 
+  text(size: 8pt, weight: "bold")[Deadline], 
+  text(size: 8pt, weight: "bold")[Owner],
   
-  [1], [], [], [], [],
-  [2], [], [], [], [],
-  [3], [], [], [], [],
+  text(size: 8pt)[1], [], [], [], [],
+  text(size: 8pt)[2], [], [], [], [],
+  text(size: 8pt)[3], [], [], [], [],
 )
 
 == What You're NOT Doing
 
-#callout(
-  "Strategy means choosing",
-  [What are you explicitly deprioritizing?],
-  accent: rgb("#6c757d")
-)
+#callout("Strategy means choosing. What are you explicitly deprioritizing?", [], accent: rgb("#6c757d"))
 
-#for i in range(1, 4) {
-  [#i. #box(width: 0.6fr, stroke: (bottom: 1pt + rgb("#dee2e6")), []) _(Why:_ #box(width: 0.3fr, stroke: (bottom: 1pt + rgb("#dee2e6")), [])_)_]
-  v(0.8em)
-}
+#text(size: 8.5pt)[
+  1. #box(width: 0.5fr, stroke: (bottom: 0.5pt + rgb("#ccc")), []) _(Why:_ #box(width: 0.35fr, stroke: (bottom: 0.5pt + rgb("#ccc")), [])_)_
+  
+  2. #box(width: 0.5fr, stroke: (bottom: 0.5pt + rgb("#ccc")), []) _(Why:_ #box(width: 0.35fr, stroke: (bottom: 0.5pt + rgb("#ccc")), [])_)_
+  
+  3. #box(width: 0.5fr, stroke: (bottom: 0.5pt + rgb("#ccc")), []) _(Why:_ #box(width: 0.35fr, stroke: (bottom: 0.5pt + rgb("#ccc")), [])_)_
+]
 
 == Accountability
 
-#columns(2)[
-  *Who will you share this with?*
-  #block(height: 2em, width: 100%, fill: rgb("#f8f9fa"), stroke: 1pt + rgb("#dee2e6"), radius: 4pt, [])
+#columns(2, gutter: 1em)[
+  *Share this with:*
+  #block(height: 1.5em, width: 100%, fill: rgb("#fafafa"), stroke: 0.5pt + rgb("#ddd"), radius: 3pt, [])
   
   #colbreak()
   
-  *When will you review progress?*
-  - 30-day check-in: #box(width: 1fr, stroke: (bottom: 1pt + rgb("#dee2e6")), [])
-  - 90-day review: #box(width: 1fr, stroke: (bottom: 1pt + rgb("#dee2e6")), [])
+  *Review dates:*
+  #text(size: 8pt)[
+    30-day: #box(width: 1fr, stroke: (bottom: 0.5pt + rgb("#ccc")), []) \
+    90-day: #box(width: 1fr, stroke: (bottom: 0.5pt + rgb("#ccc")), [])
+  ]
 ]
 
 // ============================================================================
@@ -1151,14 +1009,15 @@ What thinkers/traditions inform this work?
 
 = Reading & Resources
 
-== Core Strategic Reading
+== Core Reading
 
 #block(
-  fill: rgb("#f8f9fa"),
-  inset: 16pt,
-  radius: 8pt,
+  fill: rgb("#f8f8f8"),
+  stroke: 0.5pt + rgb("#ddd"),
+  inset: 12pt,
+  radius: 4pt,
   [
-    === Tier 1: Essential
+    #text(size: 9pt, weight: "bold")[Tier 1: Essential]
     
     #resource-link(
       "Hegemony How-To: A Roadmap for Radicals",
@@ -1169,13 +1028,13 @@ What thinkers/traditions inform this work?
     #resource-link(
       "Deschooling Society",
       "https://www.arvindguptatoys.com/arvindgupta/DESCHOOLING.pdf",
-      "Ivan Illich — Foundational critique of institutional education"
+      "Ivan Illich — Foundational institutional critique"
     )
     
     #resource-link(
       "Tools for Conviviality",
       "https://www.davidtinapple.com/illich/1973_tools_for_conviviality.pdf",
-      "Ivan Illich — Technology that liberates rather than dominates"
+      "Ivan Illich — Liberatory technology"
     )
     
     #resource-link(
@@ -1187,12 +1046,12 @@ What thinkers/traditions inform this work?
     #resource-link(
       "Working in Public",
       "https://press.stripe.com/working-in-public",
-      "Nadia Eghbal — Open source sustainability and community"
+      "Nadia Eghbal — Open source sustainability"
     )
     
-    #v(1em)
+    #v(0.8em)
     
-    === Tier 2: Deepening
+    #text(size: 9pt, weight: "bold")[Tier 2: Deepening]
     
     #resource-link(
       "Pedagogy of the Oppressed",
@@ -1213,94 +1072,94 @@ What thinkers/traditions inform this work?
     )
     
     #resource-link(
-      "The Wealth of Networks",
-      "https://www.benkler.org/Benkler_Wealth_Of_Networks.pdf",
-      "Yochai Benkler — Commons-based peer production"
-    )
-    
-    #resource-link(
       "Guerrilla Open Access Manifesto",
       "https://archive.org/details/GuesrillaOpenAccessManifesto",
       "Aaron Swartz — Information liberation ethics"
     )
+    
+    #resource-link(
+      "The Wealth of Networks",
+      "https://www.benkler.org/Benkler_Wealth_Of_Networks.pdf",
+      "Yochai Benkler — Commons-based peer production"
+    )
   ]
 )
 
-== Key Concepts Quick Reference
+== Key Concepts Reference
 
 #table(
   columns: (1fr, 2.5fr),
-  inset: 10pt,
-  fill: (_, row) => if row == 0 { rgb("#1a1a2e") } else if calc.odd(row) { rgb("#f8f9fa") } else { white },
+  inset: 6pt,
+  stroke: 0.5pt + rgb("#ccc"),
+  fill: (_, row) => if row == 0 { rgb("#f0f0f0") } else { white },
   
-  [#text(fill: white, weight: "bold")[Term]], 
-  [#text(fill: white, weight: "bold")[Definition & Application]],
+  text(size: 8pt, weight: "bold")[Term], 
+  text(size: 8pt, weight: "bold")[Definition & Application],
   
-  [*Hegemony*], 
-  [Making your values become the "common sense" of society. FreeMoCap aims to make "motion capture should be free/accessible" into common sense.],
+  text(size: 8pt)[*Hegemony*], 
+  text(size: 8pt)[Making your values become "common sense." Goal: make "mocap should be free" into common sense.],
   
-  [*Political Identity Paradox*], 
-  [Strong group identity enables commitment but creates insularity. Balance community cohesion with outward focus.],
+  text(size: 8pt)[*Political Identity Paradox*], 
+  text(size: 8pt)[Strong identity enables commitment but creates insularity. Balance cohesion with outward focus.],
   
-  [*Expressive vs. Strategic*], 
-  [Acting to express identity vs. acting to achieve outcomes. Prioritize actions that advance mission over actions that feel good.],
+  text(size: 8pt)[*Expressive vs. Strategic*], 
+  text(size: 8pt)[Acting to express identity vs. to achieve outcomes. Prioritize mission over feeling good.],
   
-  [*Organizing vs. Mobilizing*], 
-  [Mobilizing activates existing supporters; organizing expands your base by reaching non-activists.],
+  text(size: 8pt)[*Organizing vs. Mobilizing*], 
+  text(size: 8pt)[Mobilizing activates existing supporters; organizing expands base to non-activists.],
   
-  [*Conscientização*], 
-  [Paulo Freire's term for developing critical consciousness — moving from fatalism to understanding systemic causes to taking action.],
+  text(size: 8pt)[*Conscientização*], 
+  text(size: 8pt)[Freire: developing critical consciousness — fatalism → systemic understanding → action.],
   
-  [*Prefigurative Politics*], 
-  [Embodying the future you want to create in how you organize now. FreeMoCap should BE proof another way is possible.],
+  text(size: 8pt)[*Prefigurative Politics*], 
+  text(size: 8pt)[Embody the future in how you organize now. FreeMoCap should BE proof another way works.],
 )
 
 // ============================================================================
-// PART 10: THE VISION DOCUMENT
+// PART 10: VISION DOCUMENT
 // ============================================================================
 
 = The Vision Document
 
 #epigraph(
-  "After working through this worksheet, draft a 1-page vision document that articulates the full scope of what FreeMoCap is building toward. This becomes your north star.",
+  "Draft a 1-page document articulating the full scope of what FreeMoCap is building toward. This becomes your north star.",
   "Final Synthesis"
 )
 
 #block(
-  stroke: 2pt + rgb("#1a1a2e"),
-  inset: 20pt,
-  radius: 8pt,
+  stroke: 1.5pt + rgb("#1a1a2e"),
+  inset: 16pt,
+  radius: 6pt,
   [
     #align(center)[
-      #text(size: 14pt, weight: "bold")[FREEMOCAP VISION DOCUMENT]
-      #v(0.3em)
-      #text(size: 10pt, fill: gray)[DRAFT]
+      #text(size: 12pt, weight: "bold")[FREEMOCAP VISION DOCUMENT]
+      #text(size: 8pt, fill: rgb("#666"))[ — DRAFT]
     ]
     
-    #v(1em)
+    #v(0.8em)
     
-    *THE PROBLEM*
-    #block(height: 4em, width: 100%, fill: rgb("#f8f9fa"), stroke: 1pt + rgb("#dee2e6"), radius: 4pt, inset: 8pt, [])
+    #text(size: 9pt, weight: "bold")[THE PROBLEM]
+    #block(height: 3em, width: 100%, fill: rgb("#fafafa"), stroke: 0.5pt + rgb("#ddd"), radius: 3pt, inset: 6pt, [])
     
-    #v(1em)
+    #v(0.6em)
     
-    *THE VISION*
-    #block(height: 4em, width: 100%, fill: rgb("#f8f9fa"), stroke: 1pt + rgb("#dee2e6"), radius: 4pt, inset: 8pt, [])
+    #text(size: 9pt, weight: "bold")[THE VISION]
+    #block(height: 3em, width: 100%, fill: rgb("#fafafa"), stroke: 0.5pt + rgb("#ddd"), radius: 3pt, inset: 6pt, [])
     
-    #v(1em)
+    #v(0.6em)
     
-    *THE THEORY OF CHANGE*
-    #block(height: 4em, width: 100%, fill: rgb("#f8f9fa"), stroke: 1pt + rgb("#dee2e6"), radius: 4pt, inset: 8pt, [])
+    #text(size: 9pt, weight: "bold")[THE THEORY OF CHANGE]
+    #block(height: 3em, width: 100%, fill: rgb("#fafafa"), stroke: 0.5pt + rgb("#ddd"), radius: 3pt, inset: 6pt, [])
     
-    #v(1em)
+    #v(0.6em)
     
-    *THE CURRENT STAGE*
-    #block(height: 3em, width: 100%, fill: rgb("#f8f9fa"), stroke: 1pt + rgb("#dee2e6"), radius: 4pt, inset: 8pt, [])
+    #text(size: 9pt, weight: "bold")[THE CURRENT STAGE]
+    #block(height: 2.5em, width: 100%, fill: rgb("#fafafa"), stroke: 0.5pt + rgb("#ddd"), radius: 3pt, inset: 6pt, [])
     
-    #v(1em)
+    #v(0.6em)
     
-    *THE CALL*
-    #block(height: 3em, width: 100%, fill: rgb("#fff3cd"), stroke: 1pt + rgb("#ffc107"), radius: 4pt, inset: 8pt, [])
+    #text(size: 9pt, weight: "bold")[THE CALL]
+    #block(height: 2.5em, width: 100%, fill: rgb("#fffde7"), stroke: 0.5pt + rgb("#fbc02d"), radius: 3pt, inset: 6pt, [])
   ]
 )
 
@@ -1308,54 +1167,52 @@ What thinkers/traditions inform this work?
 // CLOSING
 // ============================================================================
 
-#pagebreak()
+#v(2em)
 
 #align(center)[
-  #v(3fr)
-  
   #block(
     width: 80%,
-    fill: rgb("#1a1a2e"),
-    inset: 24pt,
-    radius: 8pt,
+    fill: rgb("#f5f5f5"),
+    stroke: (left: 4pt + rgb("#e94560")),
+    inset: 16pt,
+    radius: (right: 4pt),
     [
-      #set text(fill: white)
-      
-      #text(size: 14pt, weight: "bold")[
+      #text(size: 10pt, weight: "bold")[
         This is a living document.
       ]
       
-      #v(1em)
+      #v(0.5em)
       
-      #set text(size: 11pt)
-      The work of building counter-hegemonic power is never complete. Return to these questions. Revise your answers. Share them with co-conspirators. Build the infrastructure for a long fight.
-      
-      #v(1em)
-      
-      The current system wasn't built in a day. It won't fall in a day.
+      #text(size: 9pt)[
+        The work of building counter-hegemonic power is never complete. Return to these questions. Revise your answers. Share them with co-conspirators. Build the infrastructure for a long fight.
+      ]
       
       #v(0.5em)
       
-      #text(size: 14pt, weight: "bold")[
+      #text(size: 9pt)[
+        The current system wasn't built in a day. It won't fall in a day.
+      ]
+      
+      #v(0.3em)
+      
+      #text(size: 11pt, weight: "bold")[
         But it WILL fall.
       ]
     ]
   )
   
-  #v(3fr)
+  #v(1.5em)
   
-  #line(length: 40%, stroke: 1pt + rgb("#dee2e6"))
+  #line(length: 30%, stroke: 0.5pt + rgb("#ddd"))
   
-  #v(1em)
+  #v(0.8em)
   
-  #text(size: 9pt, fill: gray)[
+  #text(size: 8pt, fill: rgb("#666"))[
     FreeMoCap Foundation \
     #link("https://freemocap.org")[freemocap.org] · #link("https://github.com/freemocap")[github.com/freemocap]
     
-    #v(0.5em)
+    #v(0.3em)
     
-    Based on frameworks from Jonathan Smucker, Paulo Freire, Jane McAlevey, \ Marshall Ganz, Ivan Illich, adrienne maree brown, and others.
+    Based on frameworks from Smucker, Freire, McAlevey, Ganz, Illich, brown, and others.
   ]
-  
-  #v(2fr)
 ]
