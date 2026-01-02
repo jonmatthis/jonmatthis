@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>FreeMoCap Curriculum</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/cytoscape/3.28.1/cytoscape.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/dagre/0.8.5/dagre.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/cytoscape-dagre@2.5.0/cytoscape-dagre.min.js"></script>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html, body { height: 100%; overflow: hidden; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+            background: linear-gradient(135deg, #0f0f1a 0%, #1a1a2e 50%, #16213e 100%);
+            color: #e8e8e8;
+        }
+        .header {
+            position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+            padding: 12px 16px;
+            background: rgba(15, 15, 26, 0.95);
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+            display: flex; align-items: center; gap: 12px;
+        }
+        .header-text h1 {
+            font-size: 18px; font-weight: 700;
+            background: linear-gradient(90deg, #00d4ff 0%, #7c3aed 50%, #f472b6 100%);
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+        }
+        .header-text p { font-size: 11px; color: #888; margin-top: 2px; }
+        .menu-toggle {
+            margin-left: auto; width: 44px; height: 44px; border: none;
+            background: rgba(255,255,255,0.1); border-radius: 10px;
+            color: #fff; font-size: 20px; cursor: pointer;
+            display: flex; align-items: center; justify-content: center;
+        }
+        .app-container { display: flex; height: 100%; padding-top: 65px; }
+        .sidebar {
+            position: fixed; top: 65px; left: 0; bottom: 0;
+            width: 100%; max-width: 320px;
+            background: rgba(15, 15, 26, 0.98);
+            border-right: 1px solid rgba(255,255,255,0.1);
+            transform: translateX(-100%); transition: transform 0.3s ease;
+            z-index: 90; overflow-y: auto; padding: 16px; padding-bottom: 100px;
+        }
+        .sidebar.open { transform: translateX(0); }
+        .sidebar-overlay {
+            position: fixed; top: 65px; left: 0; right: 0; bottom: 0;
+            background: rgba(0,0,0,0.5); opacity: 0; visibility: hidden;
+            transition: opacity 0.3s, visibility 0.3s; z-index: 85;
+        }
+        .sidebar-overlay.visible { opacity: 1; visibility: visible; }
+        .section-title {
+            font-size: 11px; text-transform: uppercase; letter-spacing: 1.5px;
+            color: #666; margin-bottom: 12px; font-weight: 600;
+        }
+        .filter-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 20px; }
+        .filter-btn {
+            padding: 12px 10px; border: 1px solid rgba(255,255,255,0.15);
+            border-radius: 10px; background: rgba(255,255,255,0.05);
+            color: #b0b0b0; font-size: 12px; font-weight: 500;
+            cursor: pointer; transition: all 0.2s; text-align: center;
+        }
+        .filter-btn.active { background: rgba(124, 58, 237, 0.3); border-color: #7c3aed; color: #fff; }
+        .filter-btn.full-width { grid-column: span 2; }
+        .legend { margin-bottom: 20px; }
+        .legend-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+        .legend-item { display: flex; align-items: center; gap: 8px; font-size: 12px; color: #999; }
+        .legend-dot { width: 12px; height: 12px; border-radius: 4px; flex-shrink: 0; }
+        .module-panel {
+            background: rgba(255,255,255,0.03); border-radius: 12px;
+            padding: 16px; border: 1px solid rgba(255,255,255,0.08);
+        }
+        .module-panel .placeholder { color: #555; font-size: 13px; text-align: center; padding: 20px 0; }
+        .module-details { display: none; }
+        .module-details.visible { display: block; }
+        .track-badge { padding: 4px 10px; border-radius: 6px; font-size: 11px; font-weight: 600; }
+        .module-title { font-size: 16px; font-weight: 700; color: #fff; margin-bottom: 8px; }
+        .module-description { font-size: 13px; color: #aaa; line-height: 1.5; margin-bottom: 12px; }
+        .module-prereqs { font-size: 12px; color: #777; margin-bottom: 12px; }
+        .deliverable-box {
+            background: rgba(124, 58, 237, 0.15); border: 1px solid rgba(124, 58, 237, 0.3);
+            border-radius: 8px; padding: 12px;
+        }
+        .deliverable-label { font-size: 11px; color: #a78bfa; font-weight: 600; margin-bottom: 6px; }
+        .deliverable-text { font-size: 13px; color: #d4d4d4; }
+        #cy { flex: 1; height: 100%; }
+        .zoom-controls {
+            position: fixed; bottom: 20px; right: 20px;
+            display: flex; flex-direction: column; gap: 8px; z-index: 50;
+        }
+        .zoom-btn {
+            width: 44px; height: 44px; border: none;
+            background: rgba(255,255,255,0.1); border-radius: 10px;
+            color: #fff; font-size: 20px; cursor: pointer;
+            display: flex; align-items: center; justify-content: center;
+        }
+        .zoom-btn:hover { background: rgba(255,255,255,0.2); }
+        .bottom-sheet {
+            position: fixed; bottom: 0; left: 0; right: 0;
+            background: rgba(15, 15, 26, 0.98);
+            border-top-left-radius: 20px; border-top-right-radius: 20px;
+            padding: 16px; padding-bottom: 30px;
+            transform: translateY(100%); transition: transform 0.3s ease;
+            z-index: 100; max-height: 60vh; overflow-y: auto;
+        }
+        .bottom-sheet.visible { transform: translateY(0); }
+        .bottom-sheet-handle { width: 40px; height: 4px; background: rgba(255,255,255,0.3); border-radius: 2px; margin: 0 auto 16px; }
+        .bottom-sheet-close {
+            position: absolute; top: 12px; right: 12px; width: 32px; height: 32px;
+            border: none; background: rgba(255,255,255,0.1); border-radius: 16px;
+            color: #fff; font-size: 18px; cursor: pointer;
+        }
+        .stats-bar {
+            position: fixed; bottom: 0; left: 0; right: 0;
+            background: rgba(15, 15, 26, 0.95); border-top: 1px solid rgba(255,255,255,0.1);
+            padding: 12px 16px; display: flex; justify-content: space-around; z-index: 40;
+        }
+        .stat { text-align: center; }
+        .stat-value { font-size: 18px; font-weight: 700; color: #fff; }
+        .stat-label { font-size: 10px; color: #666; text-transform: uppercase; letter-spacing: 1px; }
+        @media (min-width: 768px) {
+            .sidebar { transform: translateX(0); width: 320px; }
+            .sidebar-overlay { display: none; }
+            .menu-toggle { display: none; }
+            #cy { margin-left: 320px; }
+            .bottom-sheet { display: none; }
+            .stats-bar { left: 320px; }
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="header-text">
+            <h1>FreeMoCap Curriculum</h1>
+            <p>Interactive Learning Path</p>
+        </div>
+        <button class="menu-toggle" id="menu-toggle">☰</button>
+    </header>
+
+    <div class="app-container">
+        <aside class="sidebar" id="sidebar">
+            <div class="section-title">Filter by Track</div>
+            <div class="filter-grid">
+                <button class="filter-btn full-width active" data-track="all">📚 All Modules</button>
+                <button class="filter-btn" data-track="shared">📋 Shared</button>
+                <button class="filter-btn" data-track="technology">🔧 Technology</button>
+                <button class="filter-btn" data-track="science">🔬 Science</button>
+                <button class="filter-btn" data-track="art">🎨 Art</button>
+            </div>
+            <div class="legend">
+                <div class="section-title">Level Colors</div>
+                <div class="legend-grid">
+                    <div class="legend-item"><div class="legend-dot" style="background:#22c55e"></div><span>1xxx - Intro</span></div>
+                    <div class="legend-item"><div class="legend-dot" style="background:#3b82f6"></div><span>2xxx - Optimization</span></div>
+                    <div class="legend-item"><div class="legend-dot" style="background:#a855f7"></div><span>3xxx - Specialization</span></div>
+                </div>
+            </div>
+            <div class="module-panel">
+                <div class="placeholder" id="placeholder-desktop">Tap a module to see details</div>
+                <div class="module-details" id="module-details-desktop"></div>
+            </div>
+        </aside>
+        <div class="sidebar-overlay" id="sidebar-overlay"></div>
+        <div id="cy"></div>
+    </div>
+
+    <div class="zoom-controls">
+        <button class="zoom-btn" id="zoom-in">+</button>
+        <button class="zoom-btn" id="zoom-out">−</button>
+        <button class="zoom-btn" id="zoom-fit">⊡</button>
+    </div>
+
+    <div class="stats-bar">
+        <div class="stat"><div class="stat-value">3</div><div class="stat-label">Levels</div></div>
+        <div class="stat"><div class="stat-value">4</div><div class="stat-label">Tracks</div></div>
+        <div class="stat"><div class="stat-value">54</div><div class="stat-label">Modules</div></div>
+    </div>
+
+    <div class="bottom-sheet" id="bottom-sheet">
+        <div class="bottom-sheet-handle"></div>
+        <button class="bottom-sheet-close" id="bottom-sheet-close">×</button>
+        <div id="module-details-mobile"></div>
+    </div>
+
+    <script>
+        const modules = {
+            // 1xxx - Intro Beginner
+            '1000': { label: 'What is\n(Free) MoCap?', level: 1000, track: 'shared', description: 'Introduction to motion capture and FreeMoCap.', prereqs: [], deliverable: 'Overview' },
+            '1001': { label: "Baby's First\nSkeleton", level: 1000, track: 'shared', description: 'Single-camera recording basics.', prereqs: ['1000'], deliverable: 'Recording folder (zip)' },
+            '1002': { label: 'Calibration', level: 1000, track: 'shared', description: 'Camera calibration with ChArUco boards.', prereqs: ['1001'], deliverable: 'Calibration folder (zip)' },
+            '1003': { label: 'Multi-Camera\nRecording', level: 1000, track: 'shared', description: 'Multi-camera 3D capture.', prereqs: ['1002'], deliverable: 'Recording folder (zip)' },
+            '1004': { label: 'Data Output\n& Blender', level: 1000, track: 'shared', description: 'Exploring output and Blender visualization.', prereqs: ['1003'], deliverable: 'Polished .blend file' },
+
+            // 2xxx - Optimization
+            '2000': { label: 'Optimization\nOverview', level: 2000, track: 'shared', description: 'Overview of optimization techniques.', prereqs: ['1004'], deliverable: 'Overview' },
+            '2001': { label: 'Mocap\nTechnicals', level: 2000, track: 'shared', description: 'Technical foundations of mocap.', prereqs: ['2000'], deliverable: 'Bot chat' },
+            '2002': { label: 'Calibration\nTheory', level: 2000, track: 'shared', description: 'Advanced calibration theory.', prereqs: ['2001'], deliverable: 'Recording + Bot chat' },
+            '2003': { label: 'Environment\nOptimization', level: 2000, track: 'shared', description: 'Optimizing recording environment.', prereqs: ['2002'], deliverable: 'Quiz, Bot chat, Recording' },
+            '2004': { label: 'Data Output\nDetails', level: 2000, track: 'shared', description: 'Detailed output understanding.', prereqs: ['2003'], deliverable: 'Quiz, Notebook, Bot chat' },
+            '2005': { label: 'Blender Output\nDetails', level: 2000, track: 'shared', description: 'Advanced Blender workflows.', prereqs: ['2004'], deliverable: 'Quiz, .blend, Bot chat' },
+
+            // 3000 - Specialization Overview
+            '3000': { label: 'Specialization\nOverview', level: 3000, track: 'shared', description: 'Choose your specialization track.', prereqs: ['2005'], deliverable: 'Quiz and Bot chat' },
+
+            // 31xx - Technology Track
+            '3100': { label: 'Technology\nOverview', level: 3100, track: 'technology', description: 'Sub-skelly architecture overview.', prereqs: ['3000'], deliverable: 'Quiz and Bot chat' },
+            
+            // 311x - SkellyCam
+            '3110': { label: 'SkellyCam\nOverview', level: 3110, track: 'technology', description: 'Camera backend overview.', prereqs: ['3100'], deliverable: 'Quiz and Bot chat' },
+            '3111': { label: 'Camera\nHardware', level: 3110, track: 'technology', description: 'Camera detection and configuration.', prereqs: ['3110'], deliverable: 'Config report, Bot chat' },
+            '3112': { label: 'Video\nSynchronization', level: 3110, track: 'technology', description: 'Frame synchronization.', prereqs: ['3111'], deliverable: 'Timestamp analysis' },
+            '3113': { label: 'Backend\nArchitecture', level: 3110, track: 'technology', description: 'FastAPI/WebSocket architecture.', prereqs: ['3112'], deliverable: 'Architecture docs' },
+            
+            // 312x - SkellyTracker
+            '3120': { label: 'SkellyTracker\nOverview', level: 3120, track: 'technology', description: 'Pose estimation backend.', prereqs: ['3100'], deliverable: 'Quiz and Bot chat' },
+            '3121': { label: 'Tracker\nAbstraction', level: 3120, track: 'technology', description: 'BaseTracker ABC pattern.', prereqs: ['3120'], deliverable: 'Custom tracker' },
+            '3122': { label: 'Pose\nModels', level: 3120, track: 'technology', description: 'MediaPipe, YOLO comparison.', prereqs: ['3121'], deliverable: 'Model comparison' },
+            '3123': { label: 'Output\nFormats', level: 3120, track: 'technology', description: 'Keypoint data structures.', prereqs: ['3122'], deliverable: 'Data extraction script' },
+            
+            // 313x - SkellyForge
+            '3130': { label: 'SkellyForge\nOverview', level: 3130, track: 'technology', description: 'Post-processing pipeline.', prereqs: ['3100'], deliverable: 'Quiz and Bot chat' },
+            '3131': { label: 'Multi-View\nTriangulation', level: 3130, track: 'technology', description: '3D reconstruction math.', prereqs: ['3130'], deliverable: 'Triangulation analysis' },
+            '3132': { label: 'Filtering &\nInterpolation', level: 3130, track: 'technology', description: 'Signal processing.', prereqs: ['3131'], deliverable: 'Filter comparison' },
+            '3133': { label: 'Configuration\n& GUI', level: 3130, track: 'technology', description: 'TOML config, GUI tuning.', prereqs: ['3132'], deliverable: 'Custom preset' },
+            
+            // 314x - SkellyBlender
+            '3140': { label: 'SkellyBlender\nOverview', level: 3140, track: 'technology', description: 'Blender addon architecture.', prereqs: ['3100'], deliverable: 'Quiz and Bot chat' },
+            '3141': { label: 'Blender\nPython API', level: 3140, track: 'technology', description: 'bpy scripting fundamentals.', prereqs: ['3140'], deliverable: 'Blender script' },
+            '3142': { label: 'Armatures &\nAnimation', level: 3140, track: 'technology', description: 'Bones and keyframes.', prereqs: ['3141'], deliverable: 'Armature script' },
+            '3143': { label: 'Export\nPipelines', level: 3140, track: 'technology', description: 'FBX, BVH export.', prereqs: ['3142'], deliverable: 'Export workflow docs' },
+            
+            // 315x - FreeMoCap Core
+            '3150': { label: 'FreeMoCap Core\nOverview', level: 3150, track: 'technology', description: 'Main application architecture.', prereqs: ['3100'], deliverable: 'Quiz and Bot chat' },
+            '3151': { label: 'GUI\nArchitecture', level: 3150, track: 'technology', description: 'Qt/PySide UI structure.', prereqs: ['3150'], deliverable: 'Component analysis' },
+            '3152': { label: 'Pipeline\nOrchestration', level: 3150, track: 'technology', description: 'Workflow management.', prereqs: ['3151'], deliverable: 'Pipeline flow docs' },
+            '3153': { label: 'Session\nData Model', level: 3150, track: 'technology', description: 'Recording file structure.', prereqs: ['3152'], deliverable: 'Session script' },
+
+            // 32xx - Science Track
+            '3200': { label: 'Science\nOverview', level: 3200, track: 'science', description: 'Scientific applications overview.', prereqs: ['3000'], deliverable: 'Bot chat' },
+            '3201': { label: 'Intro to\nMeasurement', level: 3200, track: 'science', description: 'Measurement fundamentals.', prereqs: ['3200'], deliverable: 'Bot chat' },
+            '3202': { label: 'Intro to\nData Analysis', level: 3200, track: 'science', description: 'Analysis techniques.', prereqs: ['3201'], deliverable: 'Bot chat' },
+            
+            // 321x - Biomechanics
+            '3210': { label: 'Biomechanics\nOverview', level: 3210, track: 'science', description: 'Biomechanics sub-specialization.', prereqs: ['3202'], deliverable: 'Overview' },
+            '3211': { label: 'Kinematics &\nJoint Angles', level: 3210, track: 'science', description: 'Movement analysis.', prereqs: ['3210'], deliverable: 'TBD' },
+            '3212': { label: 'Posture, COM\n& BOS', level: 3210, track: 'science', description: 'Stability analysis.', prereqs: ['3211'], deliverable: 'TBD' },
+            '3213': { label: 'BOS/COM\nData', level: 3210, track: 'science', description: 'Self-recording stability.', prereqs: ['3212'], deliverable: 'Self-recording' },
+            '3214': { label: 'Jumping\nData', level: 3210, track: 'science', description: 'Jump analysis.', prereqs: ['3213'], deliverable: 'Self-recording' },
+            '3215': { label: 'Gait\nData', level: 3210, track: 'science', description: 'Walking analysis.', prereqs: ['3214'], deliverable: 'Self-recording' },
+            
+            // 322x - Neuroscience
+            '3220': { label: 'Neuroscience\nOverview', level: 3220, track: 'science', description: 'Perceptuo-motor control.', prereqs: ['3202'], deliverable: 'Overview' },
+            '3221': { label: 'Sensory-motor\nHierarchy', level: 3220, track: 'science', description: 'Perception-Action cycle.', prereqs: ['3220'], deliverable: 'TBD' },
+
+            // 33xx - Art Track
+            '3300': { label: 'Art Track\nOverview', level: 3300, track: 'art', description: 'Artistic applications overview.', prereqs: ['3000'], deliverable: 'Bot chat' },
+            
+            // 331x - Animation
+            '3310': { label: 'Animation\nOverview', level: 3310, track: 'art', description: 'Character animation workflow.', prereqs: ['3300'], deliverable: 'Quiz and Bot chat' },
+            '3311': { label: 'Mocap\nCleanup', level: 3310, track: 'art', description: 'Polishing raw data.', prereqs: ['3310'], deliverable: 'Cleaned animation' },
+            '3312': { label: 'Character\nRigging', level: 3310, track: 'art', description: 'Creating rigs for mocap.', prereqs: ['3311'], deliverable: 'Rigged character' },
+            '3313': { label: 'Motion\nRetargeting', level: 3310, track: 'art', description: 'Skeleton-to-skeleton transfer.', prereqs: ['3312'], deliverable: 'Retargeted animation' },
+            '3314': { label: 'Production\nWorkflows', level: 3310, track: 'art', description: 'End-to-end production.', prereqs: ['3313'], deliverable: 'Short animated sequence' },
+            
+            // 332x - Game Dev
+            '3320': { label: 'Game Dev\nOverview', level: 3320, track: 'art', description: 'Game development overview.', prereqs: ['3300'], deliverable: 'Quiz and Bot chat' },
+            '3321': { label: 'Export for\nGame Engines', level: 3320, track: 'art', description: 'FBX optimization.', prereqs: ['3320'], deliverable: 'Game-ready export' },
+            '3322': { label: 'Godot\nIntegration', level: 3320, track: 'art', description: 'Godot animation system.', prereqs: ['3321'], deliverable: 'Playable Godot character' },
+            '3323': { label: 'Unreal &\nUnity', level: 3320, track: 'art', description: 'Major engine workflows.', prereqs: ['3322'], deliverable: 'Playable character' },
+            '3324': { label: 'Real-Time\nApplications', level: 3320, track: 'art', description: 'VTubing, live performance.', prereqs: ['3323'], deliverable: 'Real-time demo' }
+        };
+
+        const levelColors = { 
+            1000: '#22c55e', 2000: '#3b82f6', 3000: '#a855f7',
+            3100: '#a855f7', 3110: '#a855f7', 3120: '#a855f7', 3130: '#a855f7', 3140: '#a855f7', 3150: '#a855f7',
+            3200: '#a855f7', 3210: '#a855f7', 3220: '#a855f7',
+            3300: '#a855f7', 3310: '#a855f7', 3320: '#a855f7'
+        };
+        const trackColors = { shared: '#94a3b8', technology: '#06b6d4', science: '#10b981', art: '#f472b6' };
+        const trackBadgeStyles = {
+            shared: { bg: 'rgba(148,163,184,0.2)', color: '#94a3b8' },
+            technology: { bg: 'rgba(6,182,212,0.2)', color: '#06b6d4' },
+            science: { bg: 'rgba(16,185,129,0.2)', color: '#10b981' },
+            art: { bg: 'rgba(244,114,182,0.2)', color: '#f472b6' }
+        };
+        const trackLabels = { shared: '📚 Shared', technology: '🔧 Technology', science: '🔬 Science', art: '🎨 Art' };
+
+        const elements = [];
+        Object.entries(modules).forEach(([id, data]) => {
+            elements.push({ data: { id, label: data.label, level: data.level, track: data.track, ...data } });
+        });
+        Object.entries(modules).forEach(([id, data]) => {
+            data.prereqs.forEach(prereq => {
+                elements.push({ data: { id: `${prereq}-${id}`, source: prereq, target: id } });
+            });
+        });
+
+        const cy = cytoscape({
+            container: document.getElementById('cy'),
+            elements: elements,
+            style: [
+                {
+                    selector: 'node',
+                    style: {
+                        'label': 'data(label)', 'text-wrap': 'wrap', 'text-valign': 'center', 'text-halign': 'center',
+                        'font-size': '9px', 'font-weight': '600', 'color': '#fff',
+                        'text-outline-color': '#000', 'text-outline-width': '1px',
+                        'width': '85px', 'height': '45px', 'shape': 'roundrectangle',
+                        'background-color': (ele) => levelColors[ele.data('level')] || '#a855f7',
+                        'border-width': '2px', 'border-color': (ele) => trackColors[ele.data('track')]
+                    }
+                },
+                { selector: 'edge', style: { 'width': 1.5, 'line-color': 'rgba(255,255,255,0.2)', 'target-arrow-color': 'rgba(255,255,255,0.3)', 'target-arrow-shape': 'triangle', 'curve-style': 'bezier', 'arrow-scale': 0.8 } },
+                { selector: 'node.faded', style: { 'opacity': 0.15 } },
+                { selector: 'edge.faded', style: { 'opacity': 0.08 } },
+                { selector: 'node.highlight', style: { 'border-width': '3px', 'border-color': '#fbbf24' } },
+                { selector: 'edge.highlight', style: { 'line-color': '#fbbf24', 'target-arrow-color': '#fbbf24', 'width': 2 } }
+            ],
+            layout: { name: 'dagre', rankDir: 'TB', nodeSep: 25, rankSep: 50, padding: 20 },
+            minZoom: 0.15, maxZoom: 2.5, wheelSensitivity: 0.3
+        });
+
+        function getModuleHTML(data) {
+            const badgeStyle = trackBadgeStyles[data.track];
+            const prereqText = data.prereqs.length > 0 ? data.prereqs.map(p => modules[p]?.label.replace(/\n/g, ' ') || p).join(' → ') : 'None';
+            return `<div style="margin-bottom:12px"><span class="track-badge" style="background:${badgeStyle.bg};color:${badgeStyle.color}">${trackLabels[data.track]}</span></div>
+                <div class="module-title">${data.label.replace(/\n/g, ' ')}</div>
+                <p class="module-description">${data.description}</p>
+                <p class="module-prereqs"><strong>Prerequisites:</strong> ${prereqText}</p>
+                <div class="deliverable-box"><div class="deliverable-label">📋 Deliverable</div><div class="deliverable-text">${data.deliverable}</div></div>`;
+        }
+
+        const sidebar = document.getElementById('sidebar');
+        const sidebarOverlay = document.getElementById('sidebar-overlay');
+        const menuToggle = document.getElementById('menu-toggle');
+        const bottomSheet = document.getElementById('bottom-sheet');
+        const bottomSheetClose = document.getElementById('bottom-sheet-close');
+        const placeholderDesktop = document.getElementById('placeholder-desktop');
+        const moduleDetailsDesktop = document.getElementById('module-details-desktop');
+        const moduleDetailsMobile = document.getElementById('module-details-mobile');
+
+        menuToggle.addEventListener('click', () => { sidebar.classList.toggle('open'); sidebarOverlay.classList.toggle('visible'); });
+        sidebarOverlay.addEventListener('click', () => { sidebar.classList.remove('open'); sidebarOverlay.classList.remove('visible'); });
+        bottomSheetClose.addEventListener('click', () => { bottomSheet.classList.remove('visible'); cy.elements().removeClass('highlight faded'); });
+
+        cy.on('tap', 'node', function(evt) {
+            const node = evt.target; const data = node.data(); const html = getModuleHTML(data);
+            placeholderDesktop.style.display = 'none';
+            moduleDetailsDesktop.classList.add('visible');
+            moduleDetailsDesktop.innerHTML = html;
+            if (window.innerWidth < 768) { moduleDetailsMobile.innerHTML = html; bottomSheet.classList.add('visible'); }
+            cy.elements().removeClass('highlight faded');
+            const connected = node.predecessors().union(node.successors()).union(node);
+            cy.elements().not(connected).addClass('faded');
+            connected.addClass('highlight');
+        });
+
+        cy.on('tap', function(evt) { if (evt.target === cy) { cy.elements().removeClass('highlight faded'); bottomSheet.classList.remove('visible'); } });
+
+        document.querySelectorAll('.filter-btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+                document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+                this.classList.add('active');
+                const track = this.dataset.track;
+                cy.elements().removeClass('faded highlight');
+                bottomSheet.classList.remove('visible');
+                if (track === 'all') return;
+                cy.elements().addClass('faded');
+                cy.nodes('[track="shared"]').removeClass('faded');
+                if (track !== 'shared') cy.nodes(`[track="${track}"]`).removeClass('faded');
+                cy.edges().forEach(edge => {
+                    const st = edge.source().data('track'), tt = edge.target().data('track');
+                    if ((st === 'shared' || st === track) && (tt === 'shared' || tt === track)) edge.removeClass('faded');
+                });
+                if (window.innerWidth < 768) { sidebar.classList.remove('open'); sidebarOverlay.classList.remove('visible'); }
+            });
+        });
+
+        document.getElementById('zoom-in').addEventListener('click', () => cy.zoom(cy.zoom() * 1.3));
+        document.getElementById('zoom-out').addEventListener('click', () => cy.zoom(cy.zoom() / 1.3));
+        document.getElementById('zoom-fit').addEventListener('click', () => cy.fit(30));
+        cy.fit(30);
+        window.addEventListener('resize', () => setTimeout(() => cy.fit(30), 150));
+    </script>
+</body>
+</html>

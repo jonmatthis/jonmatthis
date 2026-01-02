@@ -1,0 +1,128 @@
+version: 1
+
+project:
+  title: FreeMoCap Curriculum
+  github: https://github.com/freemocap/freemocap-curriculum
+  
+  toc:
+    - file: index.md
+    - file: curriculum-map.md
+    
+    # 1xxx - Intro Beginner Level
+    - title: "1xxx: Intro Beginner"
+      children:
+        - file: modules/1000-intro/1000-overview.md
+        - file: modules/1000-intro/1001-single-camera.md
+        - file: modules/1000-intro/1002-calibration.md
+        - file: modules/1000-intro/1003-multi-camera.md
+        - file: modules/1000-intro/1004-data-output.md
+    
+    # 2xxx - Optimization & Troubleshooting Level
+    - title: "2xxx: Optimization"
+      children:
+        - file: modules/2000-optimization/2000-overview.md
+        - file: modules/2000-optimization/2001-mocap-technicals.md
+        - file: modules/2000-optimization/2002-calibration-theory.md
+        - file: modules/2000-optimization/2003-environment-optimization.md
+        - file: modules/2000-optimization/2004-data-output-details.md
+        - file: modules/2000-optimization/2005-blender-output.md
+    
+    # 3xxx - Specialization Level
+    - title: "3xxx: Specialization"
+      children:
+        - file: modules/3000-specialization/3000-overview.md
+        
+        # 31xx - Technology Track
+        - title: "31xx: Technology"
+          children:
+            - file: modules/3000-specialization/3100-technology/3100-tech-overview.md
+            
+            # 311x - SkellyCam
+            - title: "311x: SkellyCam"
+              children:
+                - file: modules/3000-specialization/3100-technology/3110-skellycam/3110-skellycam-overview.md
+                - file: modules/3000-specialization/3100-technology/3110-skellycam/3111-camera-hardware.md
+                - file: modules/3000-specialization/3100-technology/3110-skellycam/3112-synchronization.md
+                - file: modules/3000-specialization/3100-technology/3110-skellycam/3113-backend-architecture.md
+            
+            # 312x - SkellyTracker
+            - title: "312x: SkellyTracker"
+              children:
+                - file: modules/3000-specialization/3100-technology/3120-skellytracker/3120-skellytracker-overview.md
+                - file: modules/3000-specialization/3100-technology/3120-skellytracker/3121-tracker-abstraction.md
+                - file: modules/3000-specialization/3100-technology/3120-skellytracker/3122-pose-models.md
+                - file: modules/3000-specialization/3100-technology/3120-skellytracker/3123-output-formats.md
+            
+            # 313x - SkellyForge
+            - title: "313x: SkellyForge"
+              children:
+                - file: modules/3000-specialization/3100-technology/3130-skellyforge/3130-skellyforge-overview.md
+                - file: modules/3000-specialization/3100-technology/3130-skellyforge/3131-triangulation.md
+                - file: modules/3000-specialization/3100-technology/3130-skellyforge/3132-filtering.md
+                - file: modules/3000-specialization/3100-technology/3130-skellyforge/3133-configuration.md
+            
+            # 314x - SkellyBlender
+            - title: "314x: SkellyBlender"
+              children:
+                - file: modules/3000-specialization/3100-technology/3140-skellyblender/3140-skellyblender-overview.md
+                - file: modules/3000-specialization/3100-technology/3140-skellyblender/3141-blender-api.md
+                - file: modules/3000-specialization/3100-technology/3140-skellyblender/3142-armatures.md
+                - file: modules/3000-specialization/3100-technology/3140-skellyblender/3143-export-pipelines.md
+            
+            # 315x - FreeMoCap Core
+            - title: "315x: FreeMoCap Core"
+              children:
+                - file: modules/3000-specialization/3100-technology/3150-freemocap-core/3150-core-overview.md
+                - file: modules/3000-specialization/3100-technology/3150-freemocap-core/3151-gui-architecture.md
+                - file: modules/3000-specialization/3100-technology/3150-freemocap-core/3152-pipeline.md
+                - file: modules/3000-specialization/3100-technology/3150-freemocap-core/3153-session-data.md
+        
+        # 32xx - Science Track
+        - title: "32xx: Science"
+          children:
+            - file: modules/3000-specialization/3200-science/3200-science-overview.md
+            - file: modules/3000-specialization/3200-science/3201-measurement.md
+            - file: modules/3000-specialization/3200-science/3202-data-analysis.md
+            
+            # 321x - Biomechanics Sub-Track
+            - title: "321x: Biomechanics"
+              children:
+                - file: modules/3000-specialization/3200-science/3210-biomechanics/3210-biomechanics-overview.md
+                - file: modules/3000-specialization/3200-science/3210-biomechanics/3211-kinematics.md
+                - file: modules/3000-specialization/3200-science/3210-biomechanics/3212-posture-com.md
+                - file: modules/3000-specialization/3200-science/3210-biomechanics/3213-bos-com-data.md
+                - file: modules/3000-specialization/3200-science/3210-biomechanics/3214-jumping-data.md
+                - file: modules/3000-specialization/3200-science/3210-biomechanics/3215-gait-data.md
+            
+            # 322x - Neuroscience Sub-Track
+            - title: "322x: Neuroscience"
+              children:
+                - file: modules/3000-specialization/3200-science/3220-neuroscience/3220-neuroscience-overview.md
+                - file: modules/3000-specialization/3200-science/3220-neuroscience/3221-sensory-motor.md
+        
+        # 33xx - Art Track
+        - title: "33xx: Art"
+          children:
+            - file: modules/3000-specialization/3300-art/3300-art-overview.md
+            
+            # 331x - Animation Sub-Track
+            - title: "331x: Animation"
+              children:
+                - file: modules/3000-specialization/3300-art/3310-animation/3310-animation-overview.md
+                - file: modules/3000-specialization/3300-art/3310-animation/3311-mocap-cleanup.md
+                - file: modules/3000-specialization/3300-art/3310-animation/3312-character-rigging.md
+                - file: modules/3000-specialization/3300-art/3310-animation/3313-retargeting.md
+                - file: modules/3000-specialization/3300-art/3310-animation/3314-production-workflows.md
+            
+            # 332x - Video Game Design Sub-Track
+            - title: "332x: Game Dev"
+              children:
+                - file: modules/3000-specialization/3300-art/3320-gamedev/3320-gamedev-overview.md
+                - file: modules/3000-specialization/3300-art/3320-gamedev/3321-export-gameengines.md
+                - file: modules/3000-specialization/3300-art/3320-gamedev/3322-godot-integration.md
+                - file: modules/3000-specialization/3300-art/3320-gamedev/3323-unreal-unity.md
+                - file: modules/3000-specialization/3300-art/3320-gamedev/3324-realtime-applications.md
+
+site:
+  template: book-theme
+  title: FreeMoCap Curriculum

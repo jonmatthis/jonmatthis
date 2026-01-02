@@ -1,0 +1,21 @@
+# FreeMoCap Curriculum commands
+
+# Start dev server with code execution
+dev:
+    uv run myst start --execute
+
+# Build static site
+build:
+    uv run myst build --html
+
+# Open JupyterLab
+lab:
+    uv run jupyter lab
+
+# Clean build artifacts
+clean:
+    rm -rf _build .myst
+
+# Sync dependencies
+sync:
+    uv sync
