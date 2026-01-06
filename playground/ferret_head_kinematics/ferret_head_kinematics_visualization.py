@@ -367,11 +367,11 @@ def send_head_basis_vectors(
         origins: list[NDArray[np.float64]] = []
         vectors: list[NDArray[np.float64]] = []
 
-        for i in range(n_frames):
-            time_val = float(hk.timestamps[i] - t0)
+        for frame_number in range(n_frames):
+            time_val = float(hk.timestamps[frame_number] - t0)
             times.append(time_val)
-            origins.append(head_origins[i])
-            vectors.append(basis[i] * scale)
+            origins.append(head_origins[frame_number])
+            vectors.append(basis[frame_number] * scale)
 
         origins_array = np.array(origins)
         vectors_array = np.array(vectors)
