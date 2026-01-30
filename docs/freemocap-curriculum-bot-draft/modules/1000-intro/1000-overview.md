@@ -40,11 +40,8 @@ FreeMoCap (Free Motion Capture) is a free, open-source markerless motion capture
 
 ## Prerequisites
 
-None - this is the entry point to the curriculum.
+None - this is the entry point to the curriculum!
 
-## Deliverable
-
-*To be specified by instructor*
 
 ## Next Steps
 
