@@ -199,14 +199,14 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor i
 
 | Metric | Count |
 |--------|-------|
-| ⭐ GitHub Stars | X,XXX |
-| 💬 Discord Members | X,XXX |
-| 🌍 Global Users | XX,XXX |
-| 🗺️ Countries Reached | XXX |
+| ⭐ GitHub Stars | 4,533 |
+| 💬 Discord Members | 3,387 |
+| 🌍 Global Users | 10,222+ |
+| 🗺️ Countries Reached | 140 |
 
-![bg right:40% contain opacity:0.15](skelly-logo.png)
+![bg right:40% contain ](freemocap-github-star-history.png)
 
-Lorem ipsum dolor sit amet, consectetur adipiscing elit sed do eiusmod.
+![bg right:40% contain ](freemocap-user-dashboard.png)
 
 ---
 
@@ -279,7 +279,7 @@ Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
 
 | Current | Future |
 |---------|--------|
-| Lorem ipsum | Tidy format |
+| Lorem ipsum | Tidy format |                                                  
 | Dolor sit | Parquet files |
 | Amet consectetur | Standardized schema |
 
