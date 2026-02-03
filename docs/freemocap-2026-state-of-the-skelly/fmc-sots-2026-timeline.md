@@ -1,5 +1,5 @@
-- 2017 - Openpose released - UT video
-- 2019 - Start Northeastern - 1 year of regular professor ship before,... 
+- 2017 - Openpose released - UT video (will add locally)
+- 2019 - Start Northeastern - 1 year of regular professor ship before,... (retinal optic flow video, locally, trents ARGP video? )
 - 2020 March - Covid and Quarantine!
 - 2020 August - Lose faith in scientific/academic/educational process, whoops!
 - 2021 - Re-align to FOSS (through Blender!) - "FOSS Community is what Scientific Community Pretends to be"
