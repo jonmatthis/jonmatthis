@@ -84,7 +84,7 @@ style: |
   section.title {
     text-align: center;
     justify-content: center;
-    padding-bottom: 180px;
+    padding-bottom: 120px;
   }
   
   section.title h1 {
@@ -112,17 +112,36 @@ style: |
     margin: 0 auto;
   }
   
+  /* Section progress indicator */
+  section::after {
+    font-family: 'Dosis', sans-serif;
+    font-size: 0.7em;
+    color: var(--light-cyan);
+    opacity: 0.6;
+    position: absolute;
+    top: 20px;
+    right: 30px;
+  }
+  
+  section.part-background::after { content: "Background"; }
+  section.part-current::after { content: "Current State"; }
+  section.part-future::after { content: "Future Plans"; }
+  
+  /* Footer styling - spread across bottom */
   footer {
     font-family: 'Dosis', sans-serif;
     font-weight: 200;
     color: var(--light-cyan);
     opacity: 0.7;
-    left: 0;
-    right: 0;
-    width: 100%;
+    left: 30px;
+    right: 30px;
+    bottom: 20px;
+    width: calc(100% - 60px);
+    display: flex;
+    justify-content: space-between;
     text-align: center;
   }
-footer: State of the Skelly - 2026-02-03 | Jonathan Samir Matthis |  FreeMoCap Foundation 501(c)3
+footer: State of the Skelly 2026  ·  Jonathan Samir Matthis  ·  FreeMoCap Foundation 501(c)3
 ---
 
 <!--
@@ -147,13 +166,21 @@ Keep in same folder: .md, skelly-logo.png, skellycam-logo.png, *.mp4
 <!-- _class: title -->
 <!-- _footer: "" -->
 
+<div style="padding-top: 60px;">
+
 ![w:200 center](skelly-logo.png)
 
 # 2026 State of the Skelly Address
 
 ## FreeMoCap Foundation
 
-*Start: 6:30 PM | Talk: 45-60 min | Q&A to follow*
+</div>
+
+<div style="margin-top: 80px; font-size: 0.9em;">
+
+*Start: 6:30 PM  ·  Talk: 45-60 min  ·  Q&A to follow*
+
+</div>
 
 ---
 
@@ -173,18 +200,57 @@ Keep in same folder: .md, skelly-logo.png, skellycam-logo.png, *.mp4
 ## Background
 
 ---
+<!-- _class: part-background -->
 
-# An Abbreviated History
+# 2017 — OpenPose Released
 
-![bg right:35% contain opacity:0.2](skelly-logo.png)
+![bg right:45% contain opacity:0.9](skelly-logo.png)
 
-Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+<!-- Video placeholder: lab footage -->
 
-- **2021** — Ut enim ad minim veniam, quis nostrud
-- **2022** — Exercitation ullamco laboris nisi ut aliquip
-- **2023** — Duis aute irure dolor in reprehenderit
-- **2024** — Excepteur sint occaecat cupidatat non proident
-- **2025** — Sunt in culpa qui officia deserunt mollit
+---
+<!-- _class: part-background -->
+
+# 2019 — Northeastern
+
+![bg right:45% contain opacity:0.9](skelly-logo.png)
+
+<!-- Video placeholder: NEU footage -->
+
+---
+<!-- _class: part-background -->
+
+# 2020 — COVID
+
+
+![bg right:45% contain opacity:0.9](skelly-logo.png)
+
+---
+<!-- _class: part-background -->
+
+# 2021 — First Public Post
+
+![bg right:45% contain opacity:0.9](skelly-logo.png)
+
+<!-- Video placeholder: first release video -->
+---
+
+<!-- _class: part-background -->
+
+# 202? - Meowmaline
+
+![bg right:45% contain opacity:0.9](skelly-logo.png)
+
+<!-- Video placeholder: meowmaline -->
+
+---
+<!-- _class: part-background -->
+
+# 2026 — Today
+
+Where we are now - the scary cliff approaches
+
+![bg right:45% contain opacity:0.9](skelly-logo.png)
 
 ---
 
@@ -194,6 +260,7 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor i
 ## Current State
 
 ---
+<!-- _class: part-current -->
 
 # By the Numbers
 
@@ -201,48 +268,49 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor i
 |--------|-------|
 | ⭐ GitHub Stars | 4,533 |
 | 💬 Discord Members | 3,387 |
-| 🌍 Global Users | 10,222+ |
+| 🌐 Global Users | 10,222+ |
 | 🗺️ Countries Reached | 140 |
 
-![bg right:40% contain ](freemocap-github-star-history.png)
+![bg right:40% contain](freemocap-github-star-history.png)
 
-![bg right:40% contain ](freemocap-user-dashboard.png)
+![bg right:40% contain](freemocap-user-dashboard.png)
 
+- A field trip to Dataland - https://freemocap.org/data.html
 ---
+<!-- _class: part-current -->
 
 # Financials
-
-> *"Kinda loosey on specifics"*
-
-Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut enim ad minim veniam, quis nostrud exercitation.
-
-### Estimated Burn-Down Cliff
-
-Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
+- Doing Ok
+- Will survive past the 2026 June 30 Scary Cliff
+- ...but will be thrive??
+<!-- Light slide — will discuss verbally -->
 
 ![bg right:35% contain opacity:0.15](skelly-logo.png)
 
 ---
+<!-- _class: part-current -->
 
 # Clients
 
 ### Current Research Partners
 
-- 🐹 **Ferrets** — Lorem ipsum dolor sit amet
-- 🐭 **Mice** — Consectetur adipiscing elit
+- Ben Scholl - Developmental Laser Ferrets 
+- DF - Mouse eye tracker and all-day Pupilometry 
 
 ![bg right:40% contain opacity:0.2](skelly-logo.png)
 
 ---
+<!-- _class: part-current -->
 
-# 💰 Have Money? Let's Talk!
+# Now Accepting Clients
 
-Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore.
+**Interested in working with us?**
 
-**Contact us if you have funding for:**
 - Research collaborations
 - Custom development
 - Enterprise support
+
+- Support tiers
 
 ![bg right:35% contain opacity:0.15](skelly-logo.png)
 
@@ -254,24 +322,22 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor i
 ## Future Plans
 
 ---
+<!-- _class: part-future -->
 
 # v2 Transition 🚀
 
 ![bg right:40% contain opacity:0.15](skellycam-logo.png)
 
-Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-
 ### Realtime Demo
-
-Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
 
 ### Release Plan
 
-- **Alpha** → Ut enim ad minim veniam
-- **Beta** → Quis nostrud exercitation
-- **Full Release** → Ullamco laboris nisi
+- **Alpha** — Core functionality
+- **Beta** — UI overhaul, testing
+- **Full Release** — Production ready
 
 ---
+<!-- _class: part-future -->
 
 # Data Model Plans
 
@@ -279,75 +345,57 @@ Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
 
 | Current | Future |
 |---------|--------|
-| Lorem ipsum | Tidy format |                                                  
-| Dolor sit | Parquet files |
-| Amet consectetur | Standardized schema |
-
-Duis aute irure dolor in reprehenderit in voluptate velit esse cillum.
+| NumPy arrays | Tidy format |
+| .npy files | Parquet files |
+| Ad-hoc schema | Standardized schema |
 
 ![bg right:35% contain opacity:0.15](skelly-logo.png)
 
 ---
+<!-- _class: part-future -->
 
-# UI Transition Plan
+# Documentation Overhaul
 
-Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt.
+Complete docs rewrite in progress
 
-- Excepteur sint occaecat cupidatat
-- Non proident sunt in culpa
-- Qui officia deserunt mollit anim
+### FreeMoCap University 🎓
 
-![bg right:40% contain opacity:0.15](skellycam-logo.png)
-
----
-
-# FMCU — FreeMoCap Curriculum
-
-### Docs Overhaul
-
-Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-
-### Microcertifications 🎓
-
-- Sed do eiusmod tempor
-- Incididunt ut labore
-- Et dolore magna aliqua
+Microcertifications coming
 
 ![bg right:35% contain opacity:0.15](skelly-logo.png)
 
 ---
+<!-- _class: part-future -->
 
 # SkellyShop 🛒
 
-### Phase 1: Charuco Boards
+### Charuco Boards
 
-- With cheatsheet included!
-- Lorem ipsum dolor sit amet
+Available now — print-on-demand
 
-### Phase 2: Cameras & More
+### Cameras
 
-- Consectetur adipiscing elit
-- Sed do eiusmod tempor
+Coming soon
 
 ![bg right:40% contain opacity:0.2](skellycam-logo.png)
 
 ---
+<!-- _class: part-future -->
 
-# FDA 510(k) Certification
-
-### Validation Project
-
-Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+# FreeMoCap Validation
 
 ### Aaron's Dissertation 📚
 
-Completion unlocks FDA certification pathway!
+Completion unlocks next steps
 
-Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore.
+### FDA 510(k) Certification
+
+Future pathway
 
 ![bg right:35% contain opacity:0.15](skelly-logo.png)
 
 ---
+<!-- _class: part-future -->
 
 # Blender Addon
 
@@ -357,9 +405,7 @@ Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore.
 
 ### Official Distribution
 
-🎯 Goal: Get listed on Blender's official addon page
-
-Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+🎯 Goal: Blender's official addon page
 
 ![bg right:35% contain opacity:0.15](skelly-logo.png)
 
@@ -374,7 +420,7 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit.
 
 ## Questions?
 
-🌐 freemocap.org | 💻 github.com/freemocap | 💬 discord.gg/freemocap
+🌐 freemocap.org  ·  💻 github.com/freemocap  ·  💬 discord.gg/freemocap
 
 ---
 
