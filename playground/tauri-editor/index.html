@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Tauri Monaco Editor</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+        display: flex;
+        height: 100vh;
+        overflow: hidden;
+        background: #1e1e1e;
+        color: #cccccc;
+      }
+
+      #sidebar {
+        width: 250px;
+        background: #252526;
+        border-right: 1px solid #3c3c3c;
+        display: flex;
+        flex-direction: column;
+        overflow: hidden;
+      }
+
+      #sidebar-header {
+        padding: 12px;
+        background: #333333;
+        border-bottom: 1px solid #3c3c3c;
+        display: flex;
+        gap: 8px;
+      }
+
+      #sidebar-header button {
+        flex: 1;
+        padding: 8px;
+        background: #0e639c;
+        color: white;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        font-size: 13px;
+      }
+
+      #sidebar-header button:hover {
+        background: #1177bb;
+      }
+
+      #current-path {
+        padding: 8px 12px;
+        font-size: 12px;
+        color: #888;
+        border-bottom: 1px solid #3c3c3c;
+        word-break: break-all;
+      }
+
+      #file-list {
+        flex: 1;
+        overflow-y: auto;
+        padding: 8px 0;
+      }
+
+      .file-item {
+        padding: 6px 12px;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        font-size: 13px;
+      }
+
+      .file-item:hover {
+        background: #2a2d2e;
+      }
+
+      .file-item.selected {
+        background: #094771;
+      }
+
+      .file-item.directory {
+        color: #dcb67a;
+      }
+
+      .file-item.file {
+        color: #cccccc;
+      }
+
+      #main {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        overflow: hidden;
+      }
+
+      #editor-header {
+        padding: 8px 16px;
+        background: #333333;
+        border-bottom: 1px solid #3c3c3c;
+        font-size: 13px;
+        color: #888;
+      }
+
+      #editor-container {
+        flex: 1;
+        overflow: hidden;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="sidebar">
+      <div id="sidebar-header">
+        <button id="open-folder-btn">Open Folder</button>
+      </div>
+      <div id="current-path">No folder selected</div>
+      <div id="file-list"></div>
+    </div>
+    <div id="main">
+      <div id="editor-header">No file open</div>
+      <div id="editor-container"></div>
+    </div>
+    <script type="module" src="/src/main.ts"></script>
+  </body>
+</html>
