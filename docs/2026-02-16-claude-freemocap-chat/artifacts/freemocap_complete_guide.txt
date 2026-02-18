@@ -1,0 +1,1326 @@
+\documentclass[11pt,letterpaper,twoside]{book}
+
+% ============================================================================
+% PACKAGES
+% ============================================================================
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[margin=1in]{geometry}
+\usepackage{graphicx}
+\usepackage{xcolor}
+\usepackage{hyperref}
+\usepackage{enumitem}
+\usepackage{titlesec}
+\usepackage{fancyhdr}
+\usepackage{booktabs}
+\usepackage{longtable}
+\usepackage{array}
+\usepackage{tabularx}
+\usepackage{multirow}
+\usepackage{caption}
+\usepackage{framed}
+\usepackage{parskip}
+\usepackage{setspace}
+
+% ============================================================================
+% COLORS
+% ============================================================================
+\definecolor{navy}{RGB}{26,26,46}
+\definecolor{accent}{RGB}{233,69,96}
+\definecolor{blue}{RGB}{15,52,96}
+\definecolor{lightgray}{RGB}{248,248,248}
+\definecolor{medgray}{RGB}{200,200,200}
+\definecolor{darkgreen}{RGB}{0,100,0}
+
+% ============================================================================
+% HYPERREF SETUP
+% ============================================================================
+\hypersetup{
+    colorlinks=true,
+    linkcolor=navy,
+    citecolor=blue,
+    urlcolor=accent,
+    pdftitle={FreeMoCap: From Theory to Victory},
+    pdfauthor={FreeMoCap Foundation},
+}
+
+% ============================================================================
+% HEADER/FOOTER
+% ============================================================================
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[LE,RO]{\thepage}
+\fancyhead[RE]{\leftmark}
+\fancyhead[LO]{\rightmark}
+\renewcommand{\headrulewidth}{0.4pt}
+
+% ============================================================================
+% TITLE FORMATTING
+% ============================================================================
+\titleformat{\chapter}[display]
+  {\normalfont\huge\bfseries\color{navy}}
+  {\chaptertitlename\ \thechapter}{20pt}{\Huge}
+\titleformat{\section}
+  {\normalfont\Large\bfseries\color{navy}}
+  {\thesection}{1em}{}
+\titleformat{\subsection}
+  {\normalfont\large\bfseries\color{blue}}
+  {\thesubsection}{1em}{}
+
+% ============================================================================
+% CUSTOM ENVIRONMENTS
+% ============================================================================
+\newenvironment{keyinsight}{%
+  \begin{framed}
+  \noindent\textbf{\textcolor{accent}{Key Insight:}}\\[0.5em]
+}{%
+  \end{framed}
+}
+
+\newenvironment{definition}{%
+  \begin{framed}
+  \noindent\textbf{\textcolor{blue}{Definition:}}\\[0.5em]
+}{%
+  \end{framed}
+}
+
+\newenvironment{freemocapapp}{%
+  \begin{framed}
+  \noindent\textbf{\textcolor{navy}{FreeMoCap Application:}}\\[0.5em]
+}{%
+  \end{framed}
+}
+
+\newenvironment{cautionary}{%
+  \begin{framed}
+  \noindent\textbf{\textcolor{accent}{Cautionary Note:}}\\[0.5em]
+}{%
+  \end{framed}
+}
+
+\newenvironment{tactic}{%
+  \begin{framed}
+  \noindent\textbf{\textcolor{darkgreen}{Tactic:}}\\[0.5em]
+}{%
+  \end{framed}
+}
+
+% ============================================================================
+% DOCUMENT
+% ============================================================================
+\begin{document}
+
+% ============================================================================
+% TITLE PAGE
+% ============================================================================
+\begin{titlepage}
+\centering
+\vspace*{1.5cm}
+
+{\Huge\bfseries\color{navy} FreeMoCap\\[0.3em] From Theory to Victory\par}
+
+\vspace{0.8cm}
+
+{\Large\color{accent}\rule{0.6\textwidth}{2pt}\par}
+
+\vspace{0.8cm}
+
+{\Large A Complete Guide to Building\\[0.3em] Counter-Hegemonic Technology Movements\par}
+
+\vspace{1.5cm}
+
+\begin{framed}
+\small\itshape
+``The most successful labor campaigns and the most sustainable open source projects share a counterintuitive truth: community-building precedes and outweighs any tactical or technical consideration.''
+
+\vspace{0.5cm}
+
+``Community over contract'' mirrors ``community over code.''
+
+\vspace{0.5cm}
+
+\normalfont\small
+The software exists to serve the community. The foundation exists to serve users. \textbf{Community over code. Users over ideology. Relationships over recruitment.}
+\end{framed}
+
+\vfill
+
+{\large Integrating:\\[0.3em]
+Political Organizing Theory $\bullet$ FOSS Governance Research\\[0.2em]
+Labor Movement Strategy $\bullet$ Commons Economics\\[0.2em]
+Cooperative Models $\bullet$ Sustainability Science\par}
+
+\vspace{1cm}
+
+{\large Prepared for the FreeMoCap Foundation\par}
+
+\vspace{0.5cm}
+
+{\normalsize \today\par}
+
+\end{titlepage}
+
+% ============================================================================
+% FRONT MATTER
+% ============================================================================
+\frontmatter
+
+\tableofcontents
+
+\chapter*{Abstract}
+\addcontentsline{toc}{chapter}{Abstract}
+
+The most successful labor campaigns and the most sustainable open source projects share a counterintuitive truth: \textbf{community-building precedes and outweighs any tactical or technical consideration}. Jane McAlevey's organizing mantra---``community over contract''---mirrors Apache's founding principle of ``community over code.'' This parallel reveals why FOSS projects that treat community development as seriously as code development tend to survive founder transitions, corporate pressure, and the burnout epidemic that claims 60\% of maintainers who have quit or considered quitting.
+
+But the parallel extends further than most FOSS projects recognize. Labor movements understand that their power comes not primarily from leaders or professional organizers, but from the broad base of ordinary workers who may never hold union office but whose participation makes collective action possible. Similarly, FOSS communities depend not just on maintainers and code contributors, but on the vast base of users---artists, researchers, hobbyists, educators---who use the software, populate forums, create tutorials, evangelize to peers, and constitute the community without which the project has no purpose.
+
+This guide synthesizes decades of labor movement strategy, political organizing theory, FOSS governance case studies, cooperative economics, and sustainability research into a unified framework---structured as a ladder from understanding what we're fighting, through building community, sustaining the movement, and ultimately winning.
+
+\chapter*{How to Use This Guide}
+\addcontentsline{toc}{chapter}{How to Use This Guide}
+
+This guide is structured as a \textbf{ladder of engagement}---not just for community members, but for you as a reader and organizer:
+
+\textbf{Part I: Understanding the Fight} answers ``Why are we here?'' It provides the theoretical foundation---Gramsci's hegemony, Illich's institutional critique, Freire's critical consciousness, Benkler's commons economics. Read this to understand what you're fighting and why it matters.
+
+\textbf{Part II: Building the Community} answers ``How do we grow?'' It covers the transition from passive users to active contributors---deep organizing, the ladder of engagement, public narrative, cross-pollination between domains. Read this when you're ready to build.
+
+\textbf{Part III: Sustaining the Movement} answers ``How do we endure?'' It addresses governance, burnout prevention, cooperative models, and emergent strategy. Read this to build structures that last.
+
+\textbf{Part IV: Winning} answers ``How do we achieve our goals?'' It covers case studies, inoculation tactics, coalition building, comprehensive campaigns, and the transition from insurgent to institution. Read this when you're ready to fight and win.
+
+\textbf{Part V: Resources and Action} provides the worksheet, reading list, glossary, and bibliography. Use this as ongoing reference.
+
+You don't have to read linearly. But understand: \textbf{theory without tactics is academic; tactics without theory is directionless}. The ladder works because each level builds on the previous.
+
+% ============================================================================
+% MAIN MATTER
+% ============================================================================
+\mainmatter
+
+% ============================================================================
+% PART I: UNDERSTANDING THE FIGHT
+% ============================================================================
+\part{Understanding the Fight}
+
+\chapter{FreeMoCap and the Current Hegemony}
+
+\section{The Organization}
+
+The FreeMoCap Foundation is a 501(c)(3) nonprofit organization founded in 2021. Its flagship project, FreeMoCap, provides free, open-source markerless motion capture software that enables research-grade biomechanical analysis using standard webcams and computer vision techniques.
+
+\subsection{What FreeMoCap Actually Is}
+
+FreeMoCap achieves markerless motion capture using MediaPipe for pose estimation, Anipose for 3D triangulation, standard webcams (no specialized hardware required), and a Python-based open architecture.
+
+This technical stack represents a proof-of-concept that research-grade scientific tools can be free and accessible, that institutional affiliation and large budgets are not prerequisites for producing knowledge, and that the barriers to scientific participation are artificial.
+
+\subsection{What FreeMoCap Actually Means}
+
+But FreeMoCap is not just software. It is \textbf{Stage 1 of a larger counter-hegemonic project} to dismantle the interlocking systems of universities, journals, proprietary software, credentialism, and gatekeeping that determine who gets to participate in science, education, and knowledge creation.
+
+The motion capture software proves the concept. The actual project is liberation.
+
+\section{Mapping the Enemy: The Current Hegemony}
+
+\begin{definition}
+\textbf{Hegemony} (Gramsci): The process by which ruling groups maintain power not primarily through force but by making their worldview seem like ``common sense''---natural, inevitable, and unquestionable.
+\end{definition}
+
+FreeMoCap challenges an interlocking system of institutions that control knowledge production:
+
+\begin{table}[h]
+\centering
+\caption{The Institutional Landscape of Knowledge Control}
+\begin{tabularx}{\textwidth}{>{\bfseries}l X X}
+\toprule
+Institution & What It Controls & Justifying Ideology \\
+\midrule
+Universities & Access to education, research resources, credentials & ``Expertise requires formal training'' \\
+Academic Journals & What counts as ``real'' knowledge & ``Peer review ensures quality'' \\
+Proprietary Software & Tools for knowledge production & ``Professional tools cost money'' \\
+Professional Associations & Who counts as ``qualified'' & ``Credentials protect the public'' \\
+Funding Agencies & What research gets done & ``Competitive funding ensures quality'' \\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+\subsection{The Hegemonic Common Sense}
+
+The current ``common sense'' includes beliefs such as:
+
+\begin{itemize}
+\item To be a real scientist, you need institutional affiliation
+\item Research isn't valid unless published in peer-reviewed journals
+\item Education requires accredited institutions
+\item If software/journals/education were free, quality would suffer
+\item People outside institutions can't do real research because they lack training and oversight
+\end{itemize}
+
+These beliefs serve the interests of those who benefit from the current system while appearing to be neutral descriptions of reality.
+
+\section{The Counter-Hegemonic Vision}
+
+The counter-hegemonic vision inverts these assumptions:
+
+\begin{itemize}
+\item Anyone can do real science when given access to tools and knowledge
+\item Learning happens through practice, collaboration, and curiosity---not credential accumulation
+\item Knowledge is validated by reproducibility, utility, and community review
+\item Research tools should be free because knowledge is a public good
+\item The barriers are artificial constructions that benefit gatekeepers
+\end{itemize}
+
+\begin{keyinsight}
+FreeMoCap motion capture software is \textbf{Stage 1}---a concrete demonstration that research-grade scientific tools can be free and accessible. The \textbf{actual project} is much larger: dismantling the hegemony of knowledge production itself.
+\end{keyinsight}
+
+
+\chapter{Antonio Gramsci: Hegemony and Counter-Hegemony}
+
+Antonio Gramsci (1891--1937) was an Italian Marxist who led the Italian Communist Party before being imprisoned by Mussolini's fascist regime in 1926. He wrote over 30 notebooks and 3,000 pages in prison, under censorship, using coded language. He died shortly after release.
+
+\section{The Central Concept: Hegemony}
+
+\begin{definition}
+\textbf{Hegemony}: Capitalism maintains control not just through violence and political/economic coercion, but ideologically, through a hegemonic culture in which the values of the ruling class become the ``common sense'' values of all.
+\end{definition}
+
+A consensus culture develops in which working-class people identify their own good with the good of the dominant class, helping maintain the status quo rather than revolting.
+
+\section{Common Sense (Senso Comune)}
+
+``Common sense'' for Gramsci isn't good judgment---it's the accumulated, contradictory, often incoherent set of beliefs that ordinary people absorb from their culture. Much of this common sense serves the interests of dominant classes without people realizing it.
+
+Counter-hegemonic work involves transforming common sense---making different arrangements seem natural and obvious.
+
+\section{Civil Society vs. Political Society}
+
+\begin{itemize}
+\item \textbf{Political society}: Coercion (police, army, courts)
+\item \textbf{Civil society}: Consent (schools, churches, media, cultural institutions)
+\end{itemize}
+
+Hegemony operates primarily through civil society. This is why cultural struggle matters---and why simply seizing state power isn't enough.
+
+\section{Organic Intellectuals}
+
+Gramsci distinguishes between \textbf{traditional intellectuals}, who see themselves as a class apart from society, and \textbf{organic intellectuals}, who emerge from and serve their class.
+
+Organic intellectuals ``do not simply describe social life in accordance with scientific rules but instead articulate, through the language of culture, the feelings and experiences which the masses could not express for themselves.''
+
+Counter-hegemonic movements need to develop their own organic intellectuals.
+
+\section{War of Position vs. War of Maneuver}
+
+\begin{definition}
+\textbf{War of maneuver}: Frontal assault on the state (revolution, insurrection)\\
+\textbf{War of position}: Long, slow work of building alternative institutions, developing organic intellectuals, and transforming common sense
+\end{definition}
+
+In advanced societies with strong civil societies, war of maneuver doesn't work. Counter-hegemonic forces must engage in war of position.
+
+\begin{freemocapapp}
+The ``common sense'' that FreeMoCap must transform:
+\begin{itemize}
+\item ``Real research requires institutional affiliation''
+\item ``Professional tools cost money''
+\item ``Credentials ensure quality''
+\item ``Science is done by experts in universities''
+\end{itemize}
+
+The ``historic bloc'' FreeMoCap confronts: universities, journals, proprietary software companies, professional associations, funding agencies---not as a conspiracy but as a self-reinforcing system that feels natural.
+
+The ``war of position'' FreeMoCap wages: building alternative tools, developing organic intellectuals (researchers who came up through FreeMoCap), transforming what seems possible.
+\end{freemocapapp}
+
+
+\chapter{Ivan Illich: Institutional Critique}
+
+Ivan Illich (1926--2002) was an Austrian priest who spent most of his life working in Latin America and became one of the most radical critics of modern institutions.
+
+\section{Deschooling Society (1971)}
+
+Schools teach students to confuse process with substance---to equate teaching with learning, grade advancement with education, a diploma with competence. Universal education through schooling is not feasible, and wouldn't be even if attempted through alternative institutions built on the style of present schools.
+
+\subsection{Learning Webs}
+
+Instead of schools, Illich proposes ``educational webs which heighten the opportunity for each one to transform each moment of his living into one of learning, sharing, and caring.''
+
+He proposed four Learning Networks that anticipated the internet:
+\begin{enumerate}
+\item \textbf{Reference services to educational objects}: Like a search engine for learning resources
+\item \textbf{Skills exchanges}: Databases of people willing to share skills
+\item \textbf{Peer-matching networks}: Connecting learners with similar interests
+\item \textbf{Professional educators available on demand}
+\end{enumerate}
+
+\section{Tools for Conviviality (1973)}
+
+\subsection{The Two Watersheds}
+
+Illich's central insight is that modern tools and institutions pass through two critical thresholds:
+
+\textbf{First watershed}: A new approach genuinely improves things. Anaesthesia, antibiotics, basic literacy---real benefits.
+
+\textbf{Second watershed}: The same approach, pushed further, becomes \textit{counterproductive}. Medicine creates iatrogenic illness. Schools create ignorance and dependency. Cars destroy walkable cities.
+
+\begin{definition}
+\textbf{Counterproductivity}: When institutions impede their purported aims. The medical system produces illness; the educational system produces ignorance; the judicial system perpetuates injustice.
+\end{definition}
+
+\subsection{Radical Monopoly}
+
+\begin{definition}
+\textbf{Radical monopoly}: When one \textit{type} of solution (not one brand) becomes compulsory, excluding alternatives. ``That motor traffic curtains the right to walk, not that more people drive Chevies than Ford's, constitutes radical monopoly.''
+\end{definition}
+
+Cars didn't just compete with walking---they reshaped cities so that walking became impossible.
+
+\subsection{Convivial vs. Manipulative Tools}
+
+\begin{definition}
+\textbf{Conviviality}: ``Autonomous and creative intercourse among persons, and the intercourse of persons with their environment---in contrast with the conditioned response of persons to the demands made upon them by others.''
+\end{definition}
+
+\textbf{Convivial tools}: Can be used by anyone without special training, don't create dependency on experts, enhance human autonomy and creativity, allow multiple uses, don't require institutional permission.
+
+\begin{keyinsight}
+The distinction between convivial and manipulatory tools is \textbf{independent of the level of technology}. High technology can be convivial; simple tools can be manipulative.
+\end{keyinsight}
+
+\begin{freemocapapp}
+The proprietary motion capture industry represents a \textbf{radical monopoly}: not just expensive brands, but a TYPE of solution (institutionally-controlled, expert-mediated, credential-requiring) that excludes alternatives. FreeMoCap represents a convivial alternative---research-grade capability without institutional gatekeeping.
+\end{freemocapapp}
+
+
+\chapter{Paulo Freire: Critical Consciousness}
+
+Paulo Freire (1921--1997) was born in Recife, Brazil. His family was destroyed by the 1929 Depression---he experienced hunger while doing homework. He started literacy projects in 1947 and was imprisoned for 70 days after the 1964 US-backed coup, then exiled for 16 years.
+
+\section{Pedagogy of the Oppressed (1968)}
+
+\subsection{The Banking Model}
+
+Traditional education treats students as empty vessels into which teachers deposit knowledge. Students memorize and regurgitate; teachers possess expertise and authority. This model reproduces oppressive structures by training people to accept rather than question.
+
+\subsection{Problem-Posing Education}
+
+The alternative is dialogic learning where teachers and students learn together, confronting real problems. The teacher is no longer merely ``the-one-who-teaches'' but one who is taught in dialogue with the students.
+
+\subsection{Conscientização (Critical Consciousness)}
+
+Development of critical consciousness moves through stages:
+
+\begin{enumerate}
+\item \textbf{Magical consciousness}: Fatalistic acceptance. ``That's just how things are.''
+\item \textbf{Naive consciousness}: Recognizes problems but blames individuals, not systems.
+\item \textbf{Critical consciousness}: Sees structural causes, understands situation historically and politically, recognizes capacity for transformative action.
+\end{enumerate}
+
+\subsection{Praxis}
+
+\begin{definition}
+\textbf{Praxis}: The unity of reflection and action. Neither alone is sufficient for liberation. Action without reflection is mere activism; reflection without action is mere verbalism.
+\end{definition}
+
+\section{Pedagogy of Hope (1992)}
+
+Hope is not naive optimism but a foundational commitment that transformation is possible. Against neoliberal ``there is no alternative'' ideology, Freire insists that another world is possible---and that believing this is prerequisite for building it.
+
+\begin{keyinsight}
+Hope is an ``ontological need.'' Without it, we cannot even begin the work of transformation. Despair is not realism; it is surrender.
+\end{keyinsight}
+
+\begin{freemocapapp}
+FreeMoCap can be a site for developing critical consciousness about knowledge production itself. Moving people from ``motion capture is expensive, that's just how it is'' (magical) through ``some companies benefit from scarcity'' (naive) to ``the entire structure of proprietary tools + academic gatekeeping + credentialism is a transformable system'' (critical).
+\end{freemocapapp}
+
+
+\chapter{Yochai Benkler: Commons-Based Peer Production}
+
+Yochai Benkler is a Yale law professor who provided the theoretical foundation for understanding ``commons-based peer production''---the mode of production that creates Wikipedia, Linux, and open source generally.
+
+\section{The Wealth of Networks (2006)}
+
+Standard economic theory said there were two ways to organize production: \textbf{markets} (price signals) and \textbf{firms} (hierarchical management). Benkler identified a third:
+
+\begin{definition}
+\textbf{Commons-based peer production}: ``Radically decentralized, collaborative, and nonproprietary; based on sharing resources and outputs among widely distributed, loosely connected individuals who cooperate with each other without relying on either market signals or managerial commands.''
+\end{definition}
+
+\subsection{Why It Works}
+
+When technology dropped the cost of communications, distributed the material capital necessary for knowledge work, and allowed individuals to share designs and improvements, a third option emerged. Individuals could pool knowledge and resources, and coordinate toward shared goals, without firm hierarchies or markets.
+
+\begin{keyinsight}
+``It is not intuitive that thousands of volunteers could beat the largest and best financed business enterprises in the world at their own game. Yet they do.''
+\end{keyinsight}
+
+\subsection{What Enables Peer Production}
+
+\begin{itemize}
+\item \textbf{Low capital requirements}: You need a computer, not a factory
+\item \textbf{Modular tasks}: Work can be broken into small, independent pieces
+\item \textbf{Low-cost integration}: Digital tools make combining contributions cheap
+\item \textbf{Intrinsic motivation}: People contribute for non-monetary reasons
+\end{itemize}
+
+\begin{freemocapapp}
+Benkler explains WHY open source motion capture can exist at all---and why it can potentially outcompete proprietary solutions:
+\begin{itemize}
+\item \textbf{Low marginal cost}: Once FreeMoCap exists, distributing it costs essentially nothing
+\item \textbf{Modularity}: Different people can work on different components
+\item \textbf{Intrinsic motivation}: Contributors motivated by interest, reputation, ideology, learning
+\item \textbf{Commons as resource}: FreeMoCap benefits from and contributes to broader Python/computer vision commons
+\end{itemize}
+\end{freemocapapp}
+
+
+% ============================================================================
+% PART II: BUILDING THE COMMUNITY
+% ============================================================================
+\part{Building the Community}
+
+\chapter{The Community Beyond the Codebase}
+
+When we think about open source communities, we often default to thinking about developers: the people who write code, review pull requests, fix bugs, and maintain infrastructure. This developer-centric view misses the majority of most FOSS communities---and misses the source of their actual power.
+
+\section{The Blender Lesson}
+
+Consider Blender, the 3D creation suite that has become the gold standard for open source creative software. Blender has a relatively small core development team, but its community numbers in the millions. The vast majority of Blender users will never write a line of C++ code. They are artists, animators, architects, game designers, educators, and hobbyists who use Blender to create.
+
+They populate forums answering each other's questions. They create tutorials on YouTube. They evangelize Blender to colleagues skeptical of open source tools. They contribute to the Blender Development Fund not because they understand the codebase, but because they value what the software enables them to do.
+
+\begin{keyinsight}
+Without these users, Blender would be a technically impressive but irrelevant project. \textbf{The community is not an appendage to the software; the software exists to serve the community.}
+\end{keyinsight}
+
+\section{The Labor Parallel}
+
+This insight connects directly to labor organizing wisdom. Unions don't derive their power primarily from professional organizers or union staff. They derive power from ordinary workers---people who may never hold union office, who aren't labor law experts, who simply want fair treatment and are willing to stand together with coworkers to achieve it.
+
+The organizer's job is to identify, develop, and mobilize these people---not to replace them.
+
+\section{FreeMoCap's Constituency}
+
+For FreeMoCap, this reframing is essential. The foundation's constituency includes:
+
+\begin{itemize}
+\item \textbf{Researchers} using motion capture for biomechanics, psychology, sports science, clinical assessment
+\item \textbf{Artists and animators} seeking affordable motion capture for creative projects
+\item \textbf{Educators} teaching movement analysis, computer vision, or 3D animation
+\item \textbf{Hobbyists and makers} exploring what's possible with accessible technology
+\item \textbf{Contributors} who improve documentation, answer forum questions, or report bugs
+\item \textbf{Developers} who contribute code, review PRs, or maintain modules
+\end{itemize}
+
+Each group has different needs, different relationships to the project, and different potential contributions. A strategy that focuses only on recruiting developers ignores the vast majority of the community and the vast majority of the project's potential impact.
+
+
+\chapter{Deep Organizing: Reaching Beyond the Already-Converted}
+
+\section{The Distinction That Changes Everything}
+
+Labor organizer Jane McAlevey distinguished between three tiers of engagement that translate directly to FOSS contexts:
+
+\begin{itemize}
+\item \textbf{Advocacy} involves writing checks while professionals handle problems---the FOSS equivalent of users who donate but never participate in community life.
+\item \textbf{Mobilizing} gets existing supporters off the couch---rallying current community members for releases, hackathons, or funding drives.
+\item \textbf{Deep organizing} does something fundamentally different: it persuades people who don't yet agree to change their opinions and join the cause.
+\end{itemize}
+
+\begin{keyinsight}
+McAlevey's insight cuts against instincts that keep FOSS communities insular: ``For organizers, we wake up every morning asking how to engage the people who don't agree with us---or who think they don't agree with us. These folks are definitely not part of our social media feeds, and they're not coming to our activist meetings.''
+\end{keyinsight}
+
+\section{Applied to FreeMoCap}
+
+Deep organizing means systematically reaching:
+
+\begin{itemize}
+\item Researchers using expensive proprietary motion capture systems who assume open source can't match quality
+\item Artists skeptical that free software could meet professional standards
+\item Educators who've never considered motion capture accessible for their contexts
+\item Potential contributors---not just developers, but technical writers, designers, community managers---who don't see themselves as ``open source people''
+\end{itemize}
+
+The goal is not broadcasting to people already in your orbit, but building relationships with people outside it and persuading them through those relationships.
+
+\section{Structure Tests: Measuring Real Capacity}
+
+The technique that operationalizes deep organizing is the \textbf{structure test}: any collective action measuring what proportion of your constituency participates in activities of increasing commitment and risk. McAlevey defines success as supermajority participation---80\%+ for most actions.
+
+\begin{tactic}
+A FOSS structure test progression:
+\begin{enumerate}
+\item Can 80\% of mailing list members complete a simple survey about their needs?
+\item Can 80\% of active forum participants attend a community call?
+\item Can 80\% of community call attendees commit to a specific small action?
+\item Can 80\% of regular contributors participate in governance decisions?
+\item Can the community collectively push back against corporate exploitation or unfair criticism?
+\end{enumerate}
+
+Each test builds capacity while revealing organizational weak points before they become crises.
+\end{tactic}
+
+
+\chapter{Public Narrative: Story of Self, Us, and Now}
+
+Marshall Ganz, former United Farm Workers organizer now at Harvard, contributed the \textbf{public narrative} framework. His Story of Self, Story of Us, Story of Now structure builds collective identity through shared meaning:
+
+\section{The Three Stories}
+
+\textbf{Story of Self}: Why am I called to this work? What personal experiences and values drive my involvement?
+
+\textbf{Story of Us}: What brings our community together? What values and experiences do we share?
+
+\textbf{Story of Now}: Why must we act collectively, and why now? What's the urgent challenge requiring response?
+
+\section{Applied to FreeMoCap}
+
+Cultivating public narrative means:
+
+\begin{itemize}
+\item \textbf{Collecting origin stories} from users across domains---the researcher who couldn't afford commercial systems, the artist who wanted creative freedom, the educator who saw students light up
+\item \textbf{Building canonical narrative} about why democratized motion capture matters---connecting individual stories to shared purpose
+\item \textbf{Framing releases and campaigns} as Story of Now moments requiring community response
+\end{itemize}
+
+\begin{tactic}
+\textbf{Story of Self Exercise}: Complete these sentences:
+
+\begin{enumerate}
+\item The encounter: When did you first experience the injustice of the current system?
+\item The choice: What moment committed you to this fight?
+\item The values: What deep values drive this? (Not ``open source is good''---the values \textit{underneath})
+\end{enumerate}
+\end{tactic}
+
+
+\chapter{The Ladder of Engagement}
+
+\section{Designing Pathways, Not Hoping for Miracles}
+
+Labor movements developed the \textbf{ladder of engagement} concept: people should progress through stages of increasingly deep commitment, with clear rungs and intentional transitions between levels.
+
+Most FOSS projects have a broken ladder. They recruit users and hope some magically become maintainers, without designing the intermediate steps. The result: a vast passive user base, a tiny burned-out maintainer core, and almost nothing in between.
+
+\section{A Comprehensive Engagement Ladder}
+
+\begin{table}[h]
+\centering
+\caption{Ladder of Engagement for FOSS Communities}
+\begin{tabularx}{\textwidth}{l X X}
+\toprule
+\textbf{Level} & \textbf{Description} & \textbf{Transition Mechanism} \\
+\midrule
+Passive User & Downloads software, uses it & Welcome sequence, documentation \\
+Engaged User & Joins mailing list, follows updates & Forum invitation, community calls \\
+Community Member & Participates in forums, helps others & Recognition, mentorship invitation \\
+Contributor & Creates tutorials, reports bugs, improves docs & Contributor guide, paired projects \\
+Evangelist & Actively recruits others, presents at conferences & Speaking opportunities, case study features \\
+Module Owner & Maintains specific area (code or non-code) & Gradual responsibility increase \\
+Governance Participant & Votes, serves on committees, shapes direction & Clear pathways to leadership \\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+\begin{keyinsight}
+Organizations must intentionally design pathways between levels and track where people are on the ladder. Moving someone from passive user to engaged community member requires different tactics than moving a contributor to maintainer.
+\end{keyinsight}
+
+\section{The Blender Model: Users as Community Foundation}
+
+Blender Foundation provides the clearest model for building community around users who will never write code:
+
+\begin{itemize}
+\item \textbf{Blender Cloud}: Subscription service providing tutorials, assets, and production files---creating ongoing relationship with users
+\item \textbf{Blender Open Movies}: Production projects that employ artists, showcase capabilities, and generate community excitement
+\item \textbf{Blender Conference}: Annual gathering mixing developers and artists
+\item \textbf{Blender Artists Community}: Forums where users help users, reducing maintainer burden
+\item \textbf{Development Fund}: Transparent funding model creating stakeholder investment without governance capture
+\end{itemize}
+
+The genius is recognizing that \textbf{artists evangelizing to other artists is more powerful than developers trying to recruit artists}.
+
+
+\chapter{Making Artists into Scientists, Scientists into Artists}
+
+FreeMoCap occupies a unique position at the intersection of domains that rarely overlap: motion capture technology traditionally siloed between expensive research labs and film/game production studios. This creates an opportunity that most FOSS projects lack.
+
+\section{Cross-Pollination}
+
+\textbf{Artists → Scientists}: Creative users exploring motion capture develop intuitions about biomechanics, data quality, and measurement that formal training often lacks. An animator who's captured thousands of movements understands embodied knowledge that complements academic expertise. Creating pathways for artists to contribute to research applications---or to pursue research themselves---expands both communities.
+
+\textbf{Scientists → Artists}: Researchers with deep technical knowledge often lack creative outlets or exposure to how their tools might enable artistic expression. Exposing researchers to creative applications can spark new research directions while making the research community more accessible.
+
+\section{Critical Transitions}
+
+\textbf{Users → Community Members}: The transition from ``person who uses the software'' to ``person who identifies as part of the community'' is the critical first step. It happens through relationship---someone answers your forum question, you attend a community call, you see your use case reflected in project communications.
+
+\textbf{Community Members → Evangelists}: People who feel ownership over a project naturally want to share it. The foundation's job is making evangelism easy: providing shareable assets, case study templates, talking points for common objections, and recognition for those who spread the word.
+
+
+% ============================================================================
+% PART III: SUSTAINING THE MOVEMENT
+% ============================================================================
+\part{Sustaining the Movement}
+
+\chapter{Governance: From Founder-Led to Community-Accountable}
+
+\section{Learning from Governance Crises}
+
+\subsection{The Rust Crisis (2021--2022)}
+
+The Rust governance crisis offers the starkest recent lesson on institutional design. When the entire moderation team resigned citing ``structural unaccountability of the Core Team,'' they revealed that no mechanism existed for oversight---the governance document had what developers might call ``undefined behavior.''
+
+The resolution required extensive community consultation, ultimately dissolving the Core Team in favor of a representative Leadership Council with clear lines of accountability.
+
+\begin{keyinsight}
+Every team must be accountable to someone, including the top.
+\end{keyinsight}
+
+\subsection{Python's Post-BDFL Transition}
+
+Python's transition succeeded partly because the PEP (Python Enhancement Proposal) process already existed for structured decision-making. When Guido van Rossum stepped down after the contentious walrus operator debate in 2018, the community used that same process to debate seven governance proposals and select a Steering Council model.
+
+\begin{keyinsight}
+Mechanisms for community deliberation should predate crises.
+\end{keyinsight}
+
+\subsection{Node.js and the Fork Threat}
+
+Dissatisfaction with Joyent's control led four of Node's top five contributors to create io.js with open governance in 2014. Within a year, the Node.js Foundation formed, adopted the open governance model, and merged the projects.
+
+\begin{keyinsight}
+Corporate stewardship must allow genuine community input, or the community will exercise its ultimate check---forking the codebase.
+\end{keyinsight}
+
+\section{Governance Models Compared}
+
+\textbf{BDFL (Benevolent Dictator for Life)} provides clear decision-making and consistent vision but creates succession crises and bottlenecks as projects scale.
+
+\textbf{Meritocracy} (Apache's model) grants influence through demonstrated contribution. The Apache Way emphasizes ``community over code,'' requires all discussions on public mailing lists, and explicitly bars sponsors from governance influence. Critiques note that how merit gets recognized can mask bias.
+
+\textbf{Electoral democracy} (Debian's model) enables broad participation through annual elections, constitutional frameworks, and community votes. It's slower but more resilient to capture.
+
+\textbf{Foundation-backed governance} (Linux Foundation) provides legal, financial, and marketing support. The trade-off involves corporate membership models where paying members get board seats.
+
+\section{Including Users in Governance}
+
+Most FOSS governance discussions focus on developers, but projects serving substantial user communities face a question: how do users have voice in decisions affecting them?
+
+Alternative models include:
+\begin{itemize}
+\item User advisory councils with defined consultation rights on UX decisions
+\item Multi-stakeholder boards including user representatives alongside developers and funders
+\item Community assemblies for major strategic decisions
+\item Survey-driven prioritization giving users structured input on roadmaps
+\end{itemize}
+
+The labor parallel: unions represent all workers in a bargaining unit, not just activists or leaders. FOSS governance should consider the interests of the full community, not just those with commit access.
+
+
+\chapter{Commons Governance: Ostrom's Principles}
+
+Elinor Ostrom (1933--2012) won the Nobel Prize in Economics in 2009 for demonstrating that communities can successfully manage common resources without either privatization or state control.
+
+\section{The Core Intervention}
+
+Before Ostrom, the dominant models were the ``Tragedy of the Commons'' (shared resources will inevitably be destroyed) and two solutions: privatize or nationalize.
+
+Ostrom conducted fieldwork on actually-existing commons that had endured for centuries---Swiss alpine meadows, Japanese village forests, Spanish irrigation systems---and identified what they had in common.
+
+\section{The Eight Design Principles}
+
+\begin{enumerate}
+\item \textbf{Clear boundaries}: Who can use the resource, and what are its limits
+\item \textbf{Proportional equivalence}: Those who contribute more get more
+\item \textbf{Collective-choice arrangements}: Those affected by rules participate in making them
+\item \textbf{Monitoring}: Users monitor each other or hire monitors accountable to users
+\item \textbf{Graduated sanctions}: Violations have consequences that escalate
+\item \textbf{Conflict-resolution mechanisms}: Cheap, accessible ways to resolve disputes
+\item \textbf{Recognition of rights to organize}: Outside authorities recognize the community's right to self-govern
+\item \textbf{Nested enterprises}: For larger systems, governance organized in multiple nested layers
+\end{enumerate}
+
+\section{Digital Commons Differ from Natural Commons}
+
+A critical insight: unlike natural resources where the challenge is preventing over-extraction, open source must stimulate both use and contribution. The code itself is non-rivalrous---my using FreeMoCap doesn't prevent your using it. \textbf{The scarce resource isn't the code; it's maintainer attention and time.}
+
+This inverts traditional commons logic. Nadia Eghbal's research found that low-quality contributions can be worse than no contributions because they consume scarce review bandwidth.
+
+\begin{freemocapapp}
+Ostrom's design principles translate directly:
+\begin{enumerate}
+\item \textbf{Boundaries}: Who is a ``contributor''? Who can merge PRs? Clear governance.
+\item \textbf{Proportionality}: Do active contributors have voice proportional to contribution?
+\item \textbf{Collective-choice}: Do users/contributors participate in roadmap decisions?
+\item \textbf{Monitoring}: Are there ways to track contributions, quality, compliance with norms?
+\item \textbf{Graduated sanctions}: What happens when someone violates norms?
+\item \textbf{Conflict resolution}: How are disputes resolved?
+\item \textbf{External recognition}: Does the broader ecosystem recognize FreeMoCap's legitimacy?
+\item \textbf{Nested enterprises}: As FreeMoCap grows, does governance scale appropriately?
+\end{enumerate}
+\end{freemocapapp}
+
+
+\chapter{Cooperative Models and Platform Cooperativism}
+
+\section{Worker Cooperatives as Organizational Model}
+
+Platform cooperativism, developed by Trebor Scholz and Nathan Schneider, offers a framework for technology owned and governed by stakeholders rather than shareholders.
+
+Mondragon, the world's largest worker cooperative federation with 70,000+ workers across 266 businesses, provides governance lessons:
+
+\begin{itemize}
+\item One-worker-one-vote regardless of capital ownership
+\item Maximum 6x pay ratios between highest and lowest earners
+\item Worker reallocation across cooperatives during downturns rather than layoffs
+\item Federation structure providing risk pooling and knowledge sharing while maintaining local autonomy
+\item A cooperative university for ongoing education and leadership development
+\end{itemize}
+
+\section{Cooperative Principles for FOSS}
+
+Nathan Schneider's \textit{Governable Spaces} warns that online platforms suffer from ``implicit feudalism''---a bias for building communities as fiefdoms with all-powerful admins and benevolent dictators. He argues this ``trains us to give up on our communities' democratic potential.''
+
+For FOSS foundations, cooperative principles suggest:
+
+\begin{itemize}
+\item Multi-stakeholder governance including users, funders, and dependent projects alongside developers
+\item Explicit documentation of ownership and control
+\item Open-sourcing governance itself, not just code
+\item Connecting to broader solidarity economy movements
+\end{itemize}
+
+
+\chapter{Preventing Burnout: Structural Solutions}
+
+\section{The Sustainability Crisis}
+
+The sustainability crisis in open source is acute:
+\begin{itemize}
+\item 60\% of maintainers are unpaid
+\item 60\% have quit or considered quitting
+\item 61\% of unpaid maintainers work alone
+\end{itemize}
+
+The 2024 xz-utils backdoor demonstrated how burnout creates security vulnerabilities: the original maintainer, overwhelmed after years of solo work, accepted help from malicious actors who inserted a backdoor after gaining commit access.
+
+\section{Nadia Eghbal's Reframe}
+
+Nadia Eghbal's research reframes the problem: \textbf{maintainer attention, not code, is the scarce resource}.
+
+Her ``Christmas lights'' analogy captures sustainable motivation: ``People put up decorations because they want to, not because they must.'' Design for intrinsic motivation, not obligation.
+
+\section{Collective Care Practices}
+
+Movement contexts have developed collective care practices:
+
+\begin{itemize}
+\item \textbf{Buddy systems and small group check-ins}: Pairing community members for mutual support
+\item \textbf{Rotating draining tasks}: So no one is always handling conflict or tedious maintenance
+\item \textbf{Well-being check-ins during meetings}: Normalizing attention to how people are doing
+\item \textbf{Shared meals and bonding}: Feeding the soul of the movement
+\item \textbf{Explicit permission to rest}: Countering cultures where stepping back feels like betrayal
+\end{itemize}
+
+\section{Structural Interventions}
+
+Individual self-care cannot substitute for structural change:
+
+\begin{itemize}
+\item \textbf{Distributed leadership}: No one person should be indispensable
+\item \textbf{Documentation of philosophy}: Making onboarding possible by explaining why, not just how
+\item \textbf{Tiers of contribution}: Not all engagement should require maintainer attention
+\item \textbf{Aggressive automation}: Tests, bots, templates reduce manual burden
+\item \textbf{Paying maintainers}: Transforms sustainability more than any other intervention
+\end{itemize}
+
+\section{Boundary Setting}
+
+Learning to say no is stewardship, not rejection. Documentation should include what you're interested in doing and not doing, with expectations set before problems escalate.
+
+
+\chapter{Emergent Strategy}
+
+adrienne maree brown (lowercase intentional) draws on complexity science, Octavia Butler's science fiction, and her mentor Grace Lee Boggs to develop an adaptive, nature-inspired approach to social change.
+
+\section{Core Definition}
+
+\begin{definition}
+\textbf{Emergent strategy}: ``A strategy for building complex patterns and systems of change through relatively small interactions.''
+\end{definition}
+
+\section{The Fractal Principle}
+
+\begin{keyinsight}
+``How we are at the small scale is how we are at the large scale. What we practice at the small scale can reverberate to the largest scale.''
+\end{keyinsight}
+
+If your small group operates hierarchically, your movement will tend toward hierarchy. If your core team practices radical transparency, that will ripple outward.
+
+\section{Core Principles}
+
+\begin{itemize}
+\item ``Small is good, small is all. (The large is a reflection of the small.)''
+\item ``Change is constant. (Be like water.)''
+\item ``Trust the People. (If you trust the people, they become trustworthy.)''
+\item ``Move at the speed of trust.''
+\item ``Focus on critical connections more than critical mass.''
+\item ``Never a failure, always a lesson.''
+\item ``What you pay attention to grows.''
+\end{itemize}
+
+\begin{freemocapapp}
+brown's approach suggests:
+\begin{itemize}
+\item Pay attention to HOW the core team works together, not just what you produce
+\item ``Move at the speed of trust''---don't scale faster than relationships can sustain
+\item Accept nonlinear progress: failed features and pivots are compost, not failures
+\item ``What you pay attention to grows''---where is FreeMoCap's attention going?
+\end{itemize}
+\end{freemocapapp}
+
+
+% ============================================================================
+% PART IV: WINNING
+% ============================================================================
+\part{Winning}
+
+\chapter{Case Studies: FOSS Success and Failure}
+
+\section{Blender: The Success Story}
+
+Blender traces to January 2, 1994, when Dutch animator Ton Roosendaal began writing 3D software at NeoGeo. When the parent company collapsed in 2002, Roosendaal launched ``the first-ever crowdfunding campaign,'' raising €100,000 in seven weeks to purchase the source code.
+
+The transformation that made Blender professionally competitive came with version 2.80 in July 2019. Corporate backing accelerated dramatically when Epic Games donated \$1.2 million. The Blender Development Fund now receives contributions from over 7,500 individuals and 38 organizations, enabling employment of 26 full-time staff.
+
+\textbf{Key success factors}:
+\begin{itemize}
+\item Professional DNA---founded by working animator for professional workflows
+\item Dogfooding through open movies proving production capability
+\item Centralized vision from 30-year founder leadership
+\item Corporate sponsorship through enterprise relevance
+\item Foundation structure enabling paid developers
+\end{itemize}
+
+\section{GIMP: Thirty Years of Missed Opportunities}
+
+GIMP was started in 1995 by UC Berkeley students as a class project. Major version gaps (6--7 years between releases) and governance described as ``completely insular'' have kept it from professional adoption.
+
+\textbf{Key failure patterns}:
+\begin{itemize}
+\item Academic origins without professional workflow understanding
+\item No dogfooding or production use cases
+\item Volunteer-only development creating glacial pace
+\item Insular culture resistant to outside input
+\item No corporate relationships or funding
+\end{itemize}
+
+\section{Krita: The Strategic Pivot}
+
+Krita's origins as KImageShop (1999) seemed to doom it as another GIMP clone. But at a March 2010 sprint, the team made a pivotal decision: abandon generic image manipulation and focus exclusively on digital painting.
+
+The Krita Foundation was explicitly ``modeled on the Blender Foundation.'' By 2019, Krita could hire three full-time developers and reported over 3 million downloads annually.
+
+\begin{keyinsight}
+Krita succeeded by finding a niche (digital painting, not photo editing) and copying Blender's organizational model.
+\end{keyinsight}
+
+\section{The Funding Gap}
+
+\begin{table}[h]
+\centering
+\begin{tabularx}{\textwidth}{l r r X}
+\toprule
+\textbf{Project} & \textbf{Monthly Funding} & \textbf{Paid Devs} & \textbf{Corporate Sponsors} \\
+\midrule
+Blender & €130,000+ & 26 FT & Epic, NVIDIA, AMD, Apple, Meta \\
+Krita & \textasciitilde€5,000 & 2--3 FT & Intel, Epic (grant) \\
+Inkscape & \textasciitilde€1,500 & 0 FT & None major \\
+GIMP & \textasciitilde€2,500 & 0 FT & None \\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+
+\chapter{Inoculation: Preparing for Predictable Challenges}
+
+\section{The Labor Tactic}
+
+Labor organizers developed inoculation tactics to prepare workers for management pushback before campaigns begin. By discussing in advance how employers fight organizing, organizers prevent workers from being swayed when these predictable responses arrive.
+
+The psychological mechanism: when people encounter something they've been warned about, it feels confirmatory rather than surprising. ``They told me the company would do exactly this'' builds commitment rather than creating doubt.
+
+\section{Inoculating FOSS Communities}
+
+For FOSS communities, inoculation means discussing scenarios openly before they happen:
+
+\begin{itemize}
+\item \textbf{Corporate co-optation}: Corporations offering resources with strings attached, hiring away key contributors, creating competing projects
+\item \textbf{Community conflict}: Inevitable disagreements, personality clashes, governance disputes
+\item \textbf{Burnout cycles}: Periods when maintainers need to step back
+\item \textbf{External criticism}: Skeptics dismissing open source capabilities
+\item \textbf{Success challenges}: Scaling problems, governance growing pains
+\end{itemize}
+
+\begin{tactic}
+\textbf{The AEIOU Model} (from IWW organizing):
+\begin{itemize}
+\item \textbf{Agitate}: Surface discontent with the status quo
+\item \textbf{Educate}: Explain how collective action addresses those problems
+\item \textbf{Inoculate}: Prepare advocates for opposition
+\item \textbf{Organize}: Delegate tasks, build structure, identify champions
+\item \textbf{Unite/Act}: Take collective action
+\end{itemize}
+\end{tactic}
+
+
+\chapter{Movement Building: Coalitions and Framing}
+
+\section{Lessons from Right to Repair}
+
+The Right to Repair movement offers the most instructive recent example of technical concerns achieving mainstream political success. Starting from trade associations protecting independent repair shops, the movement built coalitions including iFixit, EFF, Consumer Reports, and disability advocates.
+
+Massachusetts passed Right to Repair with 87.7\% support in referendum. As of 2024, all fifty states have some form of Right to Repair legislation.
+
+\textbf{Key success factors}:
+\begin{itemize}
+\item \textbf{Bipartisan appeal}: Framed around consumer choice and property rights
+\item \textbf{Concrete relatable framing}: ``Will this make my screen repair cheaper?''
+\item \textbf{Coalition breadth}: Environmental groups, disability advocates, farmers, consumers
+\item \textbf{State and local focus}: Building victories at accessible levels
+\item \textbf{Connecting technical issues to broader values}
+\end{itemize}
+
+\section{Framing FOSS for Non-Technical Audiences}
+
+Public attitudes already favor digital autonomy messages. Pew Research found 81\% of Americans feel they have little or no control over corporate data collection.
+
+Effective frames for non-technical audiences:
+\begin{itemize}
+\item \textbf{Rights-based}: Right to repair, improve, and control your own tools
+\item \textbf{Security and control}: ``Take Back CTRL,'' own your data
+\item \textbf{Environmental}: E-waste reduction, software longevity
+\item \textbf{Economic}: Reduced costs, avoiding vendor lock-in
+\item \textbf{Democratic}: Digital self-determination, independence from Big Tech
+\item \textbf{Educational}: Learning how things work, developing real skills
+\end{itemize}
+
+\begin{keyinsight}
+Lead with problems people experience, not ideology. ``Frustrated that your expensive software stopped working after an update you didn't want?'' resonates more broadly than ``software freedom is a fundamental right.''
+\end{keyinsight}
+
+
+\chapter{Comprehensive Campaigns}
+
+\section{Bronfenbrenner's Research}
+
+Kate Bronfenbrenner's research at Cornell found that unions employing comprehensive campaigns---combining multiple tactics simultaneously---achieved dramatically higher success rates. Campaigns utilizing five or more organizing tactics had 74\% first contract rates compared to 58\% for less comprehensive efforts.
+
+\section{Translating to FOSS Adoption}
+
+A comprehensive campaign for institutional FreeMoCap adoption might combine:
+
+\begin{itemize}
+\item \textbf{Internal champion committees}: Identify respected researchers, artists, or educators who will advocate from within institutions
+\item \textbf{Peer-to-peer advocacy}: Current users speaking to potential users in their own language
+\item \textbf{Issue-focused messaging}: Addressing specific pain points rather than leading with ideology
+\item \textbf{Escalating demonstrations}: From individual pilots to departmental trials to institutional proposals
+\item \textbf{External alliances}: Partnerships with academic institutions, professional associations
+\item \textbf{Implementation support}: Resources ready before adoption decisions
+\item \textbf{Success documentation}: Case studies and measurable outcomes
+\end{itemize}
+
+\begin{keyinsight}
+Any single tactic can fail, but comprehensive approaches create redundancy and multiple pathways to success.
+\end{keyinsight}
+
+
+\chapter{From Insurgent to Institution}
+
+\section{The Free Rider Problem}
+
+Both unions and FOSS communities face people who benefit without contributing. Post-Janus union responses focus on demonstrating value through wins, creating member-only benefits, and building culture where non-membership is socially costly.
+
+FOSS applications include:
+\begin{itemize}
+\item \textbf{Social recognition}: Public acknowledgment of contributors at all levels
+\item \textbf{Tiered access}: Early releases, governance participation for active contributors
+\item \textbf{Member-only benefits}: Premium support, mentorship, networking
+\item \textbf{Cultural expectation}: Building norms where contributing back is valued
+\end{itemize}
+
+\begin{keyinsight}
+\textbf{Users are not free riders.} They are the community the project exists to serve. Without users, there is no project---only code no one uses.
+
+Users contribute by using the software, reporting bugs, answering questions, creating tutorials, evangelizing, providing feedback, and funding development.
+\end{keyinsight}
+
+\section{Maintaining Radical Roots}
+
+FOSS projects face tensions: needing paid staff and formal governance while fearing alienation of volunteer contributors who valued informal, mission-driven culture.
+
+Strategies for maintaining founding spirit:
+\begin{itemize}
+\item Document founding values explicitly in project charters
+\item Design governance that protects original mission
+\item Continue recruiting insurgent voices
+\item Balance stability with disruption
+\item Maintain connection to user community
+\end{itemize}
+
+
+% ============================================================================
+% PART V: RESOURCES AND ACTION
+% ============================================================================
+\part{Resources and Action}
+
+\chapter{Movement-Building Worksheet}
+
+\section{Part 1: Mapping the Enemy}
+
+\subsection{Exercise: Hegemonic Common Sense}
+
+Complete these sentences as a ``normal person'' embedded in current structures would:
+
+\begin{enumerate}
+\item To be a real scientist, you need \rule{8cm}{0.4pt}
+\item Research isn't valid unless \rule{8cm}{0.4pt}
+\item Education requires \rule{8cm}{0.4pt}
+\item If software/journals/education were free, \rule{8cm}{0.4pt}
+\item People outside institutions can't do real research because \rule{8cm}{0.4pt}
+\end{enumerate}
+
+\textbf{Reflection}: Where did these beliefs come from? Who benefits from people believing them?
+
+\section{Part 2: Public Narrative Development}
+
+\subsection{Story of Self}
+\begin{enumerate}
+\item \textbf{The Encounter}: When did you first experience the injustice of the current system?
+\item \textbf{The Choice}: What moment committed you to this fight?
+\item \textbf{The Values}: What deep values drive this?
+\end{enumerate}
+
+\subsection{Story of Us}
+Who is the ``we'' fighting for liberated knowledge? (Much bigger than ``FreeMoCap users.'')
+
+\subsection{Story of Now}
+What's happening NOW that creates urgency?
+
+\section{Part 3: Structure Tests}
+
+Design your structure test progression:
+
+\begin{enumerate}
+\item Low-commitment test (survey, simple action): \rule{6cm}{0.4pt}
+
+Target participation rate: \rule{2cm}{0.4pt}\%
+
+\item Medium-commitment test (attend call, small public action): \rule{6cm}{0.4pt}
+
+Target participation rate: \rule{2cm}{0.4pt}\%
+
+\item High-commitment test (sustained contribution, governance): \rule{6cm}{0.4pt}
+
+Target participation rate: \rule{2cm}{0.4pt}\%
+\end{enumerate}
+
+\section{Part 4: Ladder of Engagement Audit}
+
+For each level, assess current state:
+
+\begin{table}[h]
+\centering
+\begin{tabularx}{\textwidth}{l X X}
+\toprule
+\textbf{Level} & \textbf{Approximate Numbers} & \textbf{Transition Mechanism Exists?} \\
+\midrule
+Passive Users & & \\
+Engaged Users & & \\
+Community Members & & \\
+Contributors & & \\
+Evangelists & & \\
+Module Owners & & \\
+Governance Participants & & \\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+Where are the broken rungs?
+
+\section{Part 5: Strategic Questions}
+
+Return to these monthly:
+
+\begin{framed}
+\begin{enumerate}
+\item ``Is what we're doing likely to advance our mission, or does it primarily express our identity?''
+\item ``Are we building power, or performing righteousness?''
+\item ``Who are we bringing IN who wasn't here before?''
+\item ``What have we WON recently?''
+\item ``Can this continue without [founder name]?''
+\item ``What happens if a key contributor burns out?''
+\item ``Are we moving at a sustainable pace?''
+\end{enumerate}
+\end{framed}
+
+
+\chapter{Immediate, Near-Term, and Long-Term Actions}
+
+\section{Immediate Actions}
+
+\begin{itemize}
+\item Document current informal governance before formalizing
+\item Create explicit engagement pathways for users at all levels---not just developers
+\item Establish structure tests to assess community capacity
+\item Consider fiscal sponsorship through NumFOCUS or Software Freedom Conservancy
+\item Begin collecting user stories across domains for public narrative
+\end{itemize}
+
+\section{Near-Term Development}
+
+\begin{itemize}
+\item Build collective care practices into community rhythms
+\item Inoculate community members against predictable challenges
+\item Develop comprehensive campaigns for institutional adoption
+\item Create pathways for cross-pollination: artists into scientists, scientists into artists
+\end{itemize}
+
+\section{Longer-Term Strategy}
+
+\begin{itemize}
+\item Design governance that explicitly includes user voice
+\item Connect to adjacent movements (Right to Repair, digital sovereignty, research democratization)
+\item Build the full ladder of engagement with clear rungs
+\item Develop funding models that don't compromise independence
+\end{itemize}
+
+
+\chapter*{Reading List}
+\addcontentsline{toc}{chapter}{Reading List}
+
+\section*{Labor Organizing}
+
+\begin{itemize}
+\item McAlevey, Jane. \textit{No Shortcuts: Organizing for Power in the New Gilded Age}. Oxford, 2016.
+\item McAlevey, Jane. \textit{A Collective Bargain}. Ecco, 2020.
+\item Ganz, Marshall. ``Public Narrative, Collective Action, and Power.'' In \textit{Accountability Through Public Opinion}, World Bank, 2011.
+\item Bronfenbrenner, Kate. ``Blueprint for Change.'' In \textit{Rebuilding Labor}, Cornell, 2003.
+\end{itemize}
+
+\section*{Political Theory}
+
+\begin{itemize}
+\item Smucker, Jonathan Matthew. \textit{Hegemony How-To: A Roadmap for Radicals}. AK Press, 2017.
+\item Freire, Paulo. \textit{Pedagogy of the Oppressed}. Continuum, 1970.
+\item Freire, Paulo. \textit{Pedagogy of Hope}. Continuum, 1992.
+\item Illich, Ivan. \textit{Deschooling Society}. Harper \& Row, 1971.
+\item Illich, Ivan. \textit{Tools for Conviviality}. Harper \& Row, 1973.
+\item brown, adrienne maree. \textit{Emergent Strategy}. AK Press, 2017.
+\end{itemize}
+
+\section*{FOSS Governance and Sustainability}
+
+\begin{itemize}
+\item Eghbal, Nadia. \textit{Working in Public: The Making and Maintenance of Open Source Software}. Stripe Press, 2020.
+\item Benkler, Yochai. \textit{The Wealth of Networks}. Yale, 2006.
+\item Ostrom, Elinor. \textit{Governing the Commons}. Cambridge, 1990.
+\item Schneider, Nathan. \textit{Governable Spaces: Democratic Design for Online Life}. UC Press, 2024.
+\end{itemize}
+
+\section*{Case Studies}
+
+\begin{itemize}
+\item Blender Foundation organizational structure and community programs
+\item Rust governance transition documentation
+\item Python PEP process and Steering Council formation
+\item Apache Software Foundation, ``The Apache Way''
+\end{itemize}
+
+
+\chapter*{Key Concepts Glossary}
+\addcontentsline{toc}{chapter}{Key Concepts Glossary}
+
+\begin{description}
+\item[Banking model] (Freire) Traditional education that treats students as empty vessels for knowledge deposits.
+
+\item[Commons-based peer production] (Benkler) Decentralized, collaborative production without reliance on markets or hierarchies.
+
+\item[Conscientização] (Freire) Development of critical consciousness---from fatalism to systemic understanding to transformative action.
+
+\item[Convivial tools] (Illich) Tools that enhance human autonomy and creativity without creating expert dependency.
+
+\item[Counter-hegemony] (Gramsci) The project of building alternative ``common sense'' to challenge dominant ideology.
+
+\item[Deep organizing] (McAlevey) Persuading people who don't yet agree to change their opinions and join the cause---distinct from mobilizing existing supporters.
+
+\item[Dogfooding] Using your own product in real production contexts to prove capability and identify improvements.
+
+\item[Emergent strategy] (brown) Building complex change through small interactions, trusting patterns to emerge.
+
+\item[Hegemony] (Gramsci) Maintaining power by making dominant values seem like universal common sense.
+
+\item[Inoculation] Preparing community members for predictable challenges by discussing them in advance.
+
+\item[Ladder of engagement] Structured progression from passive user to governance participant with intentional transitions.
+
+\item[Organic intellectuals] (Gramsci) Intellectuals who emerge from and serve their class.
+
+\item[Praxis] (Freire) Unity of reflection and action---neither alone is sufficient for liberation.
+
+\item[Public narrative] (Ganz) Story of Self, Story of Us, Story of Now---building collective identity through shared meaning.
+
+\item[Radical monopoly] (Illich) When one type of solution becomes compulsory, excluding alternatives.
+
+\item[Structure test] (McAlevey) Collective action measuring what proportion of constituency participates in activities of increasing commitment.
+
+\item[War of position] (Gramsci) Long-term work of building alternative institutions and transforming common sense.
+\end{description}
+
+
+\chapter*{Bibliography}
+\addcontentsline{toc}{chapter}{Bibliography}
+
+Apache Software Foundation. ``The Apache Way.'' \url{https://www.apache.org/theapacheway/}
+
+Benkler, Yochai. \textit{The Wealth of Networks}. Yale University Press, 2006.
+
+Bronfenbrenner, Kate, and Robert Hickey. ``Blueprint for Change.'' In \textit{Rebuilding Labor}, Cornell University Press, 2003.
+
+brown, adrienne maree. \textit{Emergent Strategy}. AK Press, 2017.
+
+Chen, Cher Weixia, and Paul C. Gorski. ``Burnout in Social Justice and Human Rights Activists.'' \textit{Journal of Human Rights Practice} 7, no. 3 (2015): 366--390.
+
+Eghbal, Nadia. \textit{Working in Public: The Making and Maintenance of Open Source Software}. Stripe Press, 2020.
+
+Freire, Paulo. \textit{Pedagogy of the Oppressed}. Continuum, 1970.
+
+Freire, Paulo. \textit{Pedagogy of Hope}. Continuum, 1992.
+
+Ganz, Marshall. ``Public Narrative, Collective Action, and Power.'' In \textit{Accountability Through Public Opinion}, World Bank, 2011.
+
+GitHub. ``Maintaining Balance for Open Source Maintainers.'' \url{https://opensource.guide/}
+
+Illich, Ivan. \textit{Deschooling Society}. Harper \& Row, 1971.
+
+Illich, Ivan. \textit{Tools for Conviviality}. Harper \& Row, 1973.
+
+McAlevey, Jane. \textit{No Shortcuts: Organizing for Power in the New Gilded Age}. Oxford University Press, 2016.
+
+Ostrom, Elinor. \textit{Governing the Commons}. Cambridge University Press, 1990.
+
+Schneider, Nathan. \textit{Governable Spaces: Democratic Design for Online Life}. University of California Press, 2024.
+
+Smucker, Jonathan Matthew. \textit{Hegemony How-To: A Roadmap for Radicals}. AK Press, 2017.
+
+SustainOSS. ``The Principles of Governing Open Source Commons.'' \url{https://sustainoss.pubpub.org/}
+
+Tidelift. ``The 2023 State of the Open Source Maintainer Report.''
+
+
+\end{document}

@@ -5,7 +5,7 @@ Compares 4 approaches for storing per-frame tracking data:
 1. Write into pre-allocated numpy array (no per-frame object)
 2. Slotted dataclass (stores array references)
 3. Numpy record array created per frame
-4. Pydantic BaseModel
+4. Pydantic BaseModel (REAL Pydantic v2)
 
 Each "observation" contains:
 - frame_number: int
@@ -14,6 +14,10 @@ Each "observation" contains:
 - left_hand_xy: (21, 2) float64 array
 - face_contour_xy: (127, 2) float64 array
 - confidence: (202,) float64 array
+
+Usage:
+    pip install pydantic numpy
+    python benchmark_observation_creation.py
 """
 
 import dataclasses
@@ -21,54 +25,7 @@ import time
 import statistics
 
 import numpy as np
-
-
-# ============================================================
-# Pydantic substitute: simulates validation overhead
-# Since we can't install pydantic in this environment, we
-# replicate the overhead pattern: type checking, dict creation,
-# field validation, __init__ with validators.
-# Real Pydantic v2 is somewhat faster than v1 but still does
-# schema validation, so this is a reasonable approximation.
-# ============================================================
-class FakePydanticBase:
-    """
-    Mimics Pydantic BaseModel overhead:
-    - Validates types on construction
-    - Creates internal __dict__ and __fields_set__
-    - Runs per-field validation
-    """
-    __slots__ = ()  # subclasses define their own
-
-    # noinspection PyUnusedLocal
-    def __init_subclass__(cls, **kwargs: object) -> None:
-        # Simulate model_rebuild / schema generation cost (one-time, not benchmarked)
-        pass
-
-    def __init__(self, **kwargs: object) -> None:
-        # Simulate Pydantic's validated __init__:
-        # 1. Check all fields present
-        annotations = self.__class__.__annotations__
-        for field_name, field_type in annotations.items():
-            if field_name not in kwargs:
-                raise ValueError(f"Missing field: {field_name}")
-            value = kwargs[field_name]
-            # 2. Type validation (Pydantic checks isinstance, coerces, etc.)
-            if field_type is int:
-                if not isinstance(value, (int, np.integer)):
-                    raise TypeError(f"Expected int for {field_name}, got {type(value)}")
-            elif field_type is np.ndarray:
-                if not isinstance(value, np.ndarray):
-                    raise TypeError(f"Expected ndarray for {field_name}, got {type(value)}")
-            # 3. Store (Pydantic stores in __dict__ with additional metadata)
-            object.__setattr__(self, field_name, value)
-
-        # 4. Simulate __fields_set__ tracking
-        object.__setattr__(self, "_fields_set", frozenset(kwargs.keys()))
-
-    def __setattr__(self, name: str, value: object) -> None:
-        # Pydantic models are quasi-immutable by default
-        raise AttributeError("Cannot set attributes on validated model")
+from pydantic import BaseModel, ConfigDict
 
 # ============================================================
 # Constants matching mediapipe tracker dimensions
@@ -173,10 +130,10 @@ def create_record_array_observation(
 
 
 # ============================================================
-# Approach 4: Pydantic BaseModel
+# Approach 4: Real Pydantic v2 BaseModel
 # ============================================================
-class PydanticObservation(FakePydanticBase):
-    __slots__ = ("frame_number", "body_xy", "right_hand_xy", "left_hand_xy", "face_contour_xy", "confidence", "_fields_set")
+class PydanticObservation(BaseModel):
+    model_config = ConfigDict(arbitrary_types_allowed=True)
     frame_number: int
     body_xy: np.ndarray
     right_hand_xy: np.ndarray
@@ -259,7 +216,7 @@ def bench_pydantic(num_frames: int, fake_data: list[tuple]) -> float:
 
 
 # ============================================================
-# Also benchmark: bulk read-back (simulating "get all data as array")
+# Readback benchmarks (the real killer)
 # ============================================================
 def bench_readback_preallocated(num_frames: int, fake_data: list[tuple]) -> float:
     recorder = PreallocatedArrayRecorder(max_frames=num_frames)
@@ -272,7 +229,6 @@ def bench_readback_preallocated(num_frames: int, fake_data: list[tuple]) -> floa
             confidence=fake_data[i][4],
         )
     start = time.perf_counter_ns()
-    # Just slice — near zero cost
     _ = recorder.body_xy[:recorder.frame_count]
     _ = recorder.right_hand_xy[:recorder.frame_count]
     _ = recorder.left_hand_xy[:recorder.frame_count]
@@ -287,6 +243,27 @@ def bench_readback_dataclass(num_frames: int, observations: list[DataclassObserv
     _ = np.stack([obs.right_hand_xy for obs in observations])
     _ = np.stack([obs.left_hand_xy for obs in observations])
     _ = np.stack([obs.face_contour_xy for obs in observations])
+    elapsed_ns = time.perf_counter_ns() - start
+    return elapsed_ns
+
+
+def bench_readback_pydantic(num_frames: int, observations: list[PydanticObservation]) -> float:
+    start = time.perf_counter_ns()
+    _ = np.stack([obs.body_xy for obs in observations])
+    _ = np.stack([obs.right_hand_xy for obs in observations])
+    _ = np.stack([obs.left_hand_xy for obs in observations])
+    _ = np.stack([obs.face_contour_xy for obs in observations])
+    elapsed_ns = time.perf_counter_ns() - start
+    return elapsed_ns
+
+
+def bench_readback_record_array(num_frames: int, observations: list[np.recarray]) -> float:
+    start = time.perf_counter_ns()
+    stacked = np.concatenate(observations).view(np.recarray)
+    _ = stacked.body_xy
+    _ = stacked.right_hand_xy
+    _ = stacked.left_hand_xy
+    _ = stacked.face_contour_xy
     elapsed_ns = time.perf_counter_ns() - start
     return elapsed_ns
 
@@ -336,7 +313,6 @@ def run_benchmark(
 
 
 def print_results_table(results: list[dict[str, float]]) -> None:
-    # Group by frame count
     frame_counts = sorted(set(r["num_frames"] for r in results))
 
     for fc in frame_counts:
@@ -362,7 +338,8 @@ def print_results_table(results: list[dict[str, float]]) -> None:
 
 
 def main() -> None:
-    print("Observation Creation Benchmark")
+    from pydantic import __version__ as pydantic_version
+    print(f"Observation Creation Benchmark (Pydantic v{pydantic_version})")
     print(f"Dimensions: body={NUM_BODY_POINTS}x2, hand={NUM_HAND_POINTS}x2, face={NUM_FACE_CONTOUR_POINTS}x2, total_points={NUM_TOTAL_POINTS}")
     print(f"Warmup runs: {NUM_WARMUP_RUNS}, Timed runs: {NUM_TIMED_RUNS}")
 
@@ -370,7 +347,7 @@ def main() -> None:
         "1. Pre-allocated numpy": bench_preallocated,
         "2. Slotted dataclass": bench_dataclass,
         "3. Numpy record array": bench_record_array,
-        "4. Pydantic-like validated": bench_pydantic,
+        "4. Pydantic BaseModel": bench_pydantic,
     }
 
     all_results: list[dict[str, float]] = []
@@ -392,7 +369,7 @@ def main() -> None:
     print_results_table(all_results)
 
     # ============================================================
-    # Readback benchmark (list-of-objects → stacked array vs pre-allocated slice)
+    # Readback benchmark
     # ============================================================
     print(f"\n\n{'=' * 90}")
     print(f"  READBACK benchmark: converting stored data back to contiguous numpy arrays")
@@ -401,7 +378,7 @@ def main() -> None:
     for num_frames in [1_000, 10_000, 50_000]:
         fake_data = [generate_fake_frame_data() for _ in range(num_frames)]
 
-        # Build dataclass list
+        # Build observation lists for each type
         dc_observations = [
             DataclassObservation(
                 frame_number=i,
@@ -413,25 +390,54 @@ def main() -> None:
             )
             for i in range(num_frames)
         ]
+        pydantic_observations = [
+            PydanticObservation(
+                frame_number=i,
+                body_xy=fake_data[i][0],
+                right_hand_xy=fake_data[i][1],
+                left_hand_xy=fake_data[i][2],
+                face_contour_xy=fake_data[i][3],
+                confidence=fake_data[i][4],
+            )
+            for i in range(num_frames)
+        ]
+        record_observations = [
+            create_record_array_observation(
+                frame_number=i,
+                body_xy=fake_data[i][0],
+                right_hand_xy=fake_data[i][1],
+                left_hand_xy=fake_data[i][2],
+                face_contour_xy=fake_data[i][3],
+                confidence=fake_data[i][4],
+            )
+            for i in range(num_frames)
+        ]
 
-        # Warmup + time preallocated readback
-        for _ in range(NUM_WARMUP_RUNS):
-            bench_readback_preallocated(num_frames, fake_data)
-        prealloc_times = [bench_readback_preallocated(num_frames, fake_data) for _ in range(NUM_TIMED_RUNS)]
-        prealloc_median = statistics.median(prealloc_times)
-
-        # Warmup + time dataclass readback (np.stack)
-        for _ in range(NUM_WARMUP_RUNS):
-            bench_readback_dataclass(num_frames, dc_observations)
-        dc_times = [bench_readback_dataclass(num_frames, dc_observations) for _ in range(NUM_TIMED_RUNS)]
-        dc_median = statistics.median(dc_times)
-
-        ratio = dc_median / max(prealloc_median, 1)
+        readback_benchmarks: dict[str, tuple[callable, list]] = {
+            "Pre-allocated slice": (bench_readback_preallocated, fake_data),
+            "Dataclass → np.stack": (bench_readback_dataclass, dc_observations),
+            "Pydantic → np.stack": (bench_readback_pydantic, pydantic_observations),
+            "RecordArray → np.concat": (bench_readback_record_array, record_observations),
+        }
 
         print(f"\n  {num_frames:,} frames:")
-        print(f"    Pre-allocated slice:      {format_time(prealloc_median):<16} ({format_time(prealloc_median / num_frames)} / frame)")
-        print(f"    Dataclass → np.stack:     {format_time(dc_median):<16} ({format_time(dc_median / num_frames)} / frame)")
-        print(f"    Ratio (stack/slice):       {ratio:.0f}x slower")
+
+        readback_results: list[tuple[str, float]] = []
+        for name, (bench_fn, data) in readback_benchmarks.items():
+            # Warmup
+            for _ in range(NUM_WARMUP_RUNS):
+                bench_fn(num_frames, data)
+            times = [bench_fn(num_frames, data) for _ in range(NUM_TIMED_RUNS)]
+            median_ns = statistics.median(times)
+            readback_results.append((name, median_ns))
+
+        readback_results.sort(key=lambda x: x[1])
+        fastest = readback_results[0][1]
+
+        for name, median_ns in readback_results:
+            ratio = median_ns / max(fastest, 1)
+            per_frame = median_ns / num_frames
+            print(f"    {name:<30} {format_time(median_ns):<16} ({format_time(per_frame)} / frame)  {ratio:>8.0f}x")
 
 
 if __name__ == "__main__":

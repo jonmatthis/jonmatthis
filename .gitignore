@@ -132,3 +132,4 @@ data/
 *node_modules*
 
 .idea
+playground/whisper-transcriber/src-tauri/models/ggml-base.en.bin

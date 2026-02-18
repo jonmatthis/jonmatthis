@@ -1,0 +1,3 @@
+# Required on macOS Apple Silicon for whisper.cpp to link against Accelerate.framework
+[target.aarch64-apple-darwin]
+rustflags = ["-lc++", "-l", "framework=Accelerate"]

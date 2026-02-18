@@ -15,4 +15,10 @@ dependencies = [
     "jupyter>=1.1.1",
     "plotnine>=0.15.1",
     "pydantic>=2.12.5",
+    "opencv-python>=4.13.0.92",
+    "mediapipe>=0.10.32",
+    "opencv-contrib-python>=4.13.0.92",
 ]
+
+[tool.uv.workspace]
+members = ["playground/mp-py314-check/mp-py314-test"]
