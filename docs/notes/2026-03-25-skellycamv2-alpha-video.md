@@ -1,0 +1,30 @@
+# 2026-03-25 SkellyCam v2 alpha video
+- Intro
+    - SkellyCam overview
+        - what it does
+        - where it sits in freemocap ecosystem
+    - Dev Disclaimers and Docs
+        - Only windows works,
+        - Mac/linux have issues with device detection/etc
+        - Dev details at the end
+    - Video Outline
+- Quickstart
+    - download/install
+    - detect/connect cameras
+    - record videos
+    - playback videos
+- Advanced Tutorial
+    - Server/client architecture
+    - Cameras
+        - Device detection
+        - Config and  control  
+    - Recording
+        - Path setting
+        - Audio Recording
+        - Logs to look for
+        - Data model and timestamps
+    - Logs and Framerate viewer
+    - Documentation Primer
+- Developer Guide
+    - Running from source
+    - Contribution guide
