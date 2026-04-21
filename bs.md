@@ -16,7 +16,8 @@ So the currently plan involves you paying FMC-F $100k/yr, which works out to ~$3
 
 Assuming that we're talking about LESS money and not NO money, I propse that you pay us at roughly the full rate for roughly Q2 (April, May, June), specifically scoped for what I consider to be the final outstanding tasks that I would really want to nail down cleanly before stepping away (and that I don't think Philip could properly execute on his own). 
 
-SPecifically, those tasks are: 
+Specifically, those tasks are: 
 
 1. Cleaning up and finalizing the Eye/Gaze model output
 
+If you recall, I shared that I wasn't totally happy with the eye/gaze split in the data ontology I made the last time I went into those depths. After talking with Philip about your concerns that the eye-world data wasn't meaningful, I realized the reason. Basically, the eye/gaze models SHOULD NOT be split because the represent the **same kinematic object in different reference frames.** That is, the *eye-in-head* data is the local-coordinates of the eye (in an eyeball/eye-socket centered reference frame), while the *gaze-in-world* represents the same kinematic object in a world-centered reference frame (specifically, the eye-in-head data after inheriting the skull's global transform, plus a 6DoF offset to move it from the skull center to the eye-socket w/ the appropriate rotation to align to the animal's rest position - philip mentioned some named angular offset we can use to approximate)
