@@ -13,3 +13,10 @@ The other two grants (NSF POSE and the NSF equivalent) will probably want you to
 ## Our plans
 
 So the currently plan involves you paying FMC-F $100k/yr, which works out to ~$33k/quarter. The last pay period went through Q1, which ended at end of March 2026. 
+
+Assuming that we're talking about LESS money and not NO money, I propse that you pay us at roughly the full rate for roughly Q2 (April, May, June), specifically scoped for what I consider to be the final outstanding tasks that I would really want to nail down cleanly before stepping away (and that I don't think Philip could properly execute on his own). 
+
+SPecifically, those tasks are: 
+
+1. Cleaning up and finalizing the Eye/Gaze model output
+
