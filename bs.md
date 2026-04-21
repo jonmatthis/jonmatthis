@@ -14,14 +14,16 @@ The other two grants (NSF POSE and the NSF equivalent) will probably want you to
 
 So the currently plan involves you paying FMC-F $100k/yr, which works out to ~$33k/quarter. The last pay period went through Q1, which ended at end of March 2026. 
 
-Assuming that we're talking about LESS money and not NO money, I propse that you pay us at roughly the full rate for roughly Q2 (April, May, June), specifically scoped for what I consider to be the final outstanding tasks that I would really want to nail down cleanly before stepping away (and that I don't think Philip could properly execute on his own). 
+Assuming that we're talking about LESS money and not NO money, I propse that you pay us at roughly the full rate for roughly Q2 (April, May, June), specifically scoped for what I consider to be the final outstanding tasks that I would really want to nail down cleanly before stepping away (and that I don't think Philip could properly execute on his own). The plan would be scoped to the tasks rather than the timeline, meaning that I will aiming to get it all down within Q2, but ultimately the work order is open until the tasks are complete. 
 
 Specifically, those tasks are: 
 
-1. Cleaning up and finalizing the Eye/Gaze model output
+**1. Cleaning up and finalizing the Eye/Gaze model output**
 
 If you recall, I shared that I wasn't totally happy with the eye/gaze split in the data ontology I made the last time I went into those depths. After talking with Philip about your concerns that the eye-world data wasn't meaningful, I realized the reason. Basically, the eye/gaze models SHOULD NOT be split because the represent the **same kinematic object in different reference frames.** That is, the *eye-in-head* data is the local-coordinates of the eye (in an eyeball/eye-socket centered reference frame), while the *gaze-in-world* represents the same kinematic object in a world-centered reference frame (specifically, the eye-in-head data after inheriting the skull's global transform, plus a 6DoF offset to move it from the skull center to the eye-socket w/ the appropriate rotation to align to the animal's rest position - philip mentioned some named angular offset we can use to approximate). 
 
 Philip will probably be able to make the downstream tweaks you requested to remove the potential-spurious eye-world data, and that will *probably* be correct, but the right way to solve this is to go upstream and fix at the level of the basic data ontology. Its really important to get this right *cleanly* so we can build the next layer of complexity (retinal flow) on a stable basis. 
 
-2. Proper batch processing, with comprehensive centralized management of all the recordings we care about. 
+**2. Proper batch processing, with comprehensive centralized management of all the recordings we care about.**
+
+We currently have a kinda functional but sloppy way to handle batch processing and recording 
