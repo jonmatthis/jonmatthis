@@ -2,7 +2,7 @@
     "files.autoSave": "afterDelay",
     "workbench.colorTheme": "Visual Studio Dark",
     "gitdoc.autoPull": "onPush",
-    "gitdoc.enabled": true,
+    "gitdoc.enabled": false,
     "gitdoc.timeZone": "America/New_York",
     // "workbench.colorCustomizations": {
     //     "sideBar.border": "#d400ff",
