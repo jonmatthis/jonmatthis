@@ -24,6 +24,8 @@ If you recall, I shared that I wasn't totally happy with the eye/gaze split in t
 
 Philip will probably be able to make the downstream tweaks you requested to remove the potential-spurious eye-world data, and that will *probably* be correct, but the right way to solve this is to go upstream and fix at the level of the basic data ontology. Its really important to get this right *cleanly* so we can build the next layer of complexity (retinal flow) on a stable basis. 
 
-**2. Proper batch processing, with comprehensive centralized management of all the recordings we care about.**
+**2. Proper batch processing, finalized recording-folder model, with comprehensive centralized management of all the recordings we care about.**
 
-We currently have a kinda functional but sloppy way to handle batch processing and recording 
+We currently have a kinda functional but sloppy way to handle batch processing and recording, but its not where it needs to be to let you do the kinds of analyses I know you want to do. 
+
+Its deadly important that this step is handled properly or it WILL cause problems down the line. Philip has done a lot of great work to getting most/all of the snarls out of our pipeline, but he hasn't quite been burned enough times to do this final step as cleanly as it needs to be. Realistically, a lot of the problems we've run into in the SkellyClicker pipeline have come from these kinds of errors, 
