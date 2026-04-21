@@ -15,7 +15,7 @@ The other two grants (NSF POSE and the NSF equivalent) will probably want you to
 
 So the currently plan involves you paying FMC-F $100k/yr, which works out to ~$33k/quarter. The last pay period went through Q1, which ended at end of March 2026. 
 
-Assuming that we're talking about LESS money and not NO money, I propse that you pay us at roughly the full rate for roughly Q2 (April, May, June), specifically scoped for what I consider to be the final outstanding tasks that I would really want to nail down cleanly before stepping away (and that I don't think Philip could properly execute on his own). The plan would be scoped to the tasks rather than the timeline, meaning that I will aiming to get it all down within Q2, but ultimately the work order is open until the tasks are complete. 
+Assuming that we're talking about LESS money and not NO money, I propose that you pay us at roughly the full rate for roughly Q2 (April, May, June), specifically scoped for what I consider to be the final outstanding tasks that I would really want to nail down cleanly before stepping away (and that I don't think Philip could properly execute on his own). The plan would be scoped to the tasks rather than the timeline, meaning that I will aiming to get it all down within Q2, but ultimately the work order is open until the tasks are complete. 
 
 Specifically, those tasks are: 
 
