@@ -1,6 +1,3 @@
-
--- 
-
 ## Funding
 
 FreeMoCap Foundation (FMC-F) is finally (almost) totally set up and able to submit federal grants, and I'm planning to submit roughly 4 proposals between now and Oct - representing the NIH- and NSF-flavored versions of two types of grants: two grants to support FOSS projects (NSF: POSE, and some NIH equivalent whose code I forget atm), and one SBIR/STTV each to both agencies. 
@@ -12,3 +9,7 @@ These NIH-SBIR could build a connection between the for-profit arm of the FreeMo
 The NSF-STTR will prob be similar, but more geared towards building low-cost freemocap teaching kits. Same data model as the ferrets, but very different focus. That one will pair the FreeMoCap Foundation with the for-profit LLC. 
 
 The other two grants (NSF POSE and the NSF equivalent) will probably want you to sign on as at least a collaborator or something. The NSF-POSE is mostly geared toward governance, while the NIH one is more research focused. Both of those are due in the Fall, so I'm starting to get serious about planning them now. 
+
+## Our plans
+
+So the currently plan involves you paying FMC-F $100k/yr, which works out to ~$33k/quarter. The last pay period went through Q1, which ended at end of March 2026. 
