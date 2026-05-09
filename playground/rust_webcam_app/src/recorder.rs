@@ -96,7 +96,7 @@ impl VideoRecorder {
             ])
             .stdin(Stdio::piped())
             .stdout(Stdio::null())
-            .stderr(Stdio::null())
+            .stderr(Stdio::inherit())
             .spawn()
             .context(
                 "Failed to launch ffmpeg. Make sure ffmpeg is installed and on your PATH.",
@@ -136,11 +136,6 @@ impl VideoRecorder {
             self.frame_count += 1;
         }
         Ok(())
-    }
-
-    /// Number of frames fed so far.
-    pub fn frame_count(&self) -> u64 {
-        self.frame_count
     }
 
     /// Finish encoding: close the stdin pipe and wait for ffmpeg to exit.

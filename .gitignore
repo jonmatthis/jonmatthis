@@ -133,3 +133,4 @@ data/
 
 .idea
 playground/whisper-transcriber/src-tauri/models/ggml-base.en.bin
+*.mp4

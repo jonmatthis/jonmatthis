@@ -115,7 +115,7 @@ pub(crate) fn fast_resize_to_fit(image: RgbImage, maximum_dimension: u32) -> Rgb
         return image;
     }
 
-    let (new_width, new_height) = if width > height {
+    let (mut new_width, mut new_height) = if width > height {
         (
             maximum_dimension,
             (height as u64 * maximum_dimension as u64 / width as u64) as u32,
@@ -126,6 +126,10 @@ pub(crate) fn fast_resize_to_fit(image: RgbImage, maximum_dimension: u32) -> Rgb
             maximum_dimension,
         )
     };
+    // H.264 yuv420p (and many other codecs) require even dimensions because
+    // chroma subsampling operates on 2×2 pixel blocks.  Mask off the low bit.
+    new_width &= !1;
+    new_height &= !1;
 
     let source = image.as_raw();
     let source_width = width as usize;
