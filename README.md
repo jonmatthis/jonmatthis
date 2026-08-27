@@ -1,6 +1,6 @@
 ### Hi there 👋
 
-[I'm a professor studying human perceptual/motor neuroscience in Boston MA USA](https://scholar.google.com/citations?user=mjYexjAAAAAJ&hl=en)
+[I'm a (former) professor of human perceptual/motor neuroscience in Boston MA USA](https://scholar.google.com/citations?user=mjYexjAAAAAJ&hl=en)
 
 I'm also the creator of the FreeMoCap Project, which aims to build a free-open-source markerless motion capture system for scientists, 3d artists, and anyone else who might want it ❤️💀✨
 
