@@ -1,0 +1,37 @@
+# Missing Sources — Input File for Video Eater
+# Usage: python -m video_eater --from-file missing_sources.txt
+# One URL or file path per line. Lines starting with # are ignored.
+# Output lands in: C:\Users\jonma\syncthing-folders\jon-alienware-pc-synology-nas-sync\videos\video_eater_downloads
+
+# === HIGH PRIORITY — Core Philosophy Content ===
+
+# BOOM FreeMoCap Podcast Interview
+https://www.youtube.com/watch?v=kw3hYndzzac
+
+# VFX Futures — Before & Afters Podcast
+https://www.youtube.com/watch?v=Bqt8ZC5C4h8
+
+# "This is FreeMoCap" — core intro/positioning video
+https://www.youtube.com/watch?v=WW_WpMcbzns
+
+# 2026 State of the Skelly Address (FreeMoCap Foundation Annual Update)
+https://www.youtube.com/watch?v=WFk2bMMKhus
+
+# [Livestream] 2026-05-16 - FreeMoCap v2 Update
+https://www.youtube.com/watch?v=STdTP3u3E28
+
+# === MEDIUM PRIORITY — Historical & Context ===
+
+# Adding Visualization tool panels to the FreeMoCap Blender Addon
+https://www.youtube.com/watch?v=d7RFbnvCclk
+
+# SkellyCam v2.0 - Proof of concept achieved!
+https://www.youtube.com/watch?v=dKnQUlS2J0g
+
+# 2025 03 14 recording
+https://www.youtube.com/watch?v=EdsL9iRcFRk
+
+# === LOCAL FILES (uncomment and verify paths before running) ===
+# C:\Users\jonma\Videos\DW22_Mattis, Jonathan S. - June 16th 2022, 12_33_15 pm [1_ucmxydwq].mp4
+# D:\videos\obs-recordings\2026-03-30\2026-03-30-14-51-53\2026-03-30T14-51gmt-0400-3840x2160-30fps-NV12.mp4
+# D:\videos\obs-recordings\2026-03-31\2026-03-31-13-56-37\2026-03-31-freemocap-ui-dev-planning.mp4

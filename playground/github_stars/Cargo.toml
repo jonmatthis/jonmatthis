@@ -1,0 +1,10 @@
+[package]
+name = "github-stars"
+version = "0.1.0"
+edition = "2024"
+
+[dependencies]
+anyhow = "1"
+chrono = "0.4"
+plotly = "0.14"
+polars = { version = "0.53", features = ["lazy"] }
